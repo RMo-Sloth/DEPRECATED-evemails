@@ -1,9 +1,9 @@
 <div id='login-page'
-  [@appState]="appStateService.state"
+  [@animateOverlay]="appStateService.state"
   (click)="appStateService.toggleState()">
 
 <div>
-  <svg id="eve-logo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" viewBox="0 0 151 43" xml:space="preserve">
+  <svg id="eve-logo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" viewBox="0 0 143 43" xml:space="preserve">
   	<defs>
   	</defs>
   	<g>
@@ -11,5 +11,11 @@
   	</g>
   </svg>
 </div>
-
+  <svg [@animateLine]="appStateService.state" id="nav-bottom" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" viewBox="0 0 1000 2" xml:space="preserve" preserveAspectRatio="none" >
+    <defs>
+    </defs>
+    <g>
+      <line x1="1" y1="1" x2="1000" y2="1" style="stroke:rgb(240, 240, 256); stroke-width:1"/>
+    </g>
+  </svg>
 </div>

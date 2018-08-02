@@ -14,7 +14,7 @@ import { AppStateService } from '../app-state.service';
   templateUrl: './screensaver.component.html',
   styleUrls: ['./screensaver.component.css'],
   animations: [
-    trigger('appState', [
+    trigger('animateOverlay', [
       state('inactive', style({
         height: '100vh'
       })),
@@ -23,6 +23,16 @@ import { AppStateService } from '../app-state.service';
       })),
       transition('inactive => active', animate('800ms linear')),
       transition('active => inactive', animate('800ms linear'))
+    ]),
+    trigger('animateLine', [
+      state('inactive', style({
+        // width: '100vh'
+      })),
+      state('active',   style({
+        // width: '12vh'
+      })),
+      transition('inactive => active', animate('800ms 880ms linear')),
+      transition('active => inactive', animate('800ms 880ms linear'))
     ])
   ]
 })
