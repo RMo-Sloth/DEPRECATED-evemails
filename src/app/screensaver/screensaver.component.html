@@ -1,5 +1,5 @@
 <div id='login-page'
-  [@animateOverlay]="appStateService.state"
+  [ngClass]="appStateService.state"
   (click)="appStateService.toggleState()">
 
 <div>
@@ -11,11 +11,11 @@
   	</g>
   </svg>
 </div>
-  <svg [@animateLine]="appStateService.state" id="nav-bottom" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" viewBox="0 0 1000 2" xml:space="preserve" preserveAspectRatio="none" >
+  <svg id="nav-bottom" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" viewBox="0 0 1000 2" xml:space="preserve" preserveAspectRatio="none" >
     <defs>
     </defs>
     <g>
-      <line x1="1" y1="1" x2="1000" y2="1" style="stroke:rgb(240, 240, 256); stroke-width:1"/>
+      <line x1="1" y1="1" x2="1000" y2="1" style="stroke:rgb(240, 240, 256); stroke-width:1; stroke-dasharray: 1000;"/>
     </g>
   </svg>
 </div>

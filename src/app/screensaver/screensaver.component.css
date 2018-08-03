@@ -11,8 +11,18 @@
     justify-content: center;
     cursor: pointer;
 }
-#login-page.collapsed{
+#login-page.active{
   height: 10vh;
+}
+#login-page svg#nav-bottom>g>line{
+  stroke-dashoffset: 1000;
+}
+#login-page.active svg#nav-bottom>g>line{
+  transition: 1s stroke-dashoffset linear 1s;
+  stroke-dashoffset: 0;
+}
+#login-page.inactive svg#nav-bottom>g>line{
+  transition: 0s stroke-dashoffset linear 1s;
 }
 #login-page>div{
   width: 100%;
