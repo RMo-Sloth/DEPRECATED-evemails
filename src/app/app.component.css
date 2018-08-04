@@ -1,0 +1,18 @@
+#content{
+  position: absolute;
+  top: 12vh;
+  right: 0vh;
+  left: 0vh;
+  bottom: 0vh;
+  padding: 0px;
+  opacity: 0;
+}
+#content.active{
+  transition: 1s opacity linear 2s;
+}
+#content.inactive{
+  transition: 1s opacity linear 0s;
+}
+#wrapper{
+  display: grid;
+}
