@@ -9,9 +9,20 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 }
-#login-page.collapsed{
+#login-page.active{
   height: 10vh;
+}
+#login-page svg#nav-bottom>g>line{
+  stroke-dashoffset: 1000;
+}
+#login-page.active svg#nav-bottom>g>line{
+  transition: 1s stroke-dashoffset linear 1s;
+  stroke-dashoffset: 0;
+}
+#login-page.inactive svg#nav-bottom>g>line{
+  transition: 0s stroke-dashoffset linear 1s;
 }
 #login-page>div{
   width: 100%;
@@ -22,6 +33,14 @@
 }
 #eve-logo{
   height: 10vh;
+}
+#nav-bottom{
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  height: 2px;
+  width: 100%;
 }
 @keyframes fadeIn{
   0%{
