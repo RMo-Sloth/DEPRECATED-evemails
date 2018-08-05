@@ -4,11 +4,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { ScreensaverComponent } from './screensaver/screensaver.component';
+import { ReceivedMailsComponent } from './received-mails/received-mails.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ScreensaverComponent
+    ScreensaverComponent,
+    ReceivedMailsComponent
   ],
   imports: [
     BrowserModule,
