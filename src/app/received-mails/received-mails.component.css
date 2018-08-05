@@ -1,16 +1,18 @@
 ul#received-mails{
   padding: 0px;
-  margin: 3px;
+  /* margin: 0px; */
 }
 ul#received-mails>li{
   height: auto;
-  border-radius: 3px;
-  margin-bottom: 3px;
   display: flex;
   list-style: none;
-  background-color: rgba(256,256,256,0.1);
-  border: 1px solid rgba(256,256,256,0.6);
   cursor: pointer;
+}
+ul#received-mails>li:nth-child(odd){
+  background-color: rgba(256,256,256,0.1);
+}
+ul#received-mails>li:nth-child(even){
+  background-color: rgba(256,256,256,0.2);
 }
 ul#received-mails>li>.sender-image{
   display: flex;

@@ -1,4 +1,4 @@
-<div id="content" [ngClass]="appStateService.state" [style.opacity]="(appStateService.state==='active') ? 1 : 0">
+<app-screensaver></app-screensaver>
+<div id="content" [ngClass]="appStateService.state">
   <app-received-mails></app-received-mails>
 </div>
-<app-screensaver></app-screensaver>
