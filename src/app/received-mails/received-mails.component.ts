@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+
 import { Mail } from '../mail';
+
+import{ MailService } from '../mail.service';
 
 @Component({
   selector: 'app-received-mails',
@@ -8,62 +11,13 @@ import { Mail } from '../mail';
 })
 export class ReceivedMailsComponent implements OnInit {
 
-  constructor() { }
-  // TODO: need to retreive this from a (mocking) service
-  mails: Mail[] = [
-  {
-      "from": 93920413,
-      "is_read": true,
-      "labels": [
-        3
-      ],
-      "mail_id": 7,
-      "recipients": [
-        {
-          "recipient_id": 90000002,
-          "recipient_type": "character"
-        }
-      ],
-      "subject": "Title for EVE Mail",
-      "timestamp": "2015-09-30T16:07:00Z"
-    },
-    {
-      "from": 90000001,
-      "is_read": true,
-      "labels": [
-        3
-      ],
-      "mail_id": 7,
-      "recipients": [
-        {
-          "recipient_id": 90000002,
-          "recipient_type": "character"
-        }
-      ],
-      "subject": "Title for EVE Mail",
-      "timestamp": "2015-09-30T16:07:00Z"
-    },
-    {
-      "from": 90000001,
-      "is_read": true,
-      "labels": [
-        3
-      ],
-      "mail_id": 7,
-      "recipients": [
-        {
-          "recipient_id": 90000002,
-          "recipient_type": "character"
-        }
-      ],
-      "subject": "Title for EVE Mail",
-      "timestamp": "2015-09-30T16:07:00Z"
-    }
-  ];
-  openMail( mailIndex ){
-    location.href='/mail'
-  }
+  constructor(
+    private mailService : MailService
+  ) { }
+  mails: Mail[];
   ngOnInit() {
+    this.mailService.getMails()
+        .subscribe(mails => this.mails = mails);
   }
 
 }
