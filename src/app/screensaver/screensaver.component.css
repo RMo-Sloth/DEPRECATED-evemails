@@ -24,6 +24,10 @@
   flex-direction: column;
   height: 10vh;
 }
+#login-page>div>h3{
+  font-variant: small-caps;
+  text-align: center;
+}
 #eve-logo{
   height: 10vh;
 }

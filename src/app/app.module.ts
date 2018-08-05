@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { ScreensaverComponent } from './screensaver/screensaver.component';
 import { ReceivedMailsComponent } from './received-mails/received-mails.component';
 import { NavigationComponent } from './navigation/navigation.component';
+import { AppRoutingModule } from './/app-routing.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { NavigationComponent } from './navigation/navigation.component';
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
