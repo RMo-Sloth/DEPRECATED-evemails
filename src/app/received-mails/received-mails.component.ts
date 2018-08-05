@@ -9,7 +9,7 @@ export class ReceivedMailsComponent implements OnInit {
 
   constructor() { }
   // TODO: need to retreive this from a (mocking) service
-  mails:[] = [
+  mails = [
     {
       senderName: 'Vex Munda',
       senderImage32x32: 'https://image.eveonline.com/Character/93920413_32.jpg',
@@ -28,7 +28,7 @@ export class ReceivedMailsComponent implements OnInit {
       title: 'Hello this is the new EVE-mails!',
       sendDate: '4 june'
     }
-  ],
+  ];
   openMail(){
     alert('need to implement opening mails!');
   }

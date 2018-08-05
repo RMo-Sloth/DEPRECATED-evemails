@@ -1,6 +1,5 @@
 ul#received-mails{
   padding: 0px;
-  /* margin: 0px; */
 }
 ul#received-mails>li{
   height: auto;
