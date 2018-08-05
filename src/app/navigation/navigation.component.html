@@ -1,6 +1,7 @@
 
 <nav id='main-navigation'>
   <ul>
-    <li routerLink="/"><i class="fa fa-home"></i></li>
+    <li routerLink="/" (click)="appStateService.currentPageName='dashboard'"><i class="fa fa-home"></i></li>
+    <li routerLink="/inbox" (click)="appStateService.currentPageName='inbox'"><i class="fa fa-envelope"></i></li>
   </ul>
 </nav>

@@ -1,10 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import{ MailComponent } from './mail/mail.component'
 import { ReceivedMailsComponent } from './received-mails/received-mails.component';
+import{ DashboardComponent } from './dashboard/dashboard.component'
+
 const routes: Routes = [
-  { path: '', redirectTo: '/inbox', pathMatch: 'full' },
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'inbox', component: ReceivedMailsComponent }
+  { path: 'mail/:int', component: MailComponent }
+  { path: 'dashboard', component: DashboardComponent }
 ];
 
 @NgModule({

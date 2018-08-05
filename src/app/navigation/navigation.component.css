@@ -13,11 +13,15 @@
 }
 #main-navigation>ul>li{
   flex:1;
+  border-right: 1px solid rgb(240, 240, 256);
   text-align: center;
   cursor: pointer;
 }
+#main-navigation>ul>li:last-child{
+  border-right: none;
+}
 #main-navigation>ul>li>i{
-  padding-top: 1vh;
-  padding-bottom: 1vh;
-  font-size: 8vh;
+  padding-top: 2vh;
+  padding-bottom: 2vh;
+  font-size: 6vh;
 }
