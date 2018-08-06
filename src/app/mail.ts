@@ -1,4 +1,5 @@
 export class Mail {
+      body: string;
       from: number;
       is_read: boolean;
       labels: number[];

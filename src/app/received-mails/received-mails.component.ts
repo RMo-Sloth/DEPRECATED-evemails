@@ -19,5 +19,5 @@ export class ReceivedMailsComponent implements OnInit {
     this.mailService.getMails()
         .subscribe(mails => this.mails = mails);
   }
-
+  // TODO: click on a read-more button to retreive more mails
 }
