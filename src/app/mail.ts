@@ -1,5 +1,5 @@
 export class Mail {
-      from: number,
+      from: number;
       is_read: boolean;
       labels: number[];
       mail_id: number;
