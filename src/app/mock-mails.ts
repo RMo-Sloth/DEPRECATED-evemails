@@ -1,6 +1,4 @@
-import { Mail } from './mail';
-
-export const Mails: Mail[] = [
+export const Mails = [
   {
       "from": 93920413,
       "is_read": true,

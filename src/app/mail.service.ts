@@ -21,10 +21,22 @@ export class MailService {
   private addMail( mail ):void{
     this.mails.push( mail );
   }
-  get50Mails(): Observable<Mail[]> {
+  get50Mails(): void {
     // request mails
     // use lastmailIndex to request more mails
     let mails = Mails;
+    mails.forEach( mail => {
+      new Mail(
+        '',
+        mail.from,
+        mail.is_read,
+        mail.labels,
+        mail.mail_id,
+        mail.recipients,
+        mail.subject,
+        mail.timestamp
+      );
+    });
     // if less than 50 mails are received set hasMore_Mails to false
     if( mails.length < 50 ){ // untested
       this.hasMore_Mails = false;
