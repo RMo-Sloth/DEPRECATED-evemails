@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+
+import { AppStateService } from '../app-state.service';
 //// TODO: can maybe use a next previous button using location???? idk...
 // import { Location } from '@angular/common';
 
@@ -17,13 +19,15 @@ export class MailComponent implements OnInit {
 
   constructor(
     private mailService: MailService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public appStateService: AppStateService
   ) { }
 
   ngOnInit() {
     let mailIndex = parseInt( this.route.snapshot.paramMap.get('mail_id') );
     this.mail = this.mailService.getMail( mailIndex );
         // .subscribe(mail => this.mail = mail);
+    this.appStateService.currentPageName = this.mail.subject
   }
 
 }
