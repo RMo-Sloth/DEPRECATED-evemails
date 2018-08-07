@@ -1,0 +1,34 @@
+#mail-sender{
+  padding: 0.5rem;
+  margin: 0.5rem;
+  display: flex;
+  align-items: center;
+  background-color: rgb(240, 240, 256, 0.2);
+  border-radius: 0.5rem;
+}
+#mail-sender-details{
+  padding-left: 0.5rem;
+}
+#sent-date, #mail-title{
+  padding: 0px 0.5rem;
+  margin: 0px 0.5rem;
+}
+ul#mail-recipients{
+  display: block;
+  padding: 0px 0.5rem;
+  margin: 0px 0.5rem;
+}
+ul#mail-recipients>li{
+  display: inline;
+}
+ul#mail-recipients>li::after{
+  content: ', ';
+}
+ul#mail-recipients>li:last-child::after{
+  content: '';
+}
+#mail-body{
+  padding: 0.5rem;
+  margin: 0.5rem;
+  border-top: 2px solid rgb(240, 240, 256, 0.2);
+}

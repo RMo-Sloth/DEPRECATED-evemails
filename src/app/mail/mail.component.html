@@ -1,3 +1,35 @@
-<p>
-  mail works!
-</p>
+<button>Next</button>
+<button>Previous</button>
+<div id='mail-sender'><!-- TODO: would be cool to color the border of mail-sender based on type e.g. alliance = purple, self = green -->
+  <div id='mail-sender-image'>
+    <img src='https://image.eveonline.com/Character/93920413_64.jpg' />
+  </div>
+  <div id='mail-sender-details'>
+    <h4>Vex Munda</h4>
+    <h6 id='corporation-name'>corporationName</h6><!-- TODO: optional -->
+    <h6 id='alliance-name'>allianceName</h6><!-- TODO: optional -->
+  </div>
+</div>
+<!-- TODO: should style the recipient, date and title better -->
+<p id='mail-title'>Topic: mailtitle</p>
+<p id='sent-date'>Date: 10 October</p>
+<ul id='mail-recipients'>
+    <li>Recipients:</li>
+    <li>Vex Munda</li><!-- TODO: *ng-repeat for all recipients -->
+    <li>Ishi Lar</li>
+    <li>Ishi Lar</li>
+    <li>Ishi Lar</li>
+    <li>Ishi Lar</li>
+    <li>Ishi Lar</li>
+    <li>Ishi Lar</li>
+    <li>Ishi Lar</li>
+</ul>
+<div id='mail-body'>
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce luctus risus magna, at eleifend tortor condimentum sed. Nunc pellentesque tellus a diam congue, nec interdum tellus porta. Morbi semper diam nisi, eu porta augue vestibulum vestibulum. Suspendisse potenti. Vivamus ac gravida lacus. Proin ultricies erat est, eu dapibus velit aliquam tincidunt. Proin elementum, tortor eget scelerisque consectetur, erat libero efficitur orci, ut porta tellus quam quis lorem.</p>
+
+  <p>Aliquam erat volutpat. Integer pulvinar tellus id urna eleifend, quis pharetra leo elementum. Vestibulum consequat libero vel quam commodo aliquam. Nam non erat suscipit, blandit purus egestas, convallis risus. Ut arcu turpis, suscipit a feugiat ut, viverra ac magna. Sed porta lacus sed malesuada fringilla. Vivamus tortor dolor, finibus eu cursus a, pellentesque non elit. Aliquam erat volutpat. Nulla consectetur non risus eu pretium. Sed viverra quis diam sit amet tincidunt. In hac habitasse platea dictumst. Aliquam sit amet sapien vitae nibh interdum tempor. Sed interdum porta odio.</p>
+</div>
+<button>delete</button>
+<button>reply</button>
+<button>forward</button>
+<button>to inbox</button>
