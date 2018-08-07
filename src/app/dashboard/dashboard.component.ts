@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-
+  hasUnreadMails: boolean = false; // TODO: should be a property of an account service
   constructor() { }
 
   ngOnInit() {

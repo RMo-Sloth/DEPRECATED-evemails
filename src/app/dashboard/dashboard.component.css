@@ -39,3 +39,11 @@
   font-size: 50px;
   color: rgb(240, 240, 256);
 }
+.account-image>i.fa-envelope{
+  right: 5px;
+  top: 5px;
+  position: absolute;
+}
+.account-image>i.fa-envelope::before{
+  padding-right: 0.5em;
+}
