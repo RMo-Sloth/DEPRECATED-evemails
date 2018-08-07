@@ -24,6 +24,9 @@ ul#mail-recipients>li{
 ul#mail-recipients>li::after{
   content: ', ';
 }
+ul#mail-recipients>li:first-child::after{
+  content: ' '
+}
 ul#mail-recipients>li:last-child::after{
   content: '';
 }

@@ -21,7 +21,7 @@ export const Mails = [
       "labels": [
         3
       ],
-      "mail_id": 7,
+      "mail_id": 8,
       "recipients": [
         {
           "recipient_id": 90000002,
@@ -37,7 +37,7 @@ export const Mails = [
       "labels": [
         3
       ],
-      "mail_id": 7,
+      "mail_id": 9,
       "recipients": [
         {
           "recipient_id": 90000002,

@@ -14,6 +14,7 @@ export class ReceivedMailsComponent implements OnInit {
   constructor(
     private mailService : MailService
   ) { }
+  // TODO: mails should change when the mailservice changes
   mails: Mail[];
   ngOnInit() {
     this.mailService.getMails()
