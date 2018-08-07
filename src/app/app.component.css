@@ -1,5 +1,7 @@
 #content{
   height: 78vh;
+  max-width: 768px;
+  margin: auto;
   box-sizing: border-box;
   overflow: auto;
 }
