@@ -24,8 +24,16 @@
   flex-direction: column;
   height: 10vh;
 }
+#login-page>div>h4{
+  flex: 1 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-transform: lowercase;
+  font-variant: small-caps;
+  text-align: center;
+}
 #eve-logo{
-  height: 10vh;
+  flex: 1 0;
 }
 @keyframes fadeIn{
   0%{

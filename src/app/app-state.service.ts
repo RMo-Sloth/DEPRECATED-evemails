@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 export class AppStateService {
   constructor() { }
   state = 'inactive'
+  currentPageName = 'dashboard'
   toggleState() {
     this.state = this.state === 'active' ? 'inactive' : 'active';
   }

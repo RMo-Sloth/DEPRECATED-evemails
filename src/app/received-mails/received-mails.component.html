@@ -1,11 +1,12 @@
 <ul id='received-mails'>
-  <li *ngFor="let mail of mails" (click)="openMail()">
+  <li *ngFor="let mail of mails" routerLink="/mail/{{mail.mail_id}}">
     <div class='sender-image'>
-      <img [src]="mail.senderImage32x32"/>
+      <img src="https://image.eveonline.com/Character/{{mail.from}}_32.jpg"/>
     </div>
     <div class='mail-info'>
-      <h4 class='sender-name'>{{mail.senderName}}<h6 class='date'>{{mail.sendDate}}</h6></h4>
-      <p class='mail-topic'>{{mail.title}}</p>
+      <h4 class='sender-name'>{{mail.from}}<h6 class='date'>{{mail.timestamp | date}}</h6></h4>
+      <p class='mail-topic'>{{mail.subject}}</p>
     </div>
   </li>
 </ul>
+<button>Load more...</button>

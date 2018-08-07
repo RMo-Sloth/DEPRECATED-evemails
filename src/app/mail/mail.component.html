@@ -1,0 +1,25 @@
+<button>Next</button>
+<button>Previous</button>
+<div id='mail-sender'><!-- TODO: would be cool to color the border of mail-sender based on type e.g. alliance = purple, self = green -->
+  <div id='mail-sender-image'>
+    <img src='https://image.eveonline.com/Character/93920413_64.jpg' />
+  </div>
+  <div id='mail-sender-details'>
+    <h4>{{mail.from}}</h4>
+    <h6 id='corporation-name'>corporationName</h6><!-- TODO: optional -->
+    <h6 id='alliance-name'>allianceName</h6><!-- TODO: optional -->
+  </div>
+</div>
+<!-- TODO: should style the recipient, date and title better -->
+<!-- <p id='mail-title'>Topic: {{mail.subject}}</p> -->
+<p id='sent-date'>Date: {{mail.timestamp | date:"dd MMMM, yyyy"}}</p>
+<p id='sent-time'>Time: {{mail.timestamp | date:"HH:mm"}}</p>
+<ul id='mail-recipients'>
+    <li>Recipients:</li>
+    <li *ngFor="let recipient of mail.recipients">{{recipient.recipient_id}}</li>
+</ul>
+<div id='mail-body' [innerHtml]="mail.body"></div>
+<button>delete</button>
+<button>reply</button>
+<button>forward</button>
+<button>to inbox</button>

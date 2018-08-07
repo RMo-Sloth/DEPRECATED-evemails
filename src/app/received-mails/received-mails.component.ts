@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
+import { Mail } from '../mail';
+
+import{ MailService } from '../mail.service';
+
 @Component({
   selector: 'app-received-mails',
   templateUrl: './received-mails.component.html',
@@ -7,32 +11,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReceivedMailsComponent implements OnInit {
 
-  constructor() { }
-  // TODO: need to retreive this from a (mocking) service
-  mails:[] = [
-    {
-      senderName: 'Vex Munda',
-      senderImage32x32: 'https://image.eveonline.com/Character/93920413_32.jpg',
-      title: 'Hello this is the new EVE-mails!',
-      sendDate: '4 june'
-    },
-    {
-      senderName: 'Vex Munda',
-      senderImage32x32: 'https://image.eveonline.com/Character/93920413_32.jpg',
-      title: 'Hello this is the new EVE-mails!',
-      sendDate: '4 june'
-    },
-    {
-      senderName: 'Vex Munda',
-      senderImage32x32: 'https://image.eveonline.com/Character/93920413_32.jpg',
-      title: 'Hello this is the new EVE-mails!',
-      sendDate: '4 june'
-    }
-  ],
-  openMail(){
-    alert('need to implement opening mails!');
-  }
+  constructor(
+    private mailService : MailService
+  ) { }
+  // TODO: mails should change when the mailservice changes
+  mails: Mail[];
   ngOnInit() {
+    this.mailService.getMails()
+        .subscribe(mails => this.mails = mails);
   }
-
+  // TODO: click on a read-more button to retreive more mails
 }
