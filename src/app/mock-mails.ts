@@ -12,7 +12,7 @@ export const Mails = [
           "recipient_type": "character"
         }
       ],
-      "subject": "Title for EVE Mail",
+      "subject": "Title for EVE Mail which could be waaaaaaaaaaaaaaaaay too long!",
       "timestamp": "2015-09-30T16:07:00Z"
     },
     {

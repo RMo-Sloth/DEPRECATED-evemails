@@ -11,8 +11,9 @@
   </div>
 </div>
 <!-- TODO: should style the recipient, date and title better -->
-<p id='mail-title'>Topic: {{mail.subject}}</p>
-<p id='sent-date'>Date: {{mail.timestamp}}</p>
+<!-- <p id='mail-title'>Topic: {{mail.subject}}</p> -->
+<p id='sent-date'>Date: {{mail.timestamp | date:"dd MMMM, yyyy"}}</p>
+<p id='sent-time'>Time: {{mail.timestamp | date:"HH:mm"}}</p>
 <ul id='mail-recipients'>
     <li>Recipients:</li>
     <li *ngFor="let recipient of mail.recipients">{{recipient.recipient_id}}</li>
