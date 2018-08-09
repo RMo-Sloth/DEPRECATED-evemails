@@ -10,6 +10,7 @@ export class AppStateService {
   state: string;
   currentPageName: string;
   accounts: UserAccountService[];
+  currentAccount: UserAccountService;
   constructor() {
     this.state = 'inactive';
     this.currentPageName = 'dashboard';
@@ -37,6 +38,11 @@ export class AppStateService {
         return this.accounts[i];
       }
       // TODO: handle behaviour when character is not found
+      // TEMP: alert
+      alert('This account already exists!');
     };
+  }
+  setCurrentAccount( account: UserAccountService){
+    this.currentAccount = account;
   }
 }
