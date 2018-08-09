@@ -42,7 +42,10 @@ export class AppStateService {
       alert('This account already exists!');
     };
   }
-  setCurrentAccount( account: UserAccountService){
+  set_currentAccount( account: UserAccountService){
     this.currentAccount = account;
+  }
+  unset_currentAccount():void{
+    this.currentAccount = undefined;
   }
 }

@@ -14,4 +14,7 @@ export class NavigationComponent implements OnInit {
 
   ngOnInit() {
   }
+  unset_currentAccount(){
+    this.appStateService.unset_currentAccount();
+  }
 }

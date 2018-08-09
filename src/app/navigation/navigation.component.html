@@ -2,7 +2,7 @@
 <nav id='main-navigation'>
   <ul>
     <!-- TODO: set appStateService.currentPageName on loading a component -->
-    <li routerLink="/" (click)="appStateService.currentPageName='dashboard'"><i class="fa fa-home"></i></li>
+    <li routerLink="/dashboard" (click)="unset_currentAccount()"><i class="fa fa-home"></i></li>
     <li routerLink="/inbox" (click)="appStateService.currentPageName='inbox'"><i class="fa fa-envelope"></i></li>
   </ul>
 </nav>
