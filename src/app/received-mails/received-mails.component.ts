@@ -25,6 +25,7 @@ export class ReceivedMailsComponent implements OnInit {
   // TODO: mails should change when the mailservice changes
   mails: Mail[];
   ngOnInit() {
+    this.appStateService.currentPageName='mails';
     this.mailService.getMails()
         .subscribe(mails => this.mails = mails);
   }

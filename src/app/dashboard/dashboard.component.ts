@@ -17,6 +17,8 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.appStateService.currentPageName='dashboard';
+    this.appStateService.unset_currentAccount();
   }
   accounts = this.appStateService.accounts;
   setCurrentAccount(account: UserAccountService){
