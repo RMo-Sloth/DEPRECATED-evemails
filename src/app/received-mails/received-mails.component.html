@@ -1,5 +1,5 @@
 <ul id='received-mails'>
-  <li *ngFor="let mail of mails" routerLink="/mail/{{mail.mail_id}}">
+  <li *ngFor="let mail of mails" routerLink="/{{account_id}}/mail/{{mail.mail_id}}">
     <div class='sender-image'>
       <img src="https://image.eveonline.com/Character/{{mail.from}}_32.jpg"/>
     </div>

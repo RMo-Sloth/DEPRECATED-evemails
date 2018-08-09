@@ -32,11 +32,11 @@ export class AppStateService {
     this.accounts.push( userAccountService );
   }
   get_account( characterIndex: number ){
-    for( let i=0; this.accounts.length < i; i++ ){
+    for( let i=0; this.accounts.length > i; i++ ){
       if( this.accounts[i].get_characterIndex()  === characterIndex ){
         return this.accounts[i];
       }
       // TODO: handle behaviour when character is not found
-    });
+    };
   }
 }

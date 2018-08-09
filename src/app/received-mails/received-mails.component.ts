@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 
 import { Mail } from '../mail';
 
-import{ MailService } from '../mail.service';
+import{ AppStateService } from '../app-state.service';
+import{ UserAccountService } from '../services/user-account.service';
+import{ MailService } from '../services/user-account/mail.service';
 
 @Component({
   selector: 'app-received-mails',
@@ -10,10 +12,16 @@ import{ MailService } from '../mail.service';
   styleUrls: ['./received-mails.component.css']
 })
 export class ReceivedMailsComponent implements OnInit {
-
+  mailService: MailService;
+  userAccountService: UserAccountService;
+  account_id: number;
   constructor(
-    private mailService : MailService
-  ) { }
+    public  appStateService : AppStateService
+  ) {
+    this.userAccountService = this.appStateService.get_account( 93920413 ); // TEMP: 93920413
+    this.mailService = this.userAccountService.get_mailService();
+    this.account_id = this.userAccountService.get_characterIndex();
+  }
   // TODO: mails should change when the mailservice changes
   mails: Mail[];
   ngOnInit() {

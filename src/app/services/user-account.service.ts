@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import{ MailService } from '../mail.service';
+import{ MailService } from './user-account/mail.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +13,8 @@ export class UserAccountService {
   characterId: number;
   constructor() {
     this.mailService = new MailService();
+    //// TEMP:characterId
+    this.characterId = 93920413;
     // I also need to define a:
     // * access token
     // * refresh token
@@ -21,8 +23,13 @@ export class UserAccountService {
     // * characterImageUrls
     // * characterName
   }
+  // characterIndex
   get_characterIndex():number{
     return this.characterId;
+  }
+  //
+  get_mailService(): MailService{
+    return this.mailService;
   }
 }
 // TODO: refactor mailservice into service folder, should only be called through the useraccountservice
