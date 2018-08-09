@@ -1,5 +1,5 @@
 <div id='accounts'>
-  <div class='account' *ngFor="let account of accounts">
+  <div class='account' *ngFor="let account of accounts" routerLink="/{{account.characterId}}/inbox">
     <div class='account-image' >
       <i class='fa fa-envelope' *ngIf='hasUnreadMails'>10</i>
     </div>
