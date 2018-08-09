@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { Mail } from '../mail';
 
@@ -15,15 +16,16 @@ export class ReceivedMailsComponent implements OnInit {
   mailService: MailService;
   userAccountService: UserAccountService;
   account_id: number;
+  mails: Mail[];
   constructor(
-    public  appStateService : AppStateService
+    public  appStateService : AppStateService,
+    private route: ActivatedRoute
   ) {
-    this.userAccountService = this.appStateService.get_account( 93920413 ); // TEMP: 93920413
+    const accountIndex = parseInt( this.route.snapshot.paramMap.get('account_id') );
+    this.userAccountService = this.appStateService.get_account( accountIndex );
     this.mailService = this.userAccountService.get_mailService();
     this.account_id = this.userAccountService.get_characterIndex();
   }
-  // TODO: mails should change when the mailservice changes
-  mails: Mail[];
   ngOnInit() {
     this.appStateService.currentPageName='mails';
     this.mailService.getMails()
