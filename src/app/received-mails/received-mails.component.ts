@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { Mail } from '../mail';
+import { Mail } from '../classes/mail';
 
 import{ AppStateService } from '../app-state.service';
 import{ UserAccountService } from '../services/user-account.service';
