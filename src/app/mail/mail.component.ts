@@ -28,8 +28,8 @@ export class MailComponent implements OnInit {
     this.mailService = this.userAccountService.get_mailService();
 
     this.navigationButtons = [
-      {faClass: 'home', routerUrl: '/dashboard'},
-      {faClass: 'envelope', routerUrl: `/${account_id}/mails`},
+      { faClass: 'home', routerUrl: '/dashboard'},
+      { faClass: 'envelope', routerUrl: `/${account_id}/mails`},
       { faClass: 'trash', routerUrl: '/dashboard'},
       { faClass: 'reply', routerUrl: '/dashboard'},
       { faClass: 'share', routerUrl: '/dashboard'}

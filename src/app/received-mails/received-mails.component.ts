@@ -28,7 +28,8 @@ export class ReceivedMailsComponent implements OnInit {
     this.account_id = this.userAccountService.get_characterIndex();
     this.navigationButtons = [
       { faClass: 'home', routerUrl: '/dashboard'},
-      { faClass: 'search', routerUrl: '/dashboard'}
+      { faClass: 'search', routerUrl: '/dashboard'},
+      { faClass: 'pencil', routerUrl: '/dashboard'} // TODO: new mail
     ];
   }
   ngOnInit() {
