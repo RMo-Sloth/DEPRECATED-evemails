@@ -19,9 +19,5 @@
     <li *ngFor="let recipient of mail.recipients">{{recipient.recipient_id}}</li>
 </ul>
 <div id='mail-body' [innerHtml]="mail.body"></div>
-<button>delete</button>
-<button>reply</button>
-<button>forward</button>
-<button>to inbox</button>
 
 <app-navigation [buttons]="navigationButtons"></app-navigation>
