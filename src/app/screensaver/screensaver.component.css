@@ -33,6 +33,7 @@
   text-align: center;
 }
 #eve-logo{
+  min-height: 0;
   flex: 1 0;
 }
 @keyframes fadeIn{
