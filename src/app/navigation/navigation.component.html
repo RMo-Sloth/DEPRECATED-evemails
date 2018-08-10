@@ -2,7 +2,8 @@
 <nav id='main-navigation'>
   <ul>
     <!-- TODO: set appStateService.currentPageName on loading a component -->
-    <li routerLink="/dashboard" (click)="unset_currentAccount()"><i class="fa fa-home"></i></li>
-    <li routerLink="/inbox"><i class="fa fa-envelope"></i></li>
+    <!-- <li routerLink="/dashboard" (click)="unset_currentAccount()"><i class="fa fa-home"></i></li>
+    <li routerLink="/inbox">{{buttons}}<i class="fa fa-envelope"></i></li> -->
+    <li *ngFor="let button of buttons" routerLink="{{button.routerUrl}}" (click)="unset_currentAccount()"><i class="fa fa-{{button.faClass}}"></i></li>
   </ul>
 </nav>

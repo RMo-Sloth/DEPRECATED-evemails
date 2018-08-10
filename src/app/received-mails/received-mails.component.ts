@@ -21,8 +21,8 @@ export class ReceivedMailsComponent implements OnInit {
     public  appStateService : AppStateService,
     private route: ActivatedRoute
   ) {
-    const accountIndex = parseInt( this.route.snapshot.paramMap.get('account_id') );
-    this.userAccountService = this.appStateService.get_account( accountIndex );
+    this.account_id = parseInt( this.route.snapshot.paramMap.get('account_id') );
+    this.userAccountService = this.appStateService.get_account( this.account_id );
     this.mailService = this.userAccountService.get_mailService();
     this.account_id = this.userAccountService.get_characterIndex();
   }
@@ -31,5 +31,9 @@ export class ReceivedMailsComponent implements OnInit {
     this.mailService.getMails()
         .subscribe(mails => this.mails = mails);
   }
+  navigationButtons = [{
+    faClass: 'home',
+    routerUrl: '/dashboard'
+  }];
   // TODO: click on a read-more button to retreive more mails
 }
