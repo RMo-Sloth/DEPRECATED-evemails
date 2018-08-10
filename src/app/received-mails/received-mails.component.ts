@@ -17,6 +17,7 @@ export class ReceivedMailsComponent implements OnInit {
   userAccountService: UserAccountService;
   account_id: number;
   mails: Mail[];
+  navigationButtons: [];
   constructor(
     public  appStateService : AppStateService,
     private route: ActivatedRoute
@@ -25,15 +26,15 @@ export class ReceivedMailsComponent implements OnInit {
     this.userAccountService = this.appStateService.get_account( this.account_id );
     this.mailService = this.userAccountService.get_mailService();
     this.account_id = this.userAccountService.get_characterIndex();
+    this.navigationButtons = [
+      { faClass: 'home', routerUrl: '/dashboard'},
+      { faClass: 'search', routerUrl: '/dashboard'}
+    ];
   }
   ngOnInit() {
     this.appStateService.currentPageName='mails';
     this.mailService.getMails()
         .subscribe(mails => this.mails = mails);
   }
-  navigationButtons = [{
-    faClass: 'home',
-    routerUrl: '/dashboard'
-  }];
   // TODO: click on a read-more button to retreive more mails
 }

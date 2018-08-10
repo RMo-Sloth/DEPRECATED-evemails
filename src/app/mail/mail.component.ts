@@ -16,14 +16,24 @@ import{ MailService } from '../services/user-account/mail.service';
 export class MailComponent implements OnInit {
   userAccountService: UserAccountService;
   mailService: MailService;
+  account_id: number;
   mail: Mail;
+  navigationButtons: [];
   constructor(
     public appStateService: AppStateService,
     private route: ActivatedRoute
   ) {
-    let accountIndex = parseInt( this.route.snapshot.paramMap.get('account_id') );
-    this.userAccountService = this.appStateService.get_account( accountIndex );
+    const account_id = parseInt( this.route.snapshot.paramMap.get('account_id') );
+    this.userAccountService = this.appStateService.get_account( account_id );
     this.mailService = this.userAccountService.get_mailService();
+
+    this.navigationButtons = [
+      {faClass: 'home', routerUrl: '/dashboard'},
+      {faClass: 'envelope', routerUrl: `/${account_id}/mails`},
+      { faClass: 'trash', routerUrl: '/dashboard'},
+      { faClass: 'reply', routerUrl: '/dashboard'},
+      { faClass: 'share', routerUrl: '/dashboard'}
+    ];
   }
 
   ngOnInit() {
