@@ -74,3 +74,4 @@ export class MailService {
 // maybe extend the mailservice class when a user is added???
 // rewrite to a singleton factory?? Demands more research!! e.g: https://github.com/angular/angular.js/issues/1011
 // TODO: check if I am using Observable right in getMails() ( probably not)
+// TODO: allow server to mail to corparation or alliance ig permissions are set
