@@ -8,10 +8,13 @@ import { Mails } from '../../mock-mails';
   providedIn: 'root'
 })
 export class MailService {
-  constructor() { }
+
   mails: Mail[] = [];
   hasMore_Mails: boolean = true;
   hasRequested_mails: boolean = false;
+
+  constructor() { }
+
   getMails(): Observable<Mail[]> {
     if( this.hasRequested_mails === false ){
       this.get50Mails()
