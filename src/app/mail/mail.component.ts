@@ -29,10 +29,7 @@ export class MailComponent implements OnInit {
 
     this.navigationButtons = [
       { faClass: 'home', routerUrl: '/dashboard'},
-      { faClass: 'envelope', routerUrl: `/${account_id}/mails`},
-      { faClass: 'trash', routerUrl: '/dashboard'},
-      { faClass: 'reply', routerUrl: '/dashboard'},
-      { faClass: 'share', routerUrl: '/dashboard'}
+      { faClass: 'envelope', routerUrl: `/${account_id}/mails`}
     ];
   }
 
@@ -40,7 +37,7 @@ export class MailComponent implements OnInit {
     let mailIndex = parseInt( this.route.snapshot.paramMap.get('mail_id') );
     this.mail = this.mailService.getMail( mailIndex );
         // .subscribe(mail => this.mail = mail);
-    this.appStateService.currentPageName = this.mail.subject
+    this.appStateService.currentPageName = 'mail';
   }
 
 }
