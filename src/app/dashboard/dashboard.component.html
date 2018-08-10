@@ -1,31 +1,9 @@
 <div id='accounts'>
-  <div class='account'>
+  <div class='account' *ngFor="let account of accounts" routerLink="/{{account.characterId}}/inbox" (click)="setCurrentAccount(account)">
     <div class='account-image' >
       <i class='fa fa-envelope' *ngIf='hasUnreadMails'>10</i>
     </div>
     <h6>Vex Munda</h6>
-  </div>
-  <div class='account'>
-    <div class='account-image' >
-      <i class='fa fa-envelope'>10</i>
-    </div>
-    <h6>Vex Munda</h6>
-  </div>
-  <div class='account'>
-    <div class='account-image' ></div>
-    <h6>Vex Munda</h6>
-  </div>
-  <div class='account'>
-    <div class='account-image' ></div>
-    <h6>Vex Munda the awesome</h6>
-  </div>
-  <div class='account'>
-    <div class='account-image' ></div>
-    <h6>Vex Munda the awesome</h6>
-  </div>
-  <div class='account'>
-    <div class='account-image' ></div>
-    <h6>Vex Munda the awesome</h6>
   </div>
   <div class='account' (click)="account_signup()">
     <div class='account-image new' >

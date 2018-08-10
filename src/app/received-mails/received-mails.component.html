@@ -1,5 +1,5 @@
 <ul id='received-mails'>
-  <li *ngFor="let mail of mails" routerLink="/mail/{{mail.mail_id}}">
+  <li *ngFor="let mail of mails" routerLink="/{{account_id}}/mail/{{mail.mail_id}}">
     <div class='sender-image'>
       <img src="https://image.eveonline.com/Character/{{mail.from}}_32.jpg"/>
     </div>
@@ -8,5 +8,6 @@
       <p class='mail-topic'>{{mail.subject}}</p>
     </div>
   </li>
+  <li class='load-more'><span>... load more ...</span></li><!-- TODO: add loadmore functionality, display when available. When loading change text to loading and disable button until content is loaded -->
 </ul>
-<button>Load more...</button>
+<app-navigation [buttons]="navigationButtons"></app-navigation>

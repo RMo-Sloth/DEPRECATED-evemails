@@ -3,6 +3,7 @@
   position: fixed;
   height: 10vh;
   bottom: 0px;
+  left: 0px;
   border-top: 2px solid rgb(240, 240, 256);
   background: rgb(0,0,20);
 }

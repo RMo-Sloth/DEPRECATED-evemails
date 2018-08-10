@@ -1,22 +1,29 @@
+#mail{
+  margin: 0.5rem;
+  border: 2px solid rgba(240, 240, 256, 0.2);
+  border-radius: 0.5rem;
+  background-color: #333343;
+}
 #mail-sender{
   padding: 0.5rem;
-  margin: 0.5rem;
+  border-radius: 0.5rem 0.5rem 0rem 0rem;
   display: flex;
   align-items: center;
-  background-color: rgb(240, 240, 256, 0.2);
-  border-radius: 0.5rem;
+  background-color: #1a1a2c;
 }
 #mail-sender-details{
   padding-left: 0.5rem;
 }
-#sent-date, #sent-time, #mail-title{
-  padding: 0px 0.5rem;
-  margin: 0px 0.5rem;
+#sent-date{
+  float: right;
+}
+#sent-date, #mail-title{
+  padding: 0.5rem;
 }
 ul#mail-recipients{
+  clear: both;
   display: block;
-  padding: 0px 0.5rem;
-  margin: 0px 0.5rem;
+  padding: 0.5rem;
 }
 ul#mail-recipients>li{
   display: inline;
@@ -32,6 +39,25 @@ ul#mail-recipients>li:last-child::after{
 }
 #mail-body{
   padding: 0.5rem;
-  margin: 0.5rem;
-  border-top: 2px solid rgb(240, 240, 256, 0.2);
+}
+ul#mail-actions{
+  height: 3rem;
+  border-radius: 0rem 0rem 0.5rem 0.5rem;
+  margin-top: 0.5rem;
+  display: flex;
+  background-color: #1a1a2c;
+}
+ul#mail-actions>li{
+  flex: 1;
+  border-right: 1px solid  #333343;
+  text-align: center;
+  cursor: pointer;
+}
+ul#mail-actions>li:last-child{
+  border-right: none;
+}
+ul#mail-actions>li>i{
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  font-size: 2rem;
 }

@@ -28,3 +28,10 @@ ul#received-mails>li>.mail-info>.mail-topic{
 ul#received-mails>li>.mail-info>.sender-name>.date{
   float: right;
 }
+
+ul#received-mails>li.load-more{
+  height: 4rem;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+}

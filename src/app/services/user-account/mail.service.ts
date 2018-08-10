@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
-import { Mail } from './mail';
-import { Mails } from './mock-mails';
+import { Mail } from '../../mail';
+import { Mails } from '../../mock-mails';
 
 @Injectable({
   providedIn: 'root'
