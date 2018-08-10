@@ -17,7 +17,7 @@ export class ReceivedMailsComponent implements OnInit {
   userAccountService: UserAccountService;
   account_id: number;
   mails: Mail[];
-  navigationButtons: [];
+  navigationButtons; // TODO: typecheck
   constructor(
     public  appStateService : AppStateService,
     private route: ActivatedRoute
@@ -38,4 +38,6 @@ export class ReceivedMailsComponent implements OnInit {
         .subscribe(mails => this.mails = mails);
   }
   // TODO: click on a read-more button to retreive more mails
+  // TODO: apply filters on ngOnInit() ( before view )
+  // TODO: apply interface for filtering on name and subject
 }

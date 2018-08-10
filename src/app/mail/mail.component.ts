@@ -18,7 +18,7 @@ export class MailComponent implements OnInit {
   mailService: MailService;
   account_id: number;
   mail: Mail;
-  navigationButtons: [];
+  navigationButtons; // TODO: typecheck
   constructor(
     public appStateService: AppStateService,
     private route: ActivatedRoute
