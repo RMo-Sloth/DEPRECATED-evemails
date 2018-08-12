@@ -14,9 +14,11 @@ export class UserAccountService {
   characterId: number;
   characterName: string;
 
-  constructor( charactedId, characterName, accessToken, refreshToken, tokenExpirationTime ) {
+  constructor( characterId, characterName, accessToken, refreshToken, tokenExpirationTime ) {
+    this.characterId = characterId;
+    this.characterName = characterName;
+    
     this.mailService = new MailService();
-    this.characterId = charactedId;
     // TODO: all the below:
     // after reirect of teh account verification we will get a:
     // * access token

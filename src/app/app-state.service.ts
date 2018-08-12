@@ -24,7 +24,7 @@ export class AppStateService {
         this.add_account(
           new UserAccountService(
             account.characterId,
-            'Vex Munda',
+            'Vexxy Munda',
             'accessToken',
             'refreshToken',
             'tokenExpirationTime'

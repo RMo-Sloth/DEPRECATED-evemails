@@ -33,7 +33,7 @@ export class ReceivedMailsComponent implements OnInit {
     ];
   }
   ngOnInit() {
-    this.appStateService.currentPageName='mails';
+    this.appStateService.currentPageName = this.userAccountService.characterName;
     this.mailService.getMails()
         .subscribe(mails => this.mails = mails);
   }
