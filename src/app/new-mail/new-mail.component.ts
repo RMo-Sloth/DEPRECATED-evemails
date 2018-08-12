@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { AppStateService } from '../app-state.service';
+import{ UserAccountService } from '../services/user-account.service';
 
 @Component({
   selector: 'app-new-mail',
