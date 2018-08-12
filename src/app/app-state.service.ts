@@ -15,8 +15,25 @@ export class AppStateService {
     this.state = 'inactive';
     this.currentPageName = 'dashboard';
     this.accounts = [];
-    // TEMP: temporary assignemnet of a UserAccountService
-    this.add_account( new UserAccountService() );
+
+    if( localStorage.getItem('accounts') !== null )
+    {
+      // localStorage.clear();
+      let accounts = JSON.parse( localStorage.getItem('accounts') );
+      accounts.forEach( account => {
+        this.add_account(
+          new UserAccountService(
+            account.characterId,
+            'Vex Munda',
+            'accessToken',
+            'refreshToken',
+            'tokenExpirationTime'
+          )
+        );
+      });
+    }else{ // do nothing
+
+    }
   }
   // state
   toggleState(): void {
@@ -34,7 +51,7 @@ export class AppStateService {
   }
   get_account( characterIndex: number ){
     for( let i=0; this.accounts.length > i; i++ ){
-      if( this.accounts[i].get_characterIndex()  === characterIndex ){
+      if( this.accounts[i].characterId  === characterIndex ){
         return this.accounts[i];
       }
       // TODO: handle behaviour when character is not found

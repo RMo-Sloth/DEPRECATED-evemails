@@ -12,8 +12,20 @@ export class DashboardComponent implements OnInit {
   hasUnreadMails: boolean = false; // TODO: should be a property of an account service
   constructor(
     public  appStateService : AppStateService
-  ) {
-
+  )
+  {
+    // TODO:  loaclstorage should be added if it is provided in the url
+    // TEMP: temporarily add localstorage until localStorage has been extended
+    localStorage.setItem('accounts', JSON.stringify(
+        [{
+          characterId: 93920413,// TEMP:
+          characterName: "Vexxy Munda",// TEMP:
+          refreshToken: 'token',// TEMP:
+          accessToken: '', // TEMP:
+          tokenExpirationTime: '' // TEMP:
+        }]
+      )
+    );
   }
 
   ngOnInit() {

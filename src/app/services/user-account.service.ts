@@ -10,13 +10,13 @@ export class UserAccountService {
   mailService: MailService;
   accessToken: string;
   refreshToken: string;
-  expirationTime: Date;
+  tokenExpirationTime: Date;
   characterId: number;
+  characterName: string;
 
-  constructor() {
+  constructor( charactedId, characterName, accessToken, refreshToken, tokenExpirationTime ) {
     this.mailService = new MailService();
-    //// TEMP:characterId
-    this.characterId = 93920413;
+    this.characterId = charactedId;
     // TODO: all the below:
     // after reirect of teh account verification we will get a:
     // * access token
@@ -29,15 +29,7 @@ export class UserAccountService {
     // * characterImageUrls
     // * characterName
   }
-
-  // characterIndex
-  get_characterIndex():number{
-    return this.characterId;
-  }
-  //
   get_mailService(): MailService{
     return this.mailService;
   }
 }
-// TODO: refactor mailservice into service folder, should only be called through the useraccountservice
-// // TODO: UserAccountsServices are stored inside the AppStateService-singleton
