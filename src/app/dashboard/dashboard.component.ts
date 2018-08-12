@@ -23,6 +23,13 @@ export class DashboardComponent implements OnInit {
           refreshToken: 'token',// TEMP:
           accessToken: '', // TEMP:
           tokenExpirationTime: '' // TEMP:
+        },
+        {
+          characterId: 93898701,// TEMP:
+          characterName: "Ishi Lar",// TEMP:
+          refreshToken: 'token',// TEMP:
+          accessToken: '', // TEMP:
+          tokenExpirationTime: '' // TEMP:
         }]
       )
     );

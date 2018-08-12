@@ -18,13 +18,12 @@ export class AppStateService {
 
     if( localStorage.getItem('accounts') !== null )
     {
-      // localStorage.clear();
       let accounts = JSON.parse( localStorage.getItem('accounts') );
       accounts.forEach( account => {
         this.add_account(
           new UserAccountService(
             account.characterId,
-            'Vexxy Munda',
+            account.characterName,
             'accessToken',
             'refreshToken',
             'tokenExpirationTime'
@@ -56,8 +55,8 @@ export class AppStateService {
       }
       // TODO: handle behaviour when character is not found
       // TEMP: alert
-      alert('This account already exists!');
-    };
+    }
+    alert('Account can not be found!');
   }
   set_currentAccount( account: UserAccountService){
     this.currentAccount = account;
