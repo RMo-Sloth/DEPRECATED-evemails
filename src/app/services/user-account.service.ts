@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import{ MailService } from './user-account/mail.service';
+import{ HttpService } from './user-account/http.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,17 +9,20 @@ import{ MailService } from './user-account/mail.service';
 export class UserAccountService {
 
   mailService: MailService;
-  accessToken: string;
-  refreshToken: string;
-  tokenExpirationTime: Date;
-  characterId: number;
-  characterName: string;
+  httpService: HttpService;
+  characterId: number;// TODO: refactor into characterInfo
+  characterName: string; // TODO: refactor into characterInfo
 
   constructor( characterId, characterName, accessToken, refreshToken, tokenExpirationTime ) {
     this.characterId = characterId;
     this.characterName = characterName;
-    
+
     this.mailService = new MailService();
+    // TODO: httpService should contain the
+    // * accessToken don't need!
+    // * refreshToken
+    // * tokenExpirationTime
+    this.httpService = new HttpService();
     // TODO: all the below:
     // after reirect of teh account verification we will get a:
     // * access token
