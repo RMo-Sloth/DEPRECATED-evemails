@@ -23,7 +23,7 @@ export class ReceivedMailsComponent implements OnInit {
     private route: ActivatedRoute,
     public userAccountService: UserAccountService
   ) {
-    let account_id = parseInt( this.route.snapshot.paramMap.get('account_id') );
+    const account_id = parseInt( this.route.snapshot.paramMap.get('account_id') );
     this.account = this.userAccountService.get_account( account_id );
     // this.mailService = this.userAccountService.get_mailService();
     this.navigationButtons = [
