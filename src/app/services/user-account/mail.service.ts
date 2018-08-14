@@ -2,22 +2,32 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
 import { Mail } from '../../classes/mail';
+import { MailAccount } from '../../classes/MailAccount';
 import { Mails } from '../../mock-mails';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MailService {
-  accounts: {
-    characterId: number,
-    mails: Mail[],
-  };
+  accounts:MailAccount[] = [];
   mails: Mail[] = [];
   hasMore_Mails: boolean = true;
   hasRequested_mails: boolean = false;
 
-  constructor() { }
+  constructor() {
+    let accounts = JSON.parse( localStorage.getItem('accounts') );
+    accounts.forEach( account => {
+      this.add_account( account.characterId, account.refreshToken );
 
+      // TODO: obtain accessToken and tokenExpirationTime from refreshToken from a seperate service
+      // TODO: add a service that obtains the mails
+    });
+  }
+  private add_account( characterId, refreshToken ){
+    // TODO: prevent creation of identical characters
+    let mail = new MailAccount( characterId, refreshToken );
+    this.accounts.push( mail );
+  }
   getMails(): Observable<Mail[]> {
     if( this.hasRequested_mails === false ){
       this.get50Mails()
