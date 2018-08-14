@@ -1,23 +1,35 @@
 import { Injectable } from '@angular/core';
 
 import{ MailService } from './user-account/mail.service';
-import{ HttpService } from './http.service';
+import{ Character } from '../classes/Character';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserAccountService {
 
-  mailService: MailService;
-  characterInfo; // TODO: create an object to typecheck??
-  characterId: number;// TODO: refactor into characterInfo
-  characterName: string; // TODO: refactor into characterInfo
+  mailService: MailService; // TODO: remove
+  accounts:Character[] = [];
 
-  constructor(characterId, characterName, accessToken, refreshToken, tokenExpirationTime ) {
-    this.characterId = characterId;
-    this.characterName = characterName;
+  constructor() {
+    if( localStorage.getItem('accounts') !== null )
+    {
+      let accounts = JSON.parse( localStorage.getItem('accounts') );
+      accounts.forEach( account => {
+        this.add_account( account.characterId, account.characterName );
 
-    this.mailService = new MailService();
+        // TODO: refactor to mailService
+        // this.add_account(
+          // new UserAccountService(
+          //   'accessToken',
+          //   'refreshToken',
+          //   'tokenExpirationTime'
+          // )
+        // );
+      });
+    }
+
+    this.mailService = new MailService(); // TODO: remove
     // TODO: httpService should contain the
     // * accessToken don't need!
     // * refreshToken
@@ -36,5 +48,12 @@ export class UserAccountService {
   }
   get_mailService(): MailService{
     return this.mailService;
+  }
+  // modify this.account
+  private add_account( characterId, characterName ):void{
+    // TODO: prevent creation of identical characters
+    let character = new Character( characterId );
+    character.name = characterName;
+    this.accounts.push( character );
   }
 }

@@ -1,9 +1,9 @@
 <div id='accounts'>
-  <div class='account' *ngFor="let account of accounts" routerLink="/{{account.characterId}}/inbox" (click)="setCurrentAccount(account)">
+  <div class='account' *ngFor="let account of userAccountService.accounts" routerLink="/{{account.characterId}}/inbox" (click)="setCurrentAccount(account)">
     <div class='account-image' [style.background]="'url(http://image.eveonline.com/Character/1_128.jpg)'">
-      <i class='fa fa-envelope' *ngIf='hasUnreadMails'>10</i>
+      <i class='fa fa-envelope' *ngIf='account.unreadMails'>{{account.unreadMails}}</i>
     </div>
-    <h6>{{account.characterName}}</h6>
+    <h6>{{account.name}}</h6>
   </div>
   <div class='account' (click)="account_signup()">
     <div class='account-image new' >

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 
 import { AppStateService } from '../app-state.service';
 import{ UserAccountService } from '../services/user-account.service';
@@ -10,10 +9,9 @@ import{ UserAccountService } from '../services/user-account.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  hasUnreadMails: boolean = false; // TODO: should be a property of an account service
   constructor(
     public  appStateService : AppStateService,
-    private http: HttpClient
+    public  userAccountService : UserAccountService
   )
   {
     // TODO:  loaclstorage should be added if it is provided in the url
@@ -35,19 +33,12 @@ export class DashboardComponent implements OnInit {
         }]
       )
     );
+    
+
   }
 
   ngOnInit() {
     this.appStateService.currentPageName='dashboard';
-    this.appStateService.unset_currentAccount();
-
-    // this.http.get('https://esi.evetech.net/latest/characters/93920413/portrait/?datasource=tranquility').subscribe(data => {
-    //   console.log(data);
-    // });
-  }
-  accounts = this.appStateService.accounts;
-  setCurrentAccount(account: UserAccountService){
-    this.appStateService.set_currentAccount( account );
   }
   account_signup(){
       location.href="https://login.eveonline.com/oauth/authorize?response_type=code&redirect_uri=https://www.eve-mails.com&Client_id=31fb6d6b42ef4528a267376f4b73d19f&scope=esi-mail.read_mail.v1%20esi-mail.organize_mail.v1%20esi-mail.send_mail.v1";

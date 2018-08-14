@@ -1,7 +1,5 @@
-export abstract class Entity {
-}
-
-export class Character extends Entity {
+export class Character {
+  // did not supply all values because most are unecessary
   characterId: number;
   birthday: Date;
   gender: string;
@@ -14,4 +12,9 @@ export class Character extends Entity {
   };
   corporation_id: number;
   alliance_id: number;
+  unreadMails: number = 10; // TODO: refactro to mailService
+
+  constructor( characterId ) {
+    this.characterId = characterId;
+  }
 }
