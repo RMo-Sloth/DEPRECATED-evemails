@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import{ MailService } from './user-account/mail.service';
-import{ HttpService } from './services/http.service';
+import{ HttpService } from './http.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,17 +13,11 @@ export class UserAccountService {
   characterId: number;// TODO: refactor into characterInfo
   characterName: string; // TODO: refactor into characterInfo
 
-  constructor( http: HttpService, characterId, characterName, accessToken, refreshToken, tokenExpirationTime ) {
-    this.http = http;
+  constructor(characterId, characterName, accessToken, refreshToken, tokenExpirationTime ) {
     this.characterId = characterId;
     this.characterName = characterName;
 
     this.mailService = new MailService();
-      console.log(http);
-    this.http.get_imageUrls( 93898701 )
-        .subscribe( data => {
-          console.log(data);
-        });
     // TODO: httpService should contain the
     // * accessToken don't need!
     // * refreshToken
