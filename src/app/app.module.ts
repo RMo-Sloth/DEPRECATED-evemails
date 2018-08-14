@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 
@@ -26,7 +25,6 @@ import { NewMailComponent } from './new-mail/new-mail.component';
   imports: [
     BrowserModule,
     HttpClientModule,
-    BrowserAnimationsModule,
     AppRoutingModule
   ],
   providers: [],

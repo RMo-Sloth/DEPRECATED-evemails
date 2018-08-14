@@ -2,13 +2,17 @@ import { Injectable } from '@angular/core';
 
 import{ Character } from '../classes/Character';
 
+import { CharacterHttpService } from './http/character/characterHttp.service';
+
 @Injectable({
   providedIn: 'root'
 })
 export class UserAccountService {
   accounts:Character[] = [];
 
-  constructor() {
+  constructor(
+    private characterHttpService: CharacterHttpService
+  ) {
     if( localStorage.getItem('accounts') !== null )
     {
       let accounts = JSON.parse( localStorage.getItem('accounts') );
@@ -24,6 +28,12 @@ export class UserAccountService {
           // )
         // );
       });
+    }
+    this.accounts.forEach( account => {
+      this.characterHttpService.getPortraitUrls( account.characterId )
+          .subscribe( portraits => {
+            account.portraits = portraits;
+          });
     }
     // TODO: httpService should contain the
     // * accessToken don't need!
