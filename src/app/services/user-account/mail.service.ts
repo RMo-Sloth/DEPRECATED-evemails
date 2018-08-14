@@ -8,7 +8,10 @@ import { Mails } from '../../mock-mails';
   providedIn: 'root'
 })
 export class MailService {
-
+  accounts: {
+    characterId: number,
+    mails: Mail[],
+  };
   mails: Mail[] = [];
   hasMore_Mails: boolean = true;
   hasRequested_mails: boolean = false;
