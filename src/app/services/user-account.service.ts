@@ -1,14 +1,11 @@
 import { Injectable } from '@angular/core';
 
-import{ MailService } from './user-account/mail.service';
 import{ Character } from '../classes/Character';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserAccountService {
-
-  mailService: MailService; // TODO: remove
   accounts:Character[] = [];
 
   constructor() {
@@ -28,8 +25,6 @@ export class UserAccountService {
         // );
       });
     }
-
-    this.mailService = new MailService(); // TODO: remove
     // TODO: httpService should contain the
     // * accessToken don't need!
     // * refreshToken
@@ -45,9 +40,6 @@ export class UserAccountService {
     // With the token and characterId we can gather all kinds of information
     // * characterImageUrls
     // * characterName
-  }
-  get_mailService(): MailService{
-    return this.mailService;
   }
   // modify this.account
   private add_account( characterId, characterName ):void{
