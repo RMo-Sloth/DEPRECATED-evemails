@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
+import{ Character } from '../classes/Character';
+
 import { AppStateService } from '../app-state.service';
 import{ UserAccountService } from '../services/user-account.service';
 
@@ -12,23 +14,24 @@ import{ UserAccountService } from '../services/user-account.service';
 export class NewMailComponent implements OnInit {
 
   account_id: number;
-  userAccountService: UserAccountService;
+  account: Character;
   navigationButtons; // TODO: add type
 
   constructor(
     private route: ActivatedRoute,
-    public  appStateService : AppStateService
+    public  appStateService : AppStateService,
+    public userAccountService: UserAccountService
   ) {
     this.account_id = parseInt( this.route.snapshot.paramMap.get('account_id') );
-    this.userAccountService = this.appStateService.get_account( this.account_id );
+    this.account = this.userAccountService.get_account( this.account_id );
     this.navigationButtons = [
       { faClass: 'home', routerUrl: '/dashboard'},
-      { faClass: 'envelope', routerUrl: `/${this.account_id}/mails`}
+      { faClass: 'envelope', routerUrl: `/${this.account.characterId}/mails`}
     ];
   }
 
   ngOnInit() {
-    this.appStateService.currentPageName = this.userAccountService.characterName;
+    this.appStateService.currentPageName = this.account.name;
   }
 
 }
