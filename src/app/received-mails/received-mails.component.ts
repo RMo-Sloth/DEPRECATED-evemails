@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Mail } from '../classes/mail';
+import{ Character } from '../classes/Character';
 
 import{ AppStateService } from '../app-state.service';
 import{ UserAccountService } from '../services/user-account.service';
@@ -14,28 +15,27 @@ import{ MailService } from '../services/user-account/mail.service';
 })
 export class ReceivedMailsComponent implements OnInit {
   mailService: MailService;
-  userAccountService: UserAccountService;
-  account_id: number;
+  account: Character;
   mails: Mail[];
   navigationButtons; // TODO: typecheck
   constructor(
     public  appStateService : AppStateService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public userAccountService: UserAccountService
   ) {
-    this.account_id = parseInt( this.route.snapshot.paramMap.get('account_id') );
-    this.userAccountService = this.appStateService.get_account( this.account_id );
-    this.mailService = this.userAccountService.get_mailService();
-    this.account_id = this.userAccountService.characterId;
+    let account_id = parseInt( this.route.snapshot.paramMap.get('account_id') );
+    this.account = this.userAccountService.get_account( account_id );
+    // this.mailService = this.userAccountService.get_mailService();
     this.navigationButtons = [
       { faClass: 'home', routerUrl: '/dashboard'},
       { faClass: 'search', routerUrl: '/dashboard'},
-      { faClass: 'pencil', routerUrl: `/${this.account_id}/new-mail`}
+      { faClass: 'pencil', routerUrl: `/${this.account.characterId}/new-mail`}
     ];
   }
   ngOnInit() {
-    this.appStateService.currentPageName = this.userAccountService.characterName;
-    this.mailService.getMails()
-        .subscribe(mails => this.mails = mails);
+    this.appStateService.currentPageName = this.account.name;
+    // this.mailService.getMails()
+    //     .subscribe(mails => this.mails = mails);
   }
   // TODO: click on a read-more button to retreive more mails
   // TODO: apply filters on ngOnInit() ( before view )

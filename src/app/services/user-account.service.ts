@@ -56,4 +56,13 @@ export class UserAccountService {
     character.name = characterName;
     this.accounts.push( character );
   }
+  public get_account( characterIndex: number ): Character{
+    for( let i=0; this.accounts.length > i; i++ ){
+      if( this.accounts[i].characterId  === characterIndex ){
+        return this.accounts[i];
+      }
+      // TEMP: alert
+    }
+    alert('Account can not be found!');
+  }
 }

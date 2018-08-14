@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { AppStateService } from '../app-state.service';
 
 @Component({
   selector: 'app-navigation',
@@ -9,13 +8,8 @@ import { AppStateService } from '../app-state.service';
 export class NavigationComponent implements OnInit {
   @Input() buttons;
 
-  constructor(
-    public appStateService: AppStateService
-  ) { }
+  constructor() { }
 
   ngOnInit() {
-  }
-  unset_currentAccount(){
-    this.appStateService.unset_currentAccount();
   }
 }

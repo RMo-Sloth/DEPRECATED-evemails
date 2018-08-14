@@ -1,5 +1,5 @@
 <div id='accounts'>
-  <div class='account' *ngFor="let account of userAccountService.accounts" routerLink="/{{account.characterId}}/inbox" (click)="setCurrentAccount(account)">
+  <div class='account' *ngFor="let account of userAccountService.accounts" routerLink="/{{account.characterId}}/inbox">
     <div class='account-image' [style.background]="'url(http://image.eveonline.com/Character/1_128.jpg)'">
       <i class='fa fa-envelope' *ngIf='account.unreadMails'>{{account.unreadMails}}</i>
     </div>
