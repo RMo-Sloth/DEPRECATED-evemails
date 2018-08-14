@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import{ UserAccountService } from './services/user-account.service';
+import{ HttpService } from './services/http.service';
 
 
 @Injectable({
@@ -9,19 +10,22 @@ import{ UserAccountService } from './services/user-account.service';
 export class AppStateService {
   state: string;
   currentPageName: string;
+  http: HttpService;
   accounts: UserAccountService[];
   currentAccount: UserAccountService;
-  constructor() {
+  constructor(
+    http: HttpService
+  ) {
     this.state = 'inactive';
-    this.currentPageName = 'dashboard';
     this.accounts = [];
-
+    
     if( localStorage.getItem('accounts') !== null )
     {
       let accounts = JSON.parse( localStorage.getItem('accounts') );
       accounts.forEach( account => {
         this.add_account(
           new UserAccountService(
+            this.http,
             account.characterId,
             account.characterName,
             'accessToken',
@@ -30,8 +34,6 @@ export class AppStateService {
           )
         );
       });
-    }else{ // do nothing
-
     }
   }
   // state

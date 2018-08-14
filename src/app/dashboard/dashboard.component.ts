@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 import { AppStateService } from '../app-state.service';
 import{ UserAccountService } from '../services/user-account.service';
@@ -11,7 +12,8 @@ import{ UserAccountService } from '../services/user-account.service';
 export class DashboardComponent implements OnInit {
   hasUnreadMails: boolean = false; // TODO: should be a property of an account service
   constructor(
-    public  appStateService : AppStateService
+    public  appStateService : AppStateService,
+    private http: HttpClient
   )
   {
     // TODO:  loaclstorage should be added if it is provided in the url
@@ -38,6 +40,10 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.appStateService.currentPageName='dashboard';
     this.appStateService.unset_currentAccount();
+
+    // this.http.get('https://esi.evetech.net/latest/characters/93920413/portrait/?datasource=tranquility').subscribe(data => {
+    //   console.log(data);
+    // });
   }
   accounts = this.appStateService.accounts;
   setCurrentAccount(account: UserAccountService){
