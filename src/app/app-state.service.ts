@@ -14,14 +14,4 @@ export class AppStateService {
   toggleState(): void {
     this.state = this.state === 'active' ? 'inactive' : 'active';
   }
-  // get_account( characterIndex: number ){
-  //   for( let i=0; this.accounts.length > i; i++ ){
-  //     if( this.accounts[i].characterId  === characterIndex ){
-  //       return this.accounts[i];
-  //     }
-  //     // TODO: handle behaviour when character is not found
-  //     // TEMP: alert
-  //   }
-  //   alert('Account can not be found!');
-  // }
 }
