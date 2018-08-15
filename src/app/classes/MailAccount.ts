@@ -2,7 +2,7 @@ import { Mail } from './mail';
 
 export class MailAccount{
   characterId: number;
-  unreadMails: number = 5;
+  unreadMails: number = 0;
   refreshToken: string;
   accessToken: string = '';
   tokenExpirationTime; //: Date = '';
