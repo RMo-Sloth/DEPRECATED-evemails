@@ -28,6 +28,11 @@ export class MailService {
     let mail = new MailAccount( characterId, refreshToken );
     this.accounts.push( mail );
   }
+  get_account( characterId ){
+    for(let i=0; i<this.accounts.length; i++){
+      return this.accounts[i];
+    }
+  }
   getMails(): Observable<Mail[]> {
     if( this.hasRequested_mails === false ){
       this.get50Mails()
