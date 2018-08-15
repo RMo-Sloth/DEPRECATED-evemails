@@ -17,7 +17,6 @@ export class Character {
   }
   corporation_id: number;
   alliance_id: number;
-  unreadMails: number = 10; // TODO: refactro to mailService
 
   constructor( characterId ) {
     this.characterId = characterId;
