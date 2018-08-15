@@ -11,3 +11,4 @@ export class MailAccount{
     this.characterId = characterId;
   }
 }
+// TODO: I probably should seperate out the refreshToken, accessToken and tokenExpirationTime into a seperate service.
