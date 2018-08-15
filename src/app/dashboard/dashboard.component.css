@@ -17,7 +17,7 @@
 .account-image{
   width: 128px;
   height: 128px;
-  background-image: url(http://image.eveonline.com/Character/93920413_128.jpg);
+  /* background-image: url(http://image.eveonline.com/Character/1_128.jpg); */
 }
 .account>h6{
   flex: 1;

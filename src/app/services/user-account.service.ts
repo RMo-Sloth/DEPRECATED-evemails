@@ -1,36 +1,75 @@
 import { Injectable } from '@angular/core';
 
-import{ MailService } from './user-account/mail.service';
+import{ Character } from '../classes/Character';
+
+import { CharacterHttpService } from './http/character/characterHttp.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserAccountService {
-  mailService: MailService;
-  accessToken: string;
-  refreshToken: string;
-  expirationTime: Date;
-  characterId: number;
-  constructor() {
-    this.mailService = new MailService();
-    //// TEMP:characterId
-    this.characterId = 93920413;
-    // I also need to define a:
+  accounts:Character[] = [];
+
+  constructor(
+    private characterHttpService: CharacterHttpService
+  ) {
+    if( localStorage.getItem('accounts') !== null )
+    {
+      let accounts = JSON.parse( localStorage.getItem('accounts') );
+      accounts.forEach( account => {
+        this.add_account( account.characterId, account.characterName );
+
+        // TODO: refactor to mailService
+        // this.add_account(
+          // new UserAccountService(
+          //   'accessToken',
+          //   'refreshToken',
+          //   'tokenExpirationTime'
+          // )
+        // );
+      });
+    }
+    this.accounts.forEach( account => {
+      this.characterHttpService.getPortraitUrls( account.characterId )
+          .subscribe( (portraits: any) => { // TODO: maybe create a typescript interface for the response object
+            account.portraits = {
+              px64x64: portraits.px64x64,
+              px128x128: portraits.px128x128,
+              px256x256: portraits.px256x256,
+              px512x512: portraits.px512x512,
+            }
+          });
+    });
+    // TODO: httpService should contain the
+    // * accessToken don't need!
+    // * refreshToken
+    // * tokenExpirationTime
+    // TODO: all the below:
+    // after reirect of teh account verification we will get a:
     // * access token
     // * refresh token
     // * token expiration time ( will need to check this every minute through the app-state? And refresh when necessary. The appstate will set the frequency and UserAccountService will figure out when to update )
+    // * With this info we can verify through our own server and get the characterId
     // * characterId
+    // characterId, and refresh token should be stored in a cookie
+    // With the token and characterId we can gather all kinds of information
     // * characterImageUrls
     // * characterName
   }
-  // characterIndex
-  get_characterIndex():number{
-    return this.characterId;
+  // modify this.account
+  private add_account( characterId, characterName ):void{
+    // TODO: prevent creation of identical characters
+    let character = new Character( characterId );
+    character.name = characterName;
+    this.accounts.push( character );
   }
-  //
-  get_mailService(): MailService{
-    return this.mailService;
+  public get_account( characterIndex: number ): Character{
+    for( let i=0; this.accounts.length > i; i++ ){
+      if( this.accounts[i].characterId  === characterIndex ){
+        return this.accounts[i];
+      }
+      // TEMP: alert
+    }
+    alert('Account can not be found!');
   }
 }
-// TODO: refactor mailservice into service folder, should only be called through the useraccountservice
-// // TODO: UserAccountsServices are stored inside the AppStateService-singleton

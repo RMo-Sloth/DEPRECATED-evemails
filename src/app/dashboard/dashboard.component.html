@@ -1,9 +1,10 @@
 <div id='accounts'>
-  <div class='account' *ngFor="let account of accounts" routerLink="/{{account.characterId}}/inbox" (click)="setCurrentAccount(account)">
-    <div class='account-image' >
-      <i class='fa fa-envelope' *ngIf='hasUnreadMails'>10</i>
+  <div class='account' *ngFor="let account of accounts" routerLink="/{{account.character.characterId}}/inbox">
+    <div class='account-image' [style.background]="account.character.portraits.px128x128 | url">
+      <!-- TODO: create a pipe to surround a url by url() -->
+      <i class='fa fa-envelope' *ngIf='account.mailAccount.unreadMails'>{{account.mailAccount.unreadMails}}</i>
     </div>
-    <h6>Vex Munda</h6>
+    <h6>{{account.character.name}}</h6>
   </div>
   <div class='account' (click)="account_signup()">
     <div class='account-image new' >

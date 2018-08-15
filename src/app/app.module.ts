@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { ScreensaverComponent } from './screensaver/screensaver.component';
@@ -9,6 +10,8 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { MailComponent } from './mail/mail.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { NewMailComponent } from './new-mail/new-mail.component';
+import { UrlPipe } from './pipes/url.pipe';
 
 @NgModule({
   declarations: [
@@ -17,11 +20,13 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     ReceivedMailsComponent,
     NavigationComponent,
     MailComponent,
-    DashboardComponent
+    DashboardComponent,
+    NewMailComponent,
+    UrlPipe
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule,
+    HttpClientModule,
     AppRoutingModule
   ],
   providers: [],

@@ -1,3 +1,5 @@
+import { Entity } from './entities';
+
 export class Mail {
     body: string;
     from: number;

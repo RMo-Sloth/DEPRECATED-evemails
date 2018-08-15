@@ -10,5 +10,4 @@ export class AppComponent {
   constructor(
     public appStateService: AppStateService
   ){}
-  title = 'eve-mails';
 }

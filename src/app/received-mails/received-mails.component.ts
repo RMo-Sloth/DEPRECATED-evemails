@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { Mail } from '../mail';
+import { Mail } from '../classes/mail';
+import{ Character } from '../classes/Character';
 
 import{ AppStateService } from '../app-state.service';
 import{ UserAccountService } from '../services/user-account.service';
@@ -13,27 +14,25 @@ import{ MailService } from '../services/user-account/mail.service';
   styleUrls: ['./received-mails.component.css']
 })
 export class ReceivedMailsComponent implements OnInit {
-  mailService: MailService;
-  userAccountService: UserAccountService;
-  account_id: number;
+  account: Character;
   mails: Mail[];
   navigationButtons; // TODO: typecheck
   constructor(
     public  appStateService : AppStateService,
-    private route: ActivatedRoute
+    public mailService: MailService,
+    private route: ActivatedRoute,
+    public userAccountService: UserAccountService
   ) {
-    this.account_id = parseInt( this.route.snapshot.paramMap.get('account_id') );
-    this.userAccountService = this.appStateService.get_account( this.account_id );
-    this.mailService = this.userAccountService.get_mailService();
-    this.account_id = this.userAccountService.get_characterIndex();
+    const account_id = parseInt( this.route.snapshot.paramMap.get('account_id') );
+    this.account = this.userAccountService.get_account( account_id );
     this.navigationButtons = [
       { faClass: 'home', routerUrl: '/dashboard'},
       { faClass: 'search', routerUrl: '/dashboard'},
-      { faClass: 'pencil', routerUrl: '/dashboard'} // TODO: new mail
+      { faClass: 'pencil', routerUrl: `/${this.account.characterId}/new-mail`}
     ];
   }
   ngOnInit() {
-    this.appStateService.currentPageName='mails';
+    this.appStateService.currentPageName = this.account.name;
     this.mailService.getMails()
         .subscribe(mails => this.mails = mails);
   }
