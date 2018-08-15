@@ -12,7 +12,6 @@ export class UserAccountService {
   accounts:Character[] = [];
 
   constructor(
-    private characterHttpService: CharacterHttpService,
     public characterService: CharacterService
   ) {
     if( localStorage.getItem('accounts') !== null )
