@@ -31,10 +31,15 @@ export class UserAccountService {
     }
     this.accounts.forEach( account => {
       this.characterHttpService.getPortraitUrls( account.characterId )
-          .subscribe( portraits => {
-            account.portraits = portraits;
+          .subscribe( (portraits: any) => { // TODO: maybe create a typescript interface for the response object
+            account.portraits = {
+              px64x64: portraits.px64x64,
+              px128x128: portraits.px128x128,
+              px256x256: portraits.px256x256,
+              px512x512: portraits.px512x512,
+            }
           });
-    }
+    });
     // TODO: httpService should contain the
     // * accessToken don't need!
     // * refreshToken
