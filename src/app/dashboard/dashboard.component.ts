@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
+import { MailAccount } from '../classes/MailAccount';
+import{ Character } from '../classes/Character';
+
 import { AppStateService } from '../app-state.service';
 import{ UserAccountService } from '../services/user-account.service';
+import{ MailService } from '../services/user-account/mail.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,9 +13,14 @@ import{ UserAccountService } from '../services/user-account.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  accounts: {
+    character: Character;
+    mailAccount: MailAccount;
+  }[] = [];
   constructor(
     public  appStateService : AppStateService,
-    public  userAccountService : UserAccountService
+    public  userAccountService : UserAccountService,
+    public mailService: MailService
   )
   {
     // TODO:  loaclstorage should be added if it is provided in the url
@@ -33,8 +42,15 @@ export class DashboardComponent implements OnInit {
         }]
       )
     );
-    
 
+    this.userAccountService.accounts.forEach( account => {
+      this.accounts.push(
+        {
+          character: account,
+          mailAccount: this.mailService.get_account( account.characterId )
+        }
+      );
+    });
   }
 
   ngOnInit() {
