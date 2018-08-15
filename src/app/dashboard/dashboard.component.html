@@ -1,6 +1,6 @@
 <div id='accounts'>
   <div class='account' *ngFor="let account of userAccountService.accounts" routerLink="/{{account.characterId}}/inbox">
-    <div class='account-image' [style.background]="'url('+ account.portraits.px128x128 +')'">
+    <div class='account-image' [style.background]="account.portraits.px128x128 | url">
       <!-- TODO: create a pipe to surround a url by url() -->
       <i class='fa fa-envelope' *ngIf='account.unreadMails'>{{account.unreadMails}}</i>
     </div>

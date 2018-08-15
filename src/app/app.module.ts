@@ -11,6 +11,7 @@ import { AppRoutingModule } from './/app-routing.module';
 import { MailComponent } from './mail/mail.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NewMailComponent } from './new-mail/new-mail.component';
+import { UrlPipe } from './pipes/url.pipe';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { NewMailComponent } from './new-mail/new-mail.component';
     NavigationComponent,
     MailComponent,
     DashboardComponent,
-    NewMailComponent
+    NewMailComponent,
+    UrlPipe
   ],
   imports: [
     BrowserModule,
