@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import{ Character } from '../classes/Character';
 
 import { CharacterHttpService } from './http/character/characterHttp.service';
-import { CharacterService } from './character/character.service';
+import { CharactersService } from './characters/characters.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ export class UserAccountService {
   accounts:Character[] = [];
 
   constructor(
-    public characterService: CharacterService
+    public characterService: CharactersService
   ) {
     if( localStorage.getItem('accounts') !== null )
     {

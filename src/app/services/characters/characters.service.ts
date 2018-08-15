@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 
-import { Character } from '../../classes/character';
+import { Character } from '../../classes/Character';
 
 import { CharacterHttpService } from '../http/character/characterHttp.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CharacterService {
+export class CharactersService {
   characters: Character[] = [];
   constructor(
     public characterHttpService: CharacterHttpService
