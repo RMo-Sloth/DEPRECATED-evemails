@@ -10,7 +10,7 @@ import { CharacterHttpService } from '../http/character/characterHttp.service';
 export class CharacterService {
   characters: Character[] = [];
   constructor(
-    characterHttpService: CharacterHttpService
+    public characterHttpService: CharacterHttpService
   ) { }
   private add_character( characterId: number ): void {
     let exists = this.characters.some( character => {
@@ -18,7 +18,7 @@ export class CharacterService {
     });
     if( exists === false ){
       let character = new Character( characterId );
-      character = this.append_characterPortraits( character );
+      this.append_characterPortraits( character );
       this.characters.push( character );
     }
   }
@@ -27,11 +27,11 @@ export class CharacterService {
       return character.characterId === characterId;
     });
   }
-  private append_characterDetails( character: Character ): Character{
+  // private append_characterDetails( character: Character ): Character{
     // append public characterInfo
-  }
-  private append_characterPortraits( character: Character ): Character{
-    characterHttpService.getPortraitUrls( character.characterId )
+  // }
+  public append_characterPortraits( character: Character ): void{
+    this.characterHttpService.getPortraitUrls( character.characterId )
         .subscribe( (portraits: any) => { // TODO: maybe create a typescript interface for the response object
           character.portraits = {
             px64x64: portraits.px64x64,
@@ -39,7 +39,6 @@ export class CharacterService {
             px256x256: portraits.px256x256,
             px512x512: portraits.px512x512
           }
-          return character;
         });
   }
 }

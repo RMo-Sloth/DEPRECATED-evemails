@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import{ Character } from '../classes/Character';
 
 import { CharacterHttpService } from './http/character/characterHttp.service';
+import { CharacterService } from './character/character.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,8 @@ export class UserAccountService {
   accounts:Character[] = [];
 
   constructor(
-    private characterHttpService: CharacterHttpService
+    private characterHttpService: CharacterHttpService,
+    public characterService: CharacterService
   ) {
     if( localStorage.getItem('accounts') !== null )
     {
@@ -30,15 +32,7 @@ export class UserAccountService {
       });
     }
     this.accounts.forEach( account => {
-      this.characterHttpService.getPortraitUrls( account.characterId )
-          .subscribe( (portraits: any) => { // TODO: maybe create a typescript interface for the response object
-            account.portraits = {
-              px64x64: portraits.px64x64,
-              px128x128: portraits.px128x128,
-              px256x256: portraits.px256x256,
-              px512x512: portraits.px512x512,
-            }
-          });
+      this.characterService.append_characterPortraits( account );
     });
     // TODO: httpService should contain the
     // * accessToken don't need!
