@@ -23,6 +23,7 @@ export class UserAccountService {
     }
     this.accounts.forEach( account => {
       this.characterService.append_characterPortraits( account );
+      this.characterService.append_characterDetails( account );
     });
   }
   private add_account( characterId, characterName ):void{

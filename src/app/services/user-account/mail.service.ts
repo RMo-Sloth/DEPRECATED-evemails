@@ -18,8 +18,6 @@ export class MailService {
     let accounts = JSON.parse( localStorage.getItem('accounts') );
     accounts.forEach( account => {
       this.add_account( account.characterId, account.refreshToken );
-
-      // TODO: obtain accessToken and tokenExpirationTime from refreshToken from a seperate service
       // TODO: add a service that obtains the mails
     });
   }
@@ -85,11 +83,4 @@ export class MailService {
     return foundMail;
   }
 }
-// TODO: how to deal with multiple accounts?
-// use charindex/mails/mailindex (1235465496/mails/12) ????
-// and retreive the current mails from mails.
-// I don t want to complicate MailService properties
-// maybe extend the mailservice class when a user is added???
-// rewrite to a singleton factory?? Demands more research!! e.g: https://github.com/angular/angular.js/issues/1011
-// TODO: check if I am using Observable right in getMails() ( probably not)
 // TODO: allow server to mail to corparation or alliance ig permissions are set

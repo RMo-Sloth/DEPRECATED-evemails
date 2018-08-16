@@ -14,4 +14,7 @@ export class CharacterHttpService {
   getPortraitUrls( characterIndex ) {
     return this.httpClient.get(`https://esi.evetech.net/latest/characters/${characterIndex}/portrait/?datasource=tranquility`);
   }
+  get_characterDetails( characterIndex ) {
+    return this.httpClient.get(`https://esi.evetech.net/latest/characters/${characterIndex}/?datasource=tranquility`);
+  }
 }

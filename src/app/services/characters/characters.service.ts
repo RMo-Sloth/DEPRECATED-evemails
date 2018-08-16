@@ -19,6 +19,7 @@ export class CharactersService {
     if( exists === false ){
       let character = new Character( characterId );
       this.append_characterPortraits( character );
+      this.append_characterDetails( character );
       this.characters.push( character );
     }
   }
@@ -27,9 +28,16 @@ export class CharactersService {
       return character.characterId === characterId;
     });
   }
-  // private append_characterDetails( character: Character ): Character{
-    // append public characterInfo
-  // }
+  public append_characterDetails( character: Character ): void{
+    this.characterHttpService.get_characterDetails( character.characterId )
+    .subscribe( (characterDetails: any) => { // TODO: maybe create a typescript interface for the response object
+      character.name = characterDetails.name;
+      character.gender = characterDetails.gender;
+      character.corporation_id = characterDetails.corporation_id;
+      character.birthday = new Date( characterDetails.birthday );
+      console.dir(character);
+    });
+  }
   public append_characterPortraits( character: Character ): void{
     this.characterHttpService.getPortraitUrls( character.characterId )
         .subscribe( (portraits: any) => { // TODO: maybe create a typescript interface for the response object
