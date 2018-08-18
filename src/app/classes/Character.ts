@@ -21,4 +21,5 @@ export class Character {
   constructor( characterId ) {
     this.characterId = characterId;
   }
+  // TODO: uh-oh I can t add methods here because of DI in the constructor.
 }

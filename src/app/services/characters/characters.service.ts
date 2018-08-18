@@ -35,7 +35,6 @@ export class CharactersService {
       character.gender = characterDetails.gender;
       character.corporation_id = characterDetails.corporation_id;
       character.birthday = new Date( characterDetails.birthday );
-      console.dir(character);
     });
   }
   public append_characterPortraits( character: Character ): void{
