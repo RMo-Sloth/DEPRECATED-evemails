@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 
-import { Character } from '../../classes/Character';
-
-import { CharacterHttpService } from '../http/character/characterHttp.service';
+import { Character } from '../../classes/character/Character';
+import { CharacterMethodsService } from '../../classes/character/character-methods.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +9,7 @@ import { CharacterHttpService } from '../http/character/characterHttp.service';
 export class CharactersService {
   characters: Character[] = [];
   constructor(
-    public characterHttpService: CharacterHttpService
+    public characterMethods: CharacterMethodsService
   ) { }
   private add_character( characterId: number ): void {
     let exists = this.characters.some( character => {
@@ -18,34 +17,25 @@ export class CharactersService {
     });
     if( exists === false ){
       let character = new Character( characterId );
-      this.append_characterPortraits( character );
-      this.append_characterDetails( character );
+      // TODO: requesting all info (portraits and cetails might be overkill in some cases)
+      this.characterMethods.append_characterPortraits( character );
+      this.characterMethods.append_characterDetails( character );
       this.characters.push( character );
     }
   }
   public get_character( characterId: number ): Character {
-    return this.characters.find( character => {
+    //TODO should the find funciotn be a seperate private method??
+    let character =  this.characters.find( character => {
       return character.characterId === characterId;
     });
-  }
-  public append_characterDetails( character: Character ): void{
-    this.characterHttpService.get_characterDetails( character.characterId )
-    .subscribe( (characterDetails: any) => { // TODO: maybe create a typescript interface for the response object
-      character.name = characterDetails.name;
-      character.gender = characterDetails.gender;
-      character.corporation_id = characterDetails.corporation_id;
-      character.birthday = new Date( characterDetails.birthday );
-    });
-  }
-  public append_characterPortraits( character: Character ): void{
-    this.characterHttpService.getPortraitUrls( character.characterId )
-        .subscribe( (portraits: any) => { // TODO: maybe create a typescript interface for the response object
-          character.portraits = {
-            px64x64: portraits.px64x64,
-            px128x128: portraits.px128x128,
-            px256x256: portraits.px256x256,
-            px512x512: portraits.px512x512
-          }
-        });
+    if( character !== undefined ){ // character found, return it!
+      return character;
+    }else{ // character not found, create it!
+      this.add_character( characterId );
+      character =  this.characters.find( character => {
+        return character.characterId === characterId;
+      });
+      return character;
+    }
   }
 }

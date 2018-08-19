@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 
-import{ Character } from '../classes/Character';
+import{ Character } from '../classes/character/Character';
 
-import { CharacterHttpService } from './http/character/characterHttp.service';
 import { CharactersService } from './characters/characters.service';
 
 @Injectable({
@@ -18,23 +17,19 @@ export class UserAccountService {
     {
       let accounts = JSON.parse( localStorage.getItem('accounts') );
       accounts.forEach( account => {
-        this.add_account( account.characterId, account.characterName );
+        this.add_account( account.characterId );
       });
     }
-    this.accounts.forEach( account => {
-      this.characterService.append_characterPortraits( account );
-      this.characterService.append_characterDetails( account );
-    });
   }
-  private add_account( characterId, characterName ):void{
+  private add_account( characterId ):void{
     let exists = this.accounts.some( account => {
       return account.characterId === characterId;
     });
     if( exists === false ){
-      let character = new Character( characterId );
-      character.name = characterName;
+      let character = this.characterService.get_character( characterId );
       this.accounts.push( character );
     }
+
   }
   public get_account( characterIndex: number ): Character{
     for( let i=0; this.accounts.length > i; i++ ){

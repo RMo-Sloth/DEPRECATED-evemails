@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import{ Character } from '../classes/Character';
+import{ Character } from '../classes/character/Character';
 
 import { AppStateService } from '../app-state.service';
 import{ UserAccountService } from '../services/user-account.service';
