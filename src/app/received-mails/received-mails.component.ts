@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Mail } from '../classes/mail';
-import{ Character } from '../classes/Character';
+import { Character } from '../models/character.model';
 
 import{ AppStateService } from '../app-state.service';
 import{ UserAccountService } from '../services/user-account.service';
