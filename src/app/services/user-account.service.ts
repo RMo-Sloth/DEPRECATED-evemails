@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import{ Character } from '../classes/Character';
+import { Character } from '../models/character.model';
 
 import { CharacterHttpService } from './http/character/characterHttp.service';
 
@@ -59,8 +59,11 @@ export class UserAccountService {
   // modify this.account
   private add_account( characterId, characterName ):void{
     // TODO: prevent creation of identical characters
-    let character = new Character( characterId );
-    character.name = characterName;
+    const character = new Character({
+        characterId: characterId,
+        name: characterName
+    });
+
     this.accounts.push( character );
   }
   public get_account( characterIndex: number ): Character{
