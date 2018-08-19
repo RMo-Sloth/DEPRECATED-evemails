@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Character } from './Character';
+import { PortraitsMethodsService } from './portraits/portraits-methods.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,8 @@ import { Character } from './Character';
 // important: To ensure consistency these methods should not be called from modules, only other services.
 export class CharacterMethodsService {
   constructor(
-    public httpClient: HttpClient
+    public httpClient: HttpClient,
+    public portraitsMethodsService: PortraitsMethodsService
   ) { }
   public append_characterDetails( character: Character ): void{
     this.httpClient.get(`https://esi.evetech.net/latest/characters/${character.characterId}/?datasource=tranquility`)
@@ -22,14 +24,6 @@ export class CharacterMethodsService {
     });
   }
   public append_characterPortraits( character: Character ): void{
-    this.httpClient.get(`https://esi.evetech.net/latest/characters/${character.characterId}/portrait/?datasource=tranquility`)
-    .subscribe( (portraits: any) => {
-      character.portraits = {
-        px64x64: portraits.px64x64,
-        px128x128: portraits.px128x128,
-        px256x256: portraits.px256x256,
-        px512x512: portraits.px512x512
-      }
-    });
+    this.portraitsMethodsService.append_characterPortraits( character.portraits, character.characterId );
   }
 }

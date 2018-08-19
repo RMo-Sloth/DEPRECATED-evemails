@@ -1,24 +1,19 @@
+import { CharacterPortraits } from './portraits/Character-portraits';
+
 export class Character {
   // did not supply all values because most are unecessary
   characterId: number;
   birthday: Date;
   gender: string;
-  name: string;
-  portraits:{
-    px64x64: string;
-    px128x128: string;
-    px256x256: string;
-    px512x512: string;
-  } = {
-    px64x64: "http://image.eveonline.com/Character/1_64.jpg",
-    px128x128: "http://image.eveonline.com/Character/1_128.jpg",
-    px256x256: "http://image.eveonline.com/Character/1_256.jpg",
-    px512x512: "http://image.eveonline.com/Character/1_512.jpg"
-  }
+  name: string = '';
+  portraits: CharacterPortraits;
   corporation_id: number;
+  // TODO: corporation
   alliance_id: number;
+  // TODO: alliance, maybe get from corporation inteface?
 
   constructor( characterId ) {
     this.characterId = characterId;
+    this.portraits = new CharacterPortraits();
   }
 }
