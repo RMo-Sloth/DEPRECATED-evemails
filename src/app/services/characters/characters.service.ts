@@ -23,6 +23,7 @@ export class CharactersService {
       this.characters.push( character );
     }
   }
+  // TODO: the get_character method should be an observable.Maybe in add_charcter
   public get_character( characterId: number ): Character {
     //TODO should the find funciotn be a seperate private method??
     let character =  this.characters.find( character => {

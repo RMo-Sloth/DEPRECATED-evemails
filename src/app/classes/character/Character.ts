@@ -5,7 +5,7 @@ export class Character {
   characterId: number;
   birthday: Date;
   gender: string;
-  name: string = '';
+  name: string = 'placeholder_name';
   portraits: CharacterPortraits;
   corporation_id: number;
   // TODO: corporation

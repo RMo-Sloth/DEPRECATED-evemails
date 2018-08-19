@@ -1,8 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
-import { Mail } from '../../classes/mail';
+import { Mail } from '../../classes/mail/Mail';
+import { MailMethodsService } from '../../classes/mail/mail-methods.service';
+
 import { MailAccount } from '../../classes/MailAccount';
+
+
+
+// TEMP: Mails
 import { Mails } from '../../mock-mails';
 
 @Injectable({
@@ -14,16 +20,19 @@ export class MailService {
   hasMore_Mails: boolean = true;
   hasRequested_mails: boolean = false;
 
-  constructor() {
+  constructor(
+    public mailMethods: MailMethodsService
+  ) {
     let accounts = JSON.parse( localStorage.getItem('accounts') );
     accounts.forEach( account => {
-      this.add_account( account.characterId, account.refreshToken );
+      this.add_account( account.characterId );
       // TODO: add a service that obtains the mails
     });
   }
-  private add_account( characterId, refreshToken ){
+  private add_account( characterId ){
+    // TODO: accounts should be created in the user-account-service
     // TODO: prevent creation of identical characters
-    let mail = new MailAccount( characterId, refreshToken );
+    let mail = new MailAccount( characterId );
     this.accounts.push( mail );
   }
   get_account( characterId ){
@@ -45,16 +54,9 @@ export class MailService {
     // use lastmailIndex to request more mails
     let mails = Mails;
     mails = mails.map( mail => {
-      return new Mail(
-        '<p>Hello this is a default added Text. Please update!!!</p>',
-        mail.from,
-        mail.is_read,
-        mail.labels,
-        mail.mail_id,
-        mail.recipients,
-        mail.subject,
-        mail.timestamp
-      );
+      mail = new Mail( mail.mail_id );
+      this.mailMethods.append_sender( mail );
+      return mail;
     });
     // if less than 50 mails are received set hasMore_Mails to false
     if( mails.length < 50 ){ // untested
@@ -70,7 +72,7 @@ export class MailService {
   }
   public getMail( mailId: number ){
     let foundMail = this.mails.find( mail => {
-      return mailId === mail.mail_id;
+      return mailId === mail.index;
     });
     if( foundMail === undefined ){
       location.href = '/dashboard';
