@@ -39,6 +39,14 @@ export class DashboardComponent implements OnInit {
       )
     );
     this.accounts = this.userAccountService.accounts;
+
+    // TEMP: replicate removing an account from this.userAccountService.accounts,
+    // it should reflect in the template ( we need an observable)
+    window.setTimeout(() => {
+    console.log( this.userAccountService.accounts );
+      this.userAccountService.remove_account( 93898701 );
+      console.log( this.userAccountService.accounts );
+    }, 2000);
   }
 
   ngOnInit() {
