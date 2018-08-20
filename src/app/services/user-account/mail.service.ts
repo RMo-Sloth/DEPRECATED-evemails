@@ -16,9 +16,9 @@ import { Mails } from '../../mock-mails';
 })
 export class MailService {
   accounts:MailAccount[] = [];
-  mails: Mail[] = [];
-  hasMore_Mails: boolean = true;
-  hasRequested_mails: boolean = false;
+  mails: Mail[] = [];// TEMP: mails array should be refactored into the accounts
+  hasMore_Mails: boolean = true;// TEMP: should be refactored into the mailAccount
+  hasRequested_mails: boolean = false;// TEMP: should be refactored in the mailAccount
 
   constructor(
     public mailMethods: MailMethodsService

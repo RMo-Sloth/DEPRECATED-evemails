@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 import { MailAccount } from '../classes/MailAccount';
 import{ Character } from '../classes/character/Character';
@@ -13,10 +14,8 @@ import{ MailService } from '../services/user-account/mail.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  accounts: {
-    character: Character;
-    mailAccount: MailAccount;
-  }[] = [];
+  public accounts$: BehaviorSubject<Character[]>;
+
   constructor(
     public  appStateService : AppStateService,
     public  userAccountService : UserAccountService,
@@ -28,14 +27,12 @@ export class DashboardComponent implements OnInit {
     localStorage.setItem('accounts', JSON.stringify(
         [{
           characterId: 93920413,// TEMP:
-          characterName: "Vexxy Munda",// TEMP:
           refreshToken: 'token',// TEMP:
           accessToken: '', // TEMP:
           tokenExpirationTime: '' // TEMP:
         },
         {
           characterId: 93898701,// TEMP:
-          characterName: "Ishi Lar",// TEMP:
           refreshToken: 'token',// TEMP:
           accessToken: '', // TEMP:
           tokenExpirationTime: '' // TEMP:
@@ -43,20 +40,18 @@ export class DashboardComponent implements OnInit {
       )
     );
 
-    this.userAccountService.accounts.forEach( account => {
-      this.accounts.push(
-        {
-          character: account,
-          mailAccount: this.mailService.get_account( account.characterId )
-        }
-      );
-    });
+    // TEMP: replicate removing an account from this.userAccountService.accounts,
+    // it should reflect in the template ( we need an observable)
+    window.setTimeout(() => {
+      this.userAccountService.remove_account( 93898701 );
+    }, 3000);
   }
 
   ngOnInit() {
     this.appStateService.currentPageName='dashboard';
+    this.accounts$ = this.userAccountService.accounts$;
   }
-  account_signup(){
+  private account_signup(){
       location.href="https://login.eveonline.com/oauth/authorize?response_type=code&redirect_uri=https://www.eve-mails.com&Client_id=31fb6d6b42ef4528a267376f4b73d19f&scope=esi-mail.read_mail.v1%20esi-mail.organize_mail.v1%20esi-mail.send_mail.v1";
   }
 }

@@ -11,10 +11,10 @@ export class MailMethodsService {
     public charactersService: CharactersService
   ) { }
 
-  private append_Mailinfo( mail: Mail ){
+  public append_Mailinfo( mail: Mail ){
 
   }
-  private append_sender( mail:Mail ){
+  public append_sender( mail:Mail ){
     mail.sender = this.charactersService.get_character( mail.senderIndex );
   }
   private append_recipient( mail: Mail ){
