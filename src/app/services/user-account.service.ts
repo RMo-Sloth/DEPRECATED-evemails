@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 import{ Character } from '../classes/character/Character';
 
@@ -9,10 +10,8 @@ import { CharactersService } from './characters/characters.service';
 })
 export class UserAccountService {
   accounts: Character[] = [];
+  accounts$: BehaviorSubject<Character[]> = new BehaviorSubject([]);
   // TODO: an account should consist of a Character, mailAccount and tokenService, better to `keep 'em separeted`, account only returns a character, but it should also initiate the other service ( opposed to contain them)
-  // TODO: create an observable
-  // TODO: trigger the observable after appending or removing
-  // TODO: observable returns the new accounts
 
   constructor(
     public characterService: CharactersService
@@ -30,16 +29,16 @@ export class UserAccountService {
       return account.characterId === characterId;
     });
     if( exists === false ){
-      // TODO: should refactor to add account-character, accountmail and tokenservice seperately
       let character = this.characterService.get_character( characterId );
       this.accounts.push( character );
+      this.accounts$.next( this.accounts );
     }
   }
   public remove_account( characterIndex:number ): void{
     this.accounts = this.accounts.filter( account => {
-      return account.characterId !== characterIndex
-      // TODO: should alert observable of change
+      return account.characterId !== characterIndex;
     });
+    this.accounts$.next( this.accounts );
   }
   public get_account( characterIndex: number ): Character{
     for( let i=0; this.accounts.length > i; i++ ){
