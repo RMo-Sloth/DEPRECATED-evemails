@@ -15,9 +15,9 @@
 
 }
 .account-image{
+  position: relative;
   width: 128px;
   height: 128px;
-  /* background-image: url(http://image.eveonline.com/Character/1_128.jpg); */
 }
 .account>h6{
   flex: 1;
@@ -40,10 +40,19 @@
   color: rgb(240, 240, 256);
 }
 .account-image>i.fa-envelope{
-  right: 5px;
-  top: 5px;
+  left: 0px;
+  bottom: 0px;
+  padding: 0.5rem;
   position: absolute;
 }
 .account-image>i.fa-envelope::before{
   padding-right: 0.5em;
+}
+.account-image>i.fa-times{
+  right: 0px;
+  top: 0px;
+  padding: 0.5rem;
+  position: absolute;
+  font-size: 1.2rem;
+  color: #990000;
 }
