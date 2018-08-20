@@ -37,7 +37,7 @@ export class UserAccountService {
   }
   public remove_account( characterIndex:number ): void{
     this.accounts = this.accounts.filter( account => {
-      account.characterId !== characterIndex
+      return account.characterId !== characterIndex
       // TODO: should alert observable of change
     });
   }
