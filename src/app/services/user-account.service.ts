@@ -8,7 +8,7 @@ import { CharactersService } from './characters/characters.service';
   providedIn: 'root'
 })
 export class UserAccountService {
-  accounts:Character[] = [];
+  accounts: Character[] = [];
   // TODO: an account should consist of a Character, mailAccount and tokenService, better to `keep 'em separeted`, account only returns a character, but it should also initiate the other service ( opposed to contain them)
   // TODO: create an observable
   // TODO: trigger the observable after appending or removing

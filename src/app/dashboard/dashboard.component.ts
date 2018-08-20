@@ -13,10 +13,7 @@ import{ MailService } from '../services/user-account/mail.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  accounts: {
-    character: Character;
-    mailAccount: MailAccount;
-  }[] = [];
+  accounts: Character[] = [];
 
   constructor(
     public  appStateService : AppStateService,
@@ -41,15 +38,7 @@ export class DashboardComponent implements OnInit {
         }]
       )
     );
-
-    this.userAccountService.accounts.forEach( account => {
-      this.accounts.push(
-        {
-          character: account,
-          mailAccount: this.mailService.get_account( account.characterId )
-        }
-      );
-    });
+    this.accounts = this.userAccountService.accounts;
   }
 
   ngOnInit() {
