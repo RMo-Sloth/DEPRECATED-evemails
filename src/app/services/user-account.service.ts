@@ -9,6 +9,7 @@ import { CharactersService } from './characters/characters.service';
 })
 export class UserAccountService {
   accounts:Character[] = [];
+  // TODO: create an observable of accounts
 
   constructor(
     public characterService: CharactersService
@@ -29,7 +30,6 @@ export class UserAccountService {
       let character = this.characterService.get_character( characterId );
       this.accounts.push( character );
     }
-
   }
   public get_account( characterIndex: number ): Character{
     for( let i=0; this.accounts.length > i; i++ ){
