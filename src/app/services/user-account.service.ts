@@ -31,6 +31,9 @@ export class UserAccountService {
       this.accounts.push( character );
     }
   }
+  public remove_account(): void{
+    // TODO: implement method
+  }
   public get_account( characterIndex: number ): Character{
     for( let i=0; this.accounts.length > i; i++ ){
       if( this.accounts[i].characterId  === characterIndex ){
