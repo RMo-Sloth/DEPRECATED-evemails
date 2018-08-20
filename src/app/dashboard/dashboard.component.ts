@@ -17,6 +17,11 @@ export class DashboardComponent implements OnInit {
     character: Character;
     mailAccount: MailAccount;
   }[] = [];
+
+  // TODO: create an observable
+  // TODO: trigger the observable after appending or removing
+  // TODO: observable returns the new accounts
+
   constructor(
     public  appStateService : AppStateService,
     public  userAccountService : UserAccountService,
