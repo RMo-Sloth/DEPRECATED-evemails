@@ -9,6 +9,7 @@ import { CharactersService } from './characters/characters.service';
 })
 export class UserAccountService {
   accounts:Character[] = [];
+  // TODO: an account should consist of a Character, mailAccount and tokenService
   // TODO: create an observable
   // TODO: trigger the observable after appending or removing
   // TODO: observable returns the new accounts
