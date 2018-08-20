@@ -35,8 +35,11 @@ export class UserAccountService {
       this.accounts.push( character );
     }
   }
-  public remove_account(): void{
-    // TODO: implement method
+  public remove_account( characterIndex:number ): void{
+    this.accounts = this.accounts.filter( account => {
+      account.characterId !== characterIndex
+      // TODO: should alert observable of change
+    });
   }
   public get_account( characterIndex: number ): Character{
     for( let i=0; this.accounts.length > i; i++ ){
