@@ -1,4 +1,4 @@
-import { Mail } from './mail';
+import { Mail } from './mail/mail';
 
 export class MailAccount{
   characterId: number;
@@ -7,7 +7,7 @@ export class MailAccount{
   accessToken: string = '';
   tokenExpirationTime; //: Date = '';
   mails: Mail[] = [];
-  constructor( characterId: number, refreshToken:string ){
+  constructor( characterId: number ){
     this.characterId = characterId;
   }
 }
