@@ -29,14 +29,12 @@ export class DashboardComponent implements OnInit {
     localStorage.setItem('accounts', JSON.stringify(
         [{
           characterId: 93920413,// TEMP:
-          characterName: "Vexxy Munda",// TEMP:
           refreshToken: 'token',// TEMP:
           accessToken: '', // TEMP:
           tokenExpirationTime: '' // TEMP:
         },
         {
           characterId: 93898701,// TEMP:
-          characterName: "Ishi Lar",// TEMP:
           refreshToken: 'token',// TEMP:
           accessToken: '', // TEMP:
           tokenExpirationTime: '' // TEMP:
@@ -57,7 +55,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.appStateService.currentPageName='dashboard';
   }
-  account_signup(){
+  private account_signup(){
       location.href="https://login.eveonline.com/oauth/authorize?response_type=code&redirect_uri=https://www.eve-mails.com&Client_id=31fb6d6b42ef4528a267376f4b73d19f&scope=esi-mail.read_mail.v1%20esi-mail.organize_mail.v1%20esi-mail.send_mail.v1";
   }
 }
