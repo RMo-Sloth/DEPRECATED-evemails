@@ -30,6 +30,7 @@ export class UserAccountService {
       return account.characterId === characterId;
     });
     if( exists === false ){
+      // TODO: should refactor to add account-character, accountmail and tokenservice seperately
       let character = this.characterService.get_character( characterId );
       this.accounts.push( character );
     }
