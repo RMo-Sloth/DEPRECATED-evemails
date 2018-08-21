@@ -43,7 +43,7 @@ export class DashboardComponent implements OnInit {
     // TEMP: might want to replace the confirm with a styled popup at some point
     if ( window.confirm(`Are you sure you want to remove ${character.name}'s account?`) === true){
       this.userAccountService.remove_account( character.characterId );
-      // TODO: remove account from localstorageservice
+      this.localStorageService.remove_account( character.characterId );
       // TODO: remove account from tokenservice
       // TODO: remove accounts from mailservice
     }
