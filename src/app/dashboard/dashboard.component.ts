@@ -39,9 +39,6 @@ export class DashboardComponent implements OnInit {
         }]
       )
     );
-
-    // TEMP: replicate removing an account from this.userAccountService.accounts,
-    // it should reflect in the template ( we need an observable)
   }
 
   ngOnInit() {
@@ -52,7 +49,7 @@ export class DashboardComponent implements OnInit {
       location.href="https://login.eveonline.com/oauth/authorize?response_type=code&redirect_uri=https://www.eve-mails.com&Client_id=31fb6d6b42ef4528a267376f4b73d19f&scope=esi-mail.read_mail.v1%20esi-mail.organize_mail.v1%20esi-mail.send_mail.v1";
   }
   private remove_account( characterIndex ){
-    alert(`removing account with id: ${characterIndex}`);
     this.userAccountService.remove_account( characterIndex );
+    // TODO: also remove account from localstorage, tokenservice and mailservice
   }
 }
