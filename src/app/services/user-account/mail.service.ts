@@ -58,7 +58,6 @@ export class MailService {
       this.mailMethods.append_sender( mail );
       return mail;
     });
-    console.log(mails);
     // if less than 50 mails are received set hasMore_Mails to false
     if( mails.length < 50 ){ // untested
       this.hasMore_Mails = false;
