@@ -33,8 +33,18 @@ export class LocalStorageService {
     });
     localStorage.setItem( 'accounts', JSON.stringify(accounts) );
   }
-  public update_account(){
-
+  public update_refreshToken( characterIndex, refreshToken){
+    let accounts = this.get_accounts();
+    // get the character
+    let relevantAccount = accounts.find( account => {
+      return account.characterId === characterIndex;
+    });
+    if( relevantAccount === undefined ){
+      console.error('Cannot access a character that is not defined in the local storage.');
+    }else{
+      relevantAccount.refreshToken = refreshToken;
+    }
+    localStorage.setItem( 'accounts', JSON.stringify(accounts) );
   }
   public get_accounts(): [] { // TODO: typecheck might be nice
     const accounts = localStorage.getItem('accounts');
