@@ -19,4 +19,12 @@ export class LocalStorageService {
   public update_account(){
 
   }
+  public get_accounts(){
+    const accounts = localStorage.getItem('accounts');
+    if( accounts === undefined ){
+      return [];
+    }else{
+      return JSON.parse( accounts );
+    }
+  }
 }
