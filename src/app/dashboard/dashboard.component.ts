@@ -54,4 +54,7 @@ export class DashboardComponent implements OnInit {
   private account_signup(){
       location.href="https://login.eveonline.com/oauth/authorize?response_type=code&redirect_uri=https://www.eve-mails.com&Client_id=31fb6d6b42ef4528a267376f4b73d19f&scope=esi-mail.read_mail.v1%20esi-mail.organize_mail.v1%20esi-mail.send_mail.v1";
   }
+  private remove_account( characterIndex ){
+    alert(`removing account with id: ${characterIndex}`);
+  }
 }
