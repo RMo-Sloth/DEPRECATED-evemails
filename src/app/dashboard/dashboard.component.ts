@@ -28,14 +28,10 @@ export class DashboardComponent implements OnInit {
         [{
           characterId: 93920413,// TEMP:
           refreshToken: 'token',// TEMP:
-          accessToken: '', // TEMP:
-          tokenExpirationTime: '' // TEMP:
         },
         {
           characterId: 93898701,// TEMP:
           refreshToken: 'token',// TEMP:
-          accessToken: '', // TEMP:
-          tokenExpirationTime: '' // TEMP:
         }]
       )
     );
