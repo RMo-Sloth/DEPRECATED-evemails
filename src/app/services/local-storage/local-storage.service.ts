@@ -7,12 +7,12 @@ export class LocalStorageService {
 
   constructor() { }
 
-  public get_refreshToken( characterIndex ){
-
+  public get_refreshToken( characterIndex ): string{
+    return 'unimplemented';
   }
-  public add_account( characterIndex, refreshToken ){
-    let accounts = this.get_accounts();
-    let newAccount = {
+  public add_account( characterIndex: number, refreshToken: string ): void{
+    let accounts: any = this.get_accounts();
+    let newAccount: any = {
       characterId: characterIndex,
       refreshToken: refreshToken
     };
@@ -26,15 +26,15 @@ export class LocalStorageService {
     localStorage.setItem( 'accounts', JSON.stringify(accounts) );
 
   }
-  public remove_account( characterIndex ){
-    let accounts = this.get_accounts();
+  public remove_account( characterIndex ): void{
+    let accounts: any = this.get_accounts();
     accounts = accounts.filter( account => {
       return account.characterId !== characterIndex;
     });
     localStorage.setItem( 'accounts', JSON.stringify(accounts) );
   }
-  public update_refreshToken( characterIndex, refreshToken){
-    let accounts = this.get_accounts();
+  public update_refreshToken( characterIndex, refreshToken): void{
+    let accounts:any = this.get_accounts();
     // get the character
     let relevantAccount = accounts.find( account => {
       return account.characterId === characterIndex;
@@ -46,8 +46,8 @@ export class LocalStorageService {
     }
     localStorage.setItem( 'accounts', JSON.stringify(accounts) );
   }
-  public get_accounts(): [] { // TODO: typecheck might be nice
-    const accounts = localStorage.getItem('accounts');
+  public get_accounts(): any { // TODO: typecheck might be nice
+    const accounts:any = localStorage.getItem('accounts');
     if( accounts === undefined ){
       return [];
     }else{
@@ -55,3 +55,5 @@ export class LocalStorageService {
     }
   }
 }
+
+// TODO: implement more strict type-checking
