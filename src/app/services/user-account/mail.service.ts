@@ -56,6 +56,7 @@ export class MailService {
     mails = mails.map( mail => {
       mail = new Mail( mail.mail_id );
       this.mailMethods.append_sender( mail );
+      return mail;
     });
     // if less than 50 mails are received set hasMore_Mails to false
     if( mails.length < 50 ){ // untested
