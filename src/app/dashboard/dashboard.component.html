@@ -3,8 +3,8 @@
     <div class='account-image' [style.background]="account.portraits.px128x128 | url">
       <!-- <i class='fa fa-envelope' *ngIf='account.mailAccount.unreadMails'>{{account.mailAccount.unreadMails}}</i> -->
       <!-- TEMP: envelope -->
-        <i class='fa fa-envelope'></i>
-        <i class='fa fa-times'></i>
+        <i class='fa fa-envelope'>5</i>
+        <i class='fa fa-times' (click)="remove_account(account.characterId); $event.stopPropagation()"></i>
     </div>
     <h6>{{account.name}}</h6>
   </div>
