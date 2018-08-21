@@ -18,7 +18,7 @@ export class LocalStorageService {
     };
     for( let i=0; i<accounts.length; i++){
       if( accounts[i].characterId === characterIndex ){
-        alert('The account you are trying to add already exists! Please remove it before trying to recreate it.');
+        alert('The account you are trying to add already exists! Please remove it and try again.');
         return; // end function execution
       }
     }
@@ -26,8 +26,12 @@ export class LocalStorageService {
     localStorage.setItem( 'accounts', JSON.stringify(accounts) );
 
   }
-  public remove_account(){
-
+  public remove_account( characterIndex ){
+    let accounts = this.get_accounts();
+    accounts = accounts.filter( account => {
+      return account.characterId !== characterIndex;
+    });
+    localStorage.setItem( 'accounts', JSON.stringify(accounts) );
   }
   public update_account(){
 
