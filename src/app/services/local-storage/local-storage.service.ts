@@ -8,7 +8,15 @@ export class LocalStorageService {
   constructor() { }
 
   public get_refreshToken( characterIndex ): string{
-    return 'unimplemented';
+    let accounts:any = this.get_accounts();
+    let relevantAccount = accounts.find( account => {
+      return account.characterId === characterIndex;
+    });
+    if( relevantAccount === undefined ){
+      console.error('Cannot access a character that is not defined in the local storage.');
+    }else{
+      return relevantAccount.refreshToken;
+    }
   }
   public add_account( characterIndex: number, refreshToken: string ): void{
     let accounts: any = this.get_accounts();
@@ -35,7 +43,6 @@ export class LocalStorageService {
   }
   public update_refreshToken( characterIndex, refreshToken): void{
     let accounts:any = this.get_accounts();
-    // get the character
     let relevantAccount = accounts.find( account => {
       return account.characterId === characterIndex;
     });
