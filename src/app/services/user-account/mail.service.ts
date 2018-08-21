@@ -53,8 +53,8 @@ export class MailService {
     // request mails
     // use lastmailIndex to request more mails
     let mails = Mails;
-    mails = mails.map( mail => {
-      mail = new Mail( mail.mail_id );
+    mails = mails.map( mailInfo => {
+      let mail = new Mail( mailInfo.mail_id );
       this.mailMethods.append_sender( mail );
       return mail;
     });
