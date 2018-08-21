@@ -25,18 +25,6 @@ export class DashboardComponent implements OnInit {
   )
   {
     // TODO:  loaclstorage should be added if it is provided in the url
-    // TEMP: temporarily add localstorage until localStorage has been extended
-    localStorage.setItem('accounts', JSON.stringify(
-        [{
-          characterId: 93920413,// TEMP:
-          refreshToken: 'token',// TEMP:
-        },
-        {
-          characterId: 93898701,// TEMP:
-          refreshToken: 'token',// TEMP:
-        }]
-      )
-    );
   }
 
   ngOnInit() {
@@ -44,7 +32,8 @@ export class DashboardComponent implements OnInit {
     this.accounts$ = this.userAccountService.accounts$;
 
     // TEMP: localStorageService testing
-    console.log( this.localStorageService.get_accounts() );
+
+    // console.log( this.localStorageService.get_accounts() );
 
   }
   private account_signup(){
