@@ -7,6 +7,9 @@ export class LocalStorageService {
 
   constructor() { }
 
+  public get_refreshToken( characterIndex ){
+
+  }
   public add_account(){
 
   }
