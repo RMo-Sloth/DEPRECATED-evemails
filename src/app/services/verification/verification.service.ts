@@ -40,8 +40,15 @@ export class VerificationService {
     }
   }
 
-  private get_account( accountIndex: number ){
-
+  public get_account( accountIndex: number ): any { // TODO: typecheck
+    const accountExists = this.accountExists( accountIndex );
+    if( accountExists === true ){
+      return this.accounts.find( account => {
+        return account.accountIndex === accountIndex;
+      });
+    }else{ // accountExists === false
+      console.error("The account you tried to find doesn't exist!");
+    }
   }
   private accountExists( accountIndex: number ): boolean{
     const index = this.accounts.findIndex( account => {
