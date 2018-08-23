@@ -59,7 +59,10 @@ export class VerificationService {
     }
   }
   private update_refreshToken( accountIndex: number, newRefreshToken: string ): void{
-
+    const accountExists = this.accountExists( accountIndex );
+    if( accountExists === true ){
+      this.get_account( accountIndex ).refreshToken = newRefreshToken;
+    }
   }
 
   public get_accessToken( accountIndex: number ): string{
