@@ -15,7 +15,6 @@ export class VerificationService {
     refreshToken: string,
     accessToken: string
   ): void{
-    // check if account already exists
     const accountExists = this.accountExists( accountIndex );
     if( accountExists=== true ){
       // TODO: maybe update instead???
@@ -40,15 +39,10 @@ export class VerificationService {
     }
   }
 
-  public get_account( accountIndex: number ): any { // TODO: typecheck
-    const accountExists = this.accountExists( accountIndex );
-    if( accountExists === true ){
+  private get_account( accountIndex: number ): any { // TODO: typecheck account
       return this.accounts.find( account => {
         return account.accountIndex === accountIndex;
       });
-    }else{ // accountExists === false
-      console.error("The account you tried to find doesn't exist!");
-    }
   }
   private accountExists( accountIndex: number ): boolean{
     const index = this.accounts.findIndex( account => {
@@ -59,10 +53,12 @@ export class VerificationService {
   }
 
   private get_refreshToken( accountIndex: number ): string{
-    // TEMP:
-    return 'refreshToken';
+    const accountExists = this.accountExists( accountIndex );
+    if( accountExists === true ){
+      return this.get_account( accountIndex ).refreshToken;
+    }
   }
-  private update_refreshToken( accountIndex: number ): void{
+  private update_refreshToken( accountIndex: number, newRefreshToken: string ): void{
 
   }
 
@@ -70,7 +66,7 @@ export class VerificationService {
     // TEMP:
     return 'accessToken';
   }
-  private update_accessToken( accountIndex: number ): void{
+  private update_accessToken( accountIndex: number, newAccessToken: string ): void{
 
   }
 
