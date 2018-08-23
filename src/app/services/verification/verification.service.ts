@@ -66,8 +66,10 @@ export class VerificationService {
   }
 
   public get_accessToken( accountIndex: number ): string{
-    // TEMP:
-    return 'accessToken';
+    const accountExists = this.accountExists( accountIndex );
+    if( accountExists === true ){
+      return this.get_account( accountIndex ).accessToken;
+    }
   }
   private update_accessToken( accountIndex: number, newAccessToken: string ): void{
 
