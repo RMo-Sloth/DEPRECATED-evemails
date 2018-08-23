@@ -17,8 +17,9 @@ export class VerificationService {
   ): void{
     const accountExists = this.accountExists( accountIndex );
     if( accountExists=== true ){
-      // TODO: maybe update instead???
-      console.warn("An account you wanted to add already exists!");
+      this.update_accessToken( accountIndex, accessToken );
+      this.update_refreshToken( accountIndex, refreshToken );
+      console.warn("An account you wanted to add already exists! We updated the accessToken and refreshtoken with the ones recently provided.");
     }else{ // if accountExists === false
       let account = {
         accountIndex: accountIndex,
