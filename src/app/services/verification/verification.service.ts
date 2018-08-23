@@ -11,56 +11,63 @@ export class VerificationService {
 
 
   public add_account(
-    characterIndex: number,
+    accountIndex: number,
     refreshToken: string,
     accessToken: string
   ): void{
     // check if account already exists
-    const accountExists = this.accountExists( characterIndex );
+    const accountExists = this.accountExists( accountIndex );
     if( accountExists=== true ){
       // TODO: maybe update instead???
+      console.warn("An account you wanted to add already exists!");
     }else{ // if accountExists === false
       let account = {
-        characterIndex: characterIndex,
+        accountIndex: accountIndex,
         refreshToken: refreshToken,
         accessToken: accessToken
       };
       this.accounts.push( account ); // TODO: typecheck
     }
   }
-  public remove_account( characterIndex: number ): void{
-
+  public remove_account( accountIndex: number ): void{
+    const accountExists = this.accountExists( accountIndex );
+    if( accountExists === true ){
+      this.accounts = this.accounts.filter( account => {
+        return account.accountIndex !== accountIndex;
+      });
+    }else{ // if accountExists === false
+      console.warn("Tried to remove an account that doesn't exist!");
+    }
   }
 
-  private get_account( characterIndex: number ){
+  private get_account( accountIndex: number ){
 
   }
-  private accountExists( characterIndex: number ): boolean{
-    );
+  private accountExists( accountIndex: number ): boolean{
     const index = this.accounts.findIndex( account => {
-      return account.characterIndex === characterIndex;
+      return account.accountIndex === accountIndex;
     });
     // return true if the account is found ( when index doesn't equal -1)
     return ( index !== -1 );
   }
 
-  private get_refreshToken( characterIndex: number ): string{
+  private get_refreshToken( accountIndex: number ): string{
     // TEMP:
     return 'refreshToken';
   }
-  private update_refreshToken( characterIndex: number ): void{
+  private update_refreshToken( accountIndex: number ): void{
 
   }
 
-  public get_accessToken( characterIndex: number ): string{
+  public get_accessToken( accountIndex: number ): string{
     // TEMP:
     return 'accessToken';
   }
-  private update_accessToken( characterIndex: number ): void{
+  private update_accessToken( accountIndex: number ): void{
 
   }
 
-  public refresh_tokens( characterIndex: number ): void{
+  public refresh_tokens( accountIndex: number ): void{
     // TODO: recursive function with a timeOut based on the experationTime??
   }
 
