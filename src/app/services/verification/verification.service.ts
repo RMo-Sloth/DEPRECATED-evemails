@@ -72,7 +72,10 @@ export class VerificationService {
     }
   }
   private update_accessToken( accountIndex: number, newAccessToken: string ): void{
-
+    const accountExists = this.accountExists( accountIndex );
+    if( accountExists === true ){
+      return this.get_account( accountIndex ).accessToken = newAccessToken;
+    }
   }
 
   public refresh_tokens( accountIndex: number ): void{
