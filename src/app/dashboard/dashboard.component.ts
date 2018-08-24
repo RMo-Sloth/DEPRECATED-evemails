@@ -7,7 +7,8 @@ import{ Character } from '../classes/character/Character';
 import { AppStateService } from '../app-state.service';
 import{ UserAccountService } from '../services/user-account.service';
 import{ MailService } from '../services/user-account/mail.service';
-import { LocalStorageService } from '../services/local-storage/local-storage.service'
+import { LocalStorageService } from '../services/local-storage/local-storage.service';
+import { VerificationService } from '../services/verification/verification.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,18 +22,28 @@ export class DashboardComponent implements OnInit {
     public  appStateService : AppStateService,
     public  userAccountService : UserAccountService,
     public mailService: MailService,
-    public localStorageService: LocalStorageService
+    public localStorageService: LocalStorageService,
+    public verificationService: VerificationService
   )
   {
     // TODO:  loaclstorage should be added if it is provided in the url
   }
 
   ngOnInit() {
-    this.appStateService.currentPageName='dashboard';
+    this.appStateService.currentPageName = 'dashboard';
     this.accounts$ = this.userAccountService.accounts$;
+
+
+    // TEMP: tests
+    this.verificationService.add_account( 100, 'res', 'ac' );
+    this.verificationService.add_account( 100, 're', 'ac' );
+    // this.verificationService.update_accessToken( 100, 'hello-token' )
+    console.log(
+      this.verificationService.accounts
+    );
   }
   private account_signup(){
-      location.href="https://login.eveonline.com/oauth/authorize?response_type=code&redirect_uri=https://www.eve-mails.com&Client_id=31fb6d6b42ef4528a267376f4b73d19f&scope=esi-mail.read_mail.v1%20esi-mail.organize_mail.v1%20esi-mail.send_mail.v1";
+      location.href="https://login.eveonline.com/oauth/authorize?response_type=code&redirect_uri=http://localhost:4200/dashboard&Client_id=ca211b71e15249ed8ce2d36f034f6024&scope=esi-mail.read_mail.v1%20esi-mail.organize_mail.v1%20esi-mail.send_mail.v1";
   }
   private remove_account( character: Character ){
     // TEMP: might want to replace the confirm with a styled popup at some point
