@@ -16,7 +16,7 @@ export class VerificationService {
     accessToken: string
   ): void{
     const accountExists = this.accountExists( accountIndex );
-    if( accountExists=== true ){
+    if( accountExists === true ){
       this.update_accessToken( accountIndex, accessToken );
       this.update_refreshToken( accountIndex, refreshToken );
       console.warn("An account you wanted to add already exists! We updated the accessToken and refreshtoken with the ones recently provided.");
@@ -75,12 +75,17 @@ export class VerificationService {
   private update_accessToken( accountIndex: number, newAccessToken: string ): void{
     const accountExists = this.accountExists( accountIndex );
     if( accountExists === true ){
-      return this.get_account( accountIndex ).accessToken = newAccessToken;
+      this.get_account( accountIndex ).accessToken = newAccessToken;
     }
   }
 
   public refresh_tokens( accountIndex: number ): void{
-    // TODO: recursive function with a timeOut based on the experationTime??
+    // get refresh token
+    
+    // request new accessToken from the eve server
+    // save the token
+    // calculate the duration for until the token needs refreshment
+    // recurse after timeout
   }
 
 }

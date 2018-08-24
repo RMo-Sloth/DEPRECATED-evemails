@@ -18,11 +18,13 @@ export class LocalStorageService {
       return relevantAccount.refreshToken;
     }
   }
-  public add_account( characterIndex: number, refreshToken: string ): void{
+  public add_account( characterIndex: number, accessToken: string,refreshToken: string ): void{
     let accounts: any = this.get_accounts();
+    alert(accessToken);
     let newAccount: any = {
       characterId: characterIndex,
-      refreshToken: refreshToken
+      refreshToken: refreshToken,
+      accessToken: accessToken
     };
     for( let i=0; i<accounts.length; i++){
       if( accounts[i].characterId === characterIndex ){
@@ -55,7 +57,7 @@ export class LocalStorageService {
   }
   public get_accounts(): any { // TODO: typecheck might be nice
     const accounts:any = localStorage.getItem('accounts');
-    if( accounts === undefined ){
+    if( accounts === null ){
       return [];
     }else{
       return JSON.parse( accounts );

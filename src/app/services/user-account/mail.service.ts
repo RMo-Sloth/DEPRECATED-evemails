@@ -24,6 +24,7 @@ export class MailService {
     public mailMethods: MailMethodsService
   ) {
     let accounts = JSON.parse( localStorage.getItem('accounts') );
+    accounts = ( accounts === null ) ? [] : accounts ;
     accounts.forEach( account => {
       this.add_account( account.characterId );
       // TODO: add a service that obtains the mails
