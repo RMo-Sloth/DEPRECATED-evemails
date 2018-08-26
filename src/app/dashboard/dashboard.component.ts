@@ -6,6 +6,7 @@ import { BehaviorSubject } from 'rxjs';
 
 import { MailAccount } from '../classes/MailAccount';
 import{ Character } from '../classes/character/Character';
+import{ Account } from '../classes/account/Account';
 
 import { AppStateService } from '../app-state.service';
 import{ UserAccountService } from '../services/user-account.service';
@@ -19,7 +20,7 @@ import { VerificationService } from '../services/verification/verification.servi
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  public accounts$: BehaviorSubject<Character[]>;
+  public accounts$: BehaviorSubject<Account[]>;
 
   constructor(
     public  appStateService : AppStateService,
@@ -38,23 +39,23 @@ export class DashboardComponent implements OnInit {
     this.appStateService.currentPageName = 'dashboard';
     this.accounts$ = this.userAccountService.accounts$;
     // TEMP: temporary way to obtain parameter values from the url
-    if( this.route.fragment.value !== null ){
-      let params = this.route.fragment.value.split("&");
-      let newParams = [];
-        params.forEach( param => {
-          param = param.split('=');
-          newParams[param[0]] = param[1];
-        });
-        if( newParams.access_token !== null ){
-          let accessToken = newParams.access_token;
-          this.get_accountInfo( accessToken )
-            .subscribe( accountInfo => {
-              let characterId = accountInfo.CharacterID;
-              let accessToken = newParams.access_token;
-              let refreshToken = 'refresh-token';
-              this.add_account( characterId, accessToken, refreshToken );
-            });
-        }
+    if( this.route.paramMap ){
+      // let params: any = this.route.fragment.value.split("&");
+      // let newParams: any = [];
+      //   params.forEach( param => {
+      //     param = param.split('=');
+      //     newParams[param[0]] = param[1];
+      //   });
+      //   if( newParams.access_token !== null ){
+      //     let accessToken = newParams.access_token;
+      //     this.get_accountInfo( accessToken )
+      //       .subscribe( accountInfo => {
+      //         let characterId: number = accountInfo.CharacterID;
+      //         let accessToken: string = newParams.access_token;
+      //         let refreshToken: string = 'refresh-token';
+      //         this.add_account( characterId, accessToken, refreshToken );
+      //       });
+      //   }
     }
   }
   private account_signup(){
@@ -83,7 +84,7 @@ export class DashboardComponent implements OnInit {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
         'Authorization': `Bearer ${accessToken}`
-      }
+      })
     };
     // there was an issue where the old accountInfo got loaded repeatably.
     // the accessToken is added to the url to prevent browser-caching.

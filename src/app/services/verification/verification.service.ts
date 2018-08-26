@@ -3,6 +3,9 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
+
+// this service is responsible for keeping verification token up-to-date
+// TODO: remove/refacter the accounts out in favor of a more functional approach (SRP)
 export class VerificationService {
 
   accounts: any[] = []; // TODO: more strict typecheck
@@ -81,7 +84,7 @@ export class VerificationService {
 
   public refresh_tokens( accountIndex: number ): void{
     // get refresh token
-    
+
     // request new accessToken from the eve server
     // save the token
     // calculate the duration for until the token needs refreshment

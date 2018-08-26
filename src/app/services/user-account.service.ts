@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
+import { Account } from '../classes/account/Account';
 import{ Character } from '../classes/character/Character';
 
 import { CharactersService } from './characters/characters.service';
@@ -9,8 +10,8 @@ import { CharactersService } from './characters/characters.service';
   providedIn: 'root'
 })
 export class UserAccountService {
-  accounts: Character[] = [];
-  accounts$: BehaviorSubject<Character[]> = new BehaviorSubject([]);
+  accounts: Account[] = [];
+  accounts$: BehaviorSubject<Account[]> = new BehaviorSubject([]);
   // TODO: an account should consist of a Character, mailAccount and tokenService, better to `keep 'em separeted`, account only returns a character, but it should also initiate the other service ( opposed to contain them)
 
   constructor(
@@ -24,25 +25,27 @@ export class UserAccountService {
       });
     }
   }
-  private add_account( characterId ):void{
+  public add_account( characterId ):void{
     let exists = this.accounts.some( account => {
-      return account.characterId === characterId;
+      return account.character.characterId === characterId;
     });
     if( exists === false ){
+      let account = new Account();
       let character = this.characterService.get_character( characterId );
-      this.accounts.push( character );
+      account.character = character;
+      this.accounts.push( account );
       this.accounts$.next( this.accounts );
     }
   }
   public remove_account( characterIndex:number ): void{
     this.accounts = this.accounts.filter( account => {
-      return account.characterId !== characterIndex;
+      return account.character.characterId !== characterIndex;
     });
     this.accounts$.next( this.accounts );
   }
-  public get_account( characterIndex: number ): Character{
+  public get_account( characterIndex: number ): Account{
     for( let i=0; this.accounts.length > i; i++ ){
-      if( this.accounts[i].characterId  === characterIndex ){
+      if( this.accounts[i].character.characterId  === characterIndex ){
         return this.accounts[i];
       }
     }
