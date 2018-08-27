@@ -25,6 +25,12 @@ export class SignupService {
   ) { }
 
   public signup_account( accessToken ): void{
+    // TODO:  we should retreive the accessToken, refreshToken and expiration through a serverside request, the parameter of this function should then be the authorization_code not the accessToken.
+    this.get_accountInfo( accessToken )
+      .subscribe( (accountInfo: BasicAccountInfo) => {
+        const characterIndex = accountInfo.CharacterID;
+        this.register_account( characterIndex, accessToken, '')
+      });
   }
   private get_accountInfo( accessToken ): Observable<BasicAccountInfo>{
     const httpOptions = {
