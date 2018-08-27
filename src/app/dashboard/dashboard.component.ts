@@ -9,6 +9,7 @@ import { AppStateService } from '../app-state.service';
 import{ UserAccountService } from '../services/user-account.service';
 import { LocalStorageService } from '../services/local-storage/local-storage.service';
 import { VerificationService } from '../services/verification/verification.service';
+import { SignupService } from '../services/signup/signup.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -24,7 +25,8 @@ export class DashboardComponent implements OnInit {
     public localStorageService: LocalStorageService,
     public verificationService: VerificationService,
     public http: HttpClient,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private signupService: SignupService
   )
   {
     // TODO:  loaclstorage should be added if it is provided in the url
@@ -35,6 +37,7 @@ export class DashboardComponent implements OnInit {
     this.accounts$ = this.userAccountService.accounts$;
     // TEMP: temporary way to obtain parameter values from the url
     this.route.fragment.subscribe( fragment => {
+    console.log(fragment);
       if( fragment !== null){
         let params: any = fragment.split("&");
         let paramArray: any = [];
@@ -44,13 +47,7 @@ export class DashboardComponent implements OnInit {
           });
           if( paramArray.access_token !== null ){
             let accessToken = paramArray.access_token;
-            this.get_accountInfo( accessToken )
-              .subscribe( (accountInfo: any) => {
-                let characterId: number = accountInfo.CharacterID;
-                let accessToken: string = paramArray.access_token;
-                let refreshToken: string = 'refresh-token';
-                this.add_account( characterId, accessToken, refreshToken );
-              });
+            this.signupService.signup_account( accessToken );
           }
       }
     });
@@ -66,25 +63,5 @@ export class DashboardComponent implements OnInit {
       // TODO: remove account from tokenservice
       // TODO: remove accounts from mailservice
     }
-  }
-  // TODO: maybe refactor to s seperate authentication service
-  private authenticate_account( authorization_code: string ){
-
-  }
-  private add_account( characterId: number, accessToken: string, refresh_token: string ){
-    this.userAccountService.add_account( characterId );
-    this.localStorageService.add_account( characterId, accessToken, refresh_token );
-  }
-  // TODO: refactor to seperate service
-  private get_accountInfo( accessToken ){
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-        'Authorization': `Bearer ${accessToken}`
-      })
-    };
-    // there was an issue where the old accountInfo got loaded repeatably.
-    // the accessToken is added to the url to prevent browser-caching.
-    return this.http.get(`https://esi.tech.ccp.is/verify/?token=${accessToken}`, httpOptions);
   }
 }
