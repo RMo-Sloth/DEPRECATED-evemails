@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 
@@ -8,7 +7,6 @@ import{ Account } from '../classes/account/Account';
 import { AppStateService } from '../app-state.service';
 import{ UserAccountService } from '../services/user-account.service';
 import { LocalStorageService } from '../services/local-storage/local-storage.service';
-import { VerificationService } from '../services/verification/verification.service';
 import { SignupService } from '../services/signup/signup.service';
 
 @Component({
@@ -23,21 +21,17 @@ export class DashboardComponent implements OnInit {
     public  appStateService : AppStateService,
     public  userAccountService : UserAccountService,
     public localStorageService: LocalStorageService,
-    public verificationService: VerificationService,
-    public http: HttpClient,
     private route: ActivatedRoute,
     private signupService: SignupService
   )
-  {
-    // TODO:  loaclstorage should be added if it is provided in the url
-  }
+  {}
 
   ngOnInit() {
     this.appStateService.currentPageName = 'dashboard';
     this.accounts$ = this.userAccountService.accounts$;
     // TEMP: temporary way to obtain parameter values from the url
     this.route.fragment.subscribe( fragment => {
-    console.log(fragment);
+    console.log(fragment); // TODO: why is this undefined after navigation from a mailbox, etc?!?!
       if( fragment !== null){
         let params: any = fragment.split("&");
         let paramArray: any = [];
