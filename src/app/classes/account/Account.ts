@@ -1,9 +1,8 @@
 import { Character } from '../character/Character';
+import { UserTokens } from '../user-tokens/UserTokens';
 
 export class Account{
   public character: Character;
-  public accessToken: string;
-  public refreshToken: string;
-
+  public userTokens: UserTokens;
   public constructor(){}
 }

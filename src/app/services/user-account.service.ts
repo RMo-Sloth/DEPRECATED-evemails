@@ -2,17 +2,19 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 import { Account } from '../classes/account/Account';
-import{ Character } from '../classes/character/Character';
+import { Character } from '../classes/character/Character';
+import { UserTokens } from '../classes/user-tokens/UserTokens';
 
 import { CharactersService } from './characters/characters.service';
 
 @Injectable({
   providedIn: 'root'
 })
+
+// the UserAccountService manages and stores all data related to the accounts
 export class UserAccountService {
   accounts: Account[] = [];
   accounts$: BehaviorSubject<Account[]> = new BehaviorSubject([]);
-  // TODO: an account should consist of a Character, mailAccount and tokenService, better to `keep 'em separeted`, account only returns a character, but it should also initiate the other service ( opposed to contain them)
 
   constructor(
     public characterService: CharactersService
@@ -21,18 +23,24 @@ export class UserAccountService {
     {
       let accounts = JSON.parse( localStorage.getItem('accounts') );
       accounts.forEach( account => {
-        this.add_account( account.characterId );
+        this.add_account( account.characterId, account.accessToken, account.refreshToken );
       });
     }
   }
-  public add_account( characterId ):void{
+  public add_account( characterId: number,  accessToken: string, refreshToken: string ):void{
     let exists = this.accounts.some( account => {
       return account.character.characterId === characterId;
     });
     if( exists === false ){
       let account = new Account();
       let character = this.characterService.get_character( characterId );
+      let userTokens = new UserTokens();
+        userTokens.accessToken = '';
+        userTokens.refreshToken = '';
+        userTokens.expirationTime = '';
       account.character = character;
+      account.userTokens = userTokens;
+
       this.accounts.push( account );
       this.accounts$.next( this.accounts );
     }

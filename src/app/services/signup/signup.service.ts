@@ -44,7 +44,7 @@ export class SignupService {
     return this.http.get<BasicAccountInfo>(`https://esi.tech.ccp.is/verify/?token=${accessToken}`, httpOptions);
   }
   private register_account( characterIndex, accessToken, refreshToken ){
-    this.userAccountService.add_account( characterIndex ); // TODO: should add accessToken too.
+    this.userAccountService.add_account( characterIndex,  accessToken, refreshToken ); // TODO: should add accessToken too.
     this.localStorageService.add_account( characterIndex, accessToken, refreshToken ); // TODO: add expiration time of accessToken too
   }
 
