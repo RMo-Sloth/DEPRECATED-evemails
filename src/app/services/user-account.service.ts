@@ -11,7 +11,7 @@ import { CharactersService } from './characters/characters.service';
   providedIn: 'root'
 })
 
-// the UserAccountService manages and stores all data related to the accounts
+// the UserAccountService manages and stores all data related to the various accounts
 export class UserAccountService {
   accounts: Account[] = [];
   accounts$: BehaviorSubject<Account[]> = new BehaviorSubject([]);
