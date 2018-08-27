@@ -39,33 +39,35 @@ export class DashboardComponent implements OnInit {
     this.appStateService.currentPageName = 'dashboard';
     this.accounts$ = this.userAccountService.accounts$;
     // TEMP: temporary way to obtain parameter values from the url
-    if( this.route.paramMap ){
-      // let params: any = this.route.fragment.value.split("&");
-      // let newParams: any = [];
-      //   params.forEach( param => {
-      //     param = param.split('=');
-      //     newParams[param[0]] = param[1];
-      //   });
-      //   if( newParams.access_token !== null ){
-      //     let accessToken = newParams.access_token;
-      //     this.get_accountInfo( accessToken )
-      //       .subscribe( accountInfo => {
-      //         let characterId: number = accountInfo.CharacterID;
-      //         let accessToken: string = newParams.access_token;
-      //         let refreshToken: string = 'refresh-token';
-      //         this.add_account( characterId, accessToken, refreshToken );
-      //       });
-      //   }
-    }
+    this.route.fragment.subscribe( fragment => {
+      if( fragment !== null){
+        let params: any = fragment.split("&");
+        let paramArray: any = [];
+          params.forEach( param => {
+            param = param.split('=');
+            paramArray[param[0]] = param[1];
+          });
+          if( paramArray.access_token !== null ){
+            let accessToken = paramArray.access_token;
+            this.get_accountInfo( accessToken )
+              .subscribe( (accountInfo: any) => {
+                let characterId: number = accountInfo.CharacterID;
+                let accessToken: string = paramArray.access_token;
+                let refreshToken: string = 'refresh-token';
+                this.add_account( characterId, accessToken, refreshToken );
+              });
+          }
+      }
+    });
   }
   private account_signup(){
       location.href="https://login.eveonline.com/oauth/authorize?response_type=token&redirect_uri=http://localhost:4200/dashboard&Client_id=ca211b71e15249ed8ce2d36f034f6024";
   }
-  private remove_account( character: Character ){
+  private remove_account( account: Account ){
     // TEMP: might want to replace the confirm with a styled popup at some point
-    if ( window.confirm(`Are you sure you want to remove ${character.name}'s account?`) === true){
-      this.userAccountService.remove_account( character.characterId );
-      this.localStorageService.remove_account( character.characterId );
+    if ( window.confirm(`Are you sure you want to remove ${account.character.name}'s account?`) === true){
+      this.userAccountService.remove_account( account.character.characterId );
+      this.localStorageService.remove_account( account.character.characterId );
       // TODO: remove account from tokenservice
       // TODO: remove accounts from mailservice
     }
