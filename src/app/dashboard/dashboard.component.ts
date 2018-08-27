@@ -4,13 +4,10 @@ import { HttpHeaders } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 
-import { MailAccount } from '../classes/MailAccount';
-import{ Character } from '../classes/character/Character';
 import{ Account } from '../classes/account/Account';
 
 import { AppStateService } from '../app-state.service';
 import{ UserAccountService } from '../services/user-account.service';
-import{ MailService } from '../services/user-account/mail.service';
 import { LocalStorageService } from '../services/local-storage/local-storage.service';
 import { VerificationService } from '../services/verification/verification.service';
 
@@ -25,7 +22,6 @@ export class DashboardComponent implements OnInit {
   constructor(
     public  appStateService : AppStateService,
     public  userAccountService : UserAccountService,
-    public mailService: MailService,
     public localStorageService: LocalStorageService,
     public verificationService: VerificationService,
     public http: HttpClient,
@@ -65,7 +61,7 @@ export class DashboardComponent implements OnInit {
   }
   private remove_account( account: Account ){
     // TEMP: might want to replace the confirm with a styled popup at some point
-    if ( window.confirm(`Are you sure you want to remove ${account.character.name}'s account?`) === true){
+    if ( window.confirm(`Are you sure you want to remove ${account.character.name}'s account?`) === true ){
       this.userAccountService.remove_account( account.character.characterId );
       this.localStorageService.remove_account( account.character.characterId );
       // TODO: remove account from tokenservice
