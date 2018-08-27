@@ -34,7 +34,7 @@ export class DashboardComponent implements OnInit {
     // TEMP: temporary way to obtain parameter values from the url
     this.route.fragment.subscribe( fragment => {
     console.log(fragment); // TODO: why is this undefined after navigation from a mailbox, etc?!?!
-      if( fragment !== null){
+      if( fragment !== null && fragment !== undefined ){
         let params: any = fragment.split("&");
         let paramArray: any = [];
           params.forEach( param => {
