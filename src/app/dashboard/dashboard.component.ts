@@ -5,9 +5,10 @@ import { BehaviorSubject } from 'rxjs';
 import{ Account } from '../classes/account/Account';
 
 import { AppStateService } from '../app-state.service';
-import{ UserAccountService } from '../services/user-account.service';
+import { UserAccountService } from '../services/user-account.service';
 import { LocalStorageService } from '../services/local-storage/local-storage.service';
 import { SignupService } from '../services/signup/signup.service';
+import { SignoutService } from '../services/signout/signout.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,7 +23,8 @@ export class DashboardComponent implements OnInit {
     public  userAccountService : UserAccountService,
     public localStorageService: LocalStorageService,
     private route: ActivatedRoute,
-    private signupService: SignupService
+    private signupService: SignupService,
+    private signoutService: SignoutService
   )
   {}
 
@@ -49,13 +51,10 @@ export class DashboardComponent implements OnInit {
   private account_signup(){
       location.href="https://login.eveonline.com/oauth/authorize?response_type=token&redirect_uri=http://localhost:4200/dashboard&Client_id=ca211b71e15249ed8ce2d36f034f6024";
   }
-  private remove_account( account: Account ){
+  private account_signout( account: Account ){
     // TEMP: might want to replace the confirm with a styled popup at some point
     if ( window.confirm(`Are you sure you want to remove ${account.character.name}'s account?`) === true ){
-      this.userAccountService.remove_account( account.character.characterId );
-      this.localStorageService.remove_account( account.character.characterId );
-      // TODO: remove account from tokenservice
-      // TODO: remove accounts from mailservice
+      this.signoutService.remove_account( account );
     }
   }
 }
