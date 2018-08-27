@@ -18,7 +18,7 @@ export class LocalStorageService {
       return relevantAccount.refreshToken;
     }
   }
-  public add_account( characterIndex: number, accessToken: string,refreshToken: string ): void{
+  public add_account( characterIndex: number, accessToken: string, refreshToken: string ): void{
     let accounts: any = this.get_accounts();
     alert(accessToken);
     let newAccount: any = {
