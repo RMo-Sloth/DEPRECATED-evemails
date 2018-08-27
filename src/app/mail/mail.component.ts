@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { Mail } from '../classes/mail/Mail';
 import{ Character } from '../classes/character/Character';
+import{ Account } from '../classes/account/Account';
 
 import { AppStateService } from '../app-state.service';
 import{ UserAccountService } from '../services/user-account.service';
@@ -15,7 +16,7 @@ import{ MailService } from '../services/user-account/mail.service';
   styleUrls: ['./mail.component.css']
 })
 export class MailComponent implements OnInit {
-  account: Character;
+  account: Account;
   mail: Mail;
   navigationButtons; // TODO: typecheck
   constructor(
@@ -37,7 +38,7 @@ export class MailComponent implements OnInit {
     let mailIndex = parseInt( this.route.snapshot.paramMap.get('mail_id') );
     this.mail = this.mailService.getMail( mailIndex );
         // .subscribe(mail => this.mail = mail);
-    this.appStateService.currentPageName = this.account.name;
+    this.appStateService.currentPageName = this.account.character.name;
   }
 
 }

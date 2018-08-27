@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { Mail } from '../classes/mail/Mail';
 import{ Character } from '../classes/character/Character';
+import{ Account } from '../classes/account/Account';
 
 import{ AppStateService } from '../app-state.service';
 import{ UserAccountService } from '../services/user-account.service';
@@ -14,7 +15,7 @@ import{ MailService } from '../services/user-account/mail.service';
   styleUrls: ['./received-mails.component.css']
 })
 export class ReceivedMailsComponent implements OnInit {
-  account: Character;
+  account: Account;
   mails: Mail[];
   navigationButtons; // TODO: typecheck
   constructor(
@@ -28,11 +29,11 @@ export class ReceivedMailsComponent implements OnInit {
     this.navigationButtons = [
       { faClass: 'home', routerUrl: '/dashboard'},
       { faClass: 'search', routerUrl: '/dashboard'},
-      { faClass: 'pencil', routerUrl: `/${this.account.characterId}/new-mail`}
+      { faClass: 'pencil', routerUrl: `/${this.account.character.characterId}/new-mail`}
     ];
   }
   ngOnInit() {
-    this.appStateService.currentPageName = this.account.name;
+    this.appStateService.currentPageName = this.account.character.name;
     this.mailService.getMails()
         .subscribe(mails => this.mails = mails);
   }

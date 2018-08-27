@@ -1,12 +1,12 @@
 <div id='accounts'>
-  <div class='account' *ngFor="let account of accounts$ | async" routerLink="/{{account.characterId}}/inbox">
-    <div class='account-image' [style.background]="account.portraits.px128x128 | url">
+  <div class='account' *ngFor="let account of accounts$ | async" routerLink="/{{account.character.characterId}}/inbox">
+    <div class='account-image' [style.background]="account.character.portraits.px128x128 | url">
       <!-- <i class='fa fa-envelope' *ngIf='account.mailAccount.unreadMails'>{{account.mailAccount.unreadMails}}</i> -->
       <!-- TEMP: envelope -->
         <i class='fa fa-envelope'>5</i>
-        <i class='fa fa-times' (click)="remove_account(account); $event.stopPropagation()"></i>
+        <i class='fa fa-times' (click)="account_signout(account); $event.stopPropagation()"></i>
     </div>
-    <h6>{{account.name}}</h6>
+    <h6>{{account.character.name}}</h6>
   </div>
   <div class='account' (click)="account_signup()">
     <div class='account-image new' >
