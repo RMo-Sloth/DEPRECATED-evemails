@@ -1,7 +1,7 @@
 export class UserTokens {
   public accessToken: string;
   public refreshToken: string;
-  public expirationTime: string;
+  public expired: number;
 
   public constructor(){}
 }

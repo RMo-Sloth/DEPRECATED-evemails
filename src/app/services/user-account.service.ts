@@ -37,7 +37,7 @@ export class UserAccountService {
       let userTokens = new UserTokens();
         userTokens.accessToken = '';
         userTokens.refreshToken = '';
-        userTokens.expirationTime = '';
+        userTokens.expired = 0;
       account.character = character;
       account.userTokens = userTokens;
 
@@ -61,18 +61,3 @@ export class UserAccountService {
     console.log('Account can not be found! Maybe look somewhere else?!?');
   }
 }
-
-
-
-// TODO: write a validationService
-// TODO: all the below:
-// after reirect of teh account verification we will get a:
-// * access token
-// * refresh token
-// * token expiration time ( will need to check this every minute through the app-state? And refresh when necessary. The appstate will set the frequency and UserAccountService will figure out when to update )
-// * With this info we can verify through our own server and get the characterId
-// * characterId
-// characterId, and refresh token should be stored in a cookie
-// With the token and characterId we can gather all kinds of information
-// * characterImageUrls
-// * characterName
