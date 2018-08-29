@@ -21,7 +21,6 @@ export class DashboardComponent implements OnInit {
   constructor(
     public  appStateService : AppStateService,
     public  userAccountService : UserAccountService,
-    public localStorageService: LocalStorageService,
     private route: ActivatedRoute,
     private signupService: SignupService,
     private signoutService: SignoutService

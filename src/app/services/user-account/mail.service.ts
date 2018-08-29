@@ -9,10 +9,6 @@ import{ Account } from '../../classes/account/Account';
 import { MailAccount } from '../../classes/MailAccount';
 import { CharactersService } from '../characters/characters.service';
 
-
-// TEMP: Mails
-import { Mails } from '../../mock-mails';
-
 @Injectable({
   providedIn: 'root'
 })
@@ -28,7 +24,7 @@ export class MailService {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
-        'Authorization': `Bearer ${account.userTokens.accessToken}`
+        'Authorization': `Bearer ${account.userTokens.accessToken}`// TODO: get the accessToken from a function
       })
     };
     const url = `https://esi.evetech.net/latest/characters/${account.character.characterId}/mail/?datasource=tranquility`;
