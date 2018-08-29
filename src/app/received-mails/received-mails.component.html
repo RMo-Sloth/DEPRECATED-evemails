@@ -1,5 +1,5 @@
 <ul id='received-mails'>
-  <li *ngFor="let mail of mails" routerLink="/{{account.character.characterId}}/mail/{{mail.index}}">
+  <li *ngFor="let mail of account.mails" routerLink="/{{account.character.characterId}}/mail/{{mail.index}}">
     <div class='sender-image'>
       <img src="{{mail.sender.portraits.px64x64}}"/>
     </div>
