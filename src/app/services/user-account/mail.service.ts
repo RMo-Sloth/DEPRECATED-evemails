@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Mail } from '../../classes/mail/Mail';
 import { MailMethodsService } from '../../classes/mail/mail-methods.service';
+import{ Account } from '../../classes/account/Account';
 
 import { MailAccount } from '../../classes/MailAccount';
-
+import { CharactersService } from '../characters/characters.service';
 
 
 // TEMP: Mails
@@ -15,64 +17,47 @@ import { Mails } from '../../mock-mails';
   providedIn: 'root'
 })
 export class MailService {
-  accounts:MailAccount[] = [];
-  mails: Mail[] = [];// TEMP: mails array should be refactored into the accounts
-  hasMore_Mails: boolean = true;// TEMP: should be refactored into the mailAccount
-  hasRequested_mails: boolean = false;// TEMP: should be refactored in the mailAccount
 
   constructor(
-    public mailMethods: MailMethodsService
-  ) {
-    let accounts = JSON.parse( localStorage.getItem('accounts') );
-    accounts = ( accounts === null ) ? [] : accounts ;
-    accounts.forEach( account => {
-      this.add_account( account.characterId );
-      // TODO: add a service that obtains the mails
-    });
+    public mailMethods: MailMethodsService,
+    private http: HttpClient,
+    private charactersService: CharactersService
+  ) {}
+
+  getMails( account: Account ): void {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': `Bearer ${account.userTokens.accessToken}`
+      })
+    };
+    const url = `https://esi.evetech.net/latest/characters/${account.character.characterId}/mail/?datasource=tranquility`;
+    this.http.get( url, httpOptions )
+      .subscribe( ( mails: any ) => {
+        mails.forEach( receivedMail => {
+          let mail = new Mail( receivedMail.mail_id );
+          if( receivedMail.is_read === true ){
+            mail.is_read = true;
+          };
+          mail.senderIndex = receivedMail.from;
+          mail.sender = this.charactersService.get_character( mail.senderIndex );
+          mail.subject = receivedMail.subject;
+          mail.labels = receivedMail.labels;
+          mail.timestamp = new Date( receivedMail.timestamp );
+          this.addMail( mail, account );
+        });
+      });
   }
-  private add_account( characterId ){
-    // TODO: accounts should be created in the user-account-service
-    // TODO: prevent creation of identical characters
-    let mail = new MailAccount( characterId );
-    this.accounts.push( mail );
-  }
-  get_account( characterId ){
-    for(let i=0; i<this.accounts.length; i++){
-      return this.accounts[i];
+  private addMail( mail: Mail, account: Account ):void{
+    account.mails.push( mail );
+    if( mail.is_read === false ){
+      account.unreadMails++;
     }
   }
-  getMails(): Observable<Mail[]> {
-    if( this.hasRequested_mails === false ){
-      this.get50Mails()
-    }
-    return of(this.mails)
-  }
-  private addMail( mail ):void{
-    this.mails.push( mail );
-  }
-  get50Mails(): void {
-    // request mails
-    // use lastmailIndex to request more mails
-    let mockmails = Mails;
-    let mails = mockmails.map( mailInfo => {
-      let mail = new Mail( mailInfo.mail_id );
-      this.mailMethods.append_sender( mail );
-      return mail;
-    });
-    // if less than 50 mails are received set hasMore_Mails to false
-    if( mails.length < 50 ){ // untested
-      this.hasMore_Mails = false;
-    }
-    // add all new mails to the array
-    mails.forEach( mail => {
-      this.addMail( mail );
-    });
-    // tell the MailService one or more mailrequests have been received
-    this.hasRequested_mails = true;
-    // if all mails have been received set unloaded mails to false
-  }
-  public getMail( mailId: number ){
-    let foundMail = this.mails.find( mail => {
+
+  // TODO: refactor to mail methods
+  public getMail( account: Account, mailId: number ){
+    let foundMail = account.mails.find( mail => {
       return mailId === mail.index;
     });
     if( foundMail === undefined ){

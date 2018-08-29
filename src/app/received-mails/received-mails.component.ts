@@ -34,8 +34,8 @@ export class ReceivedMailsComponent implements OnInit {
   }
   ngOnInit() {
     this.appStateService.currentPageName = this.account.character.name;
-    this.mailService.getMails()
-        .subscribe(mails => this.mails = mails);
+    // this.mailService.getMails()
+    //     .subscribe(mails => this.mails = mails);
   }
   // TODO: click on a read-more button to retreive more mails
   // TODO: apply filters on ngOnInit() ( before view )

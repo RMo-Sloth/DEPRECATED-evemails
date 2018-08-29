@@ -49,7 +49,7 @@ export class DashboardComponent implements OnInit {
     });
   }
   private account_signup(){
-      location.href="https://login.eveonline.com/oauth/authorize?response_type=token&redirect_uri=http://localhost:4200/dashboard&Client_id=ca211b71e15249ed8ce2d36f034f6024";
+      location.href="https://login.eveonline.com/oauth/authorize?response_type=token&redirect_uri=http://localhost:4200/dashboard&Client_id=ca211b71e15249ed8ce2d36f034f6024&scope=esi-mail.organize_mail.v1%20esi-mail.read_mail.v1%20esi-mail.send_mail.v1";
   }
   private account_signout( account: Account ){
     // TEMP: might want to replace the confirm with a styled popup at some point

@@ -1,9 +1,9 @@
 import { Character } from '../character/Character';
 
 export class Mail {
-    index: number;
+    public index: number;
     body: string = null;
-    senderIndex: number = 93920413;
+    senderIndex: number;
     sender: Character = null;
     is_read: boolean = false;
     labels: number[] = [];
