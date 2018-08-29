@@ -4,7 +4,7 @@
       <img src="{{mail.sender.portraits.px64x64}}"/>
     </div>
     <div class='mail-info'>
-      <h4 class='sender-name'>{{mail.sender.name}}<h6 class='date'>{{mail.timestamp | date}}</h6></h4>
+      <h4 class='sender-name'><i class='fa fa-envelope' *ngIf='( mail.is_read === false )'></i> {{mail.sender.name}}<h6 class='date'>{{mail.timestamp | date}}</h6></h4>
       <p class='mail-topic'>{{mail.subject}}</p>
     </div>
   </li>
