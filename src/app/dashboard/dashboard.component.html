@@ -1,7 +1,7 @@
 <div id='accounts'>
   <div class='account' *ngFor="let account of accounts$ | async" routerLink="/{{account.character.characterId}}/inbox">
     <div class='account-image' [style.background]="account.character.portraits.px128x128 | url">
-      <i class='fa fa-envelope' *ngIf='(account.unreadMails !== 0)'>{{account.unreadMails$ | async}}</i>
+      <i class='fa fa-envelope' *ngIf='(account.unreadMails$.value !== 0)'>{{account.unreadMails$ | async}}</i>
       <i class='fa fa-times' (click)="account_signout(account); $event.stopPropagation()"></i>
     </div>
     <h6>{{account.character.name$ | async}}</h6>
