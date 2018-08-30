@@ -9,6 +9,6 @@ export class Account{
   public userTokens: UserTokens;
   public mails: Mail[] = [];
   public mails$: BehaviorSubject<Mail[]> = new BehaviorSubject([]);
-  public unreadMails: number = 0;
+  public unreadMails$: BehaviorSubject<number> = new BehaviorSubject(0);
   public constructor(){}
 }

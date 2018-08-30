@@ -47,7 +47,7 @@ export class MailService {
   private addMail( mail: Mail, account: Account ):void{
     account.mails.push( mail );
     if( mail.is_read === false ){
-      account.unreadMails++;
+      account.unreadMails$.next(account.unreadMails$.value+1);
     }
   }
 
