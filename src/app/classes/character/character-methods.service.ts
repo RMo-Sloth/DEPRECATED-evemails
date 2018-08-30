@@ -17,7 +17,7 @@ export class CharacterMethodsService {
   public append_characterDetails( character: Character ): void{
     this.httpClient.get(`https://esi.evetech.net/latest/characters/${character.characterId}/?datasource=tranquility`)
     .subscribe( (characterDetails: any) => {
-      character.name = characterDetails.name;
+      character.name$.next(characterDetails.name);
       character.gender = characterDetails.gender;
       character.corporation_id = characterDetails.corporation_id;
       character.birthday = new Date( characterDetails.birthday );

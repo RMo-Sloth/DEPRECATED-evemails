@@ -52,7 +52,7 @@ export class DashboardComponent implements OnInit {
   }
   private account_signout( account: Account ){
     // TEMP: might want to replace the confirm with a styled popup at some point
-    if ( window.confirm(`Are you sure you want to remove ${account.character.name}'s account?`) === true ){
+    if ( window.confirm(`Are you sure you want to remove ${account.character.name$}'s account?`) === true ){
       this.signoutService.remove_account( account );
     }
   }

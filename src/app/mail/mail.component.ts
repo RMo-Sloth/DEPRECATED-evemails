@@ -38,7 +38,9 @@ export class MailComponent implements OnInit {
     let mailIndex = parseInt( this.route.snapshot.paramMap.get('mail_id') );
     this.mail = this.mailService.getMail( this.account, mailIndex );
         // .subscribe(mail => this.mail = mail);
-    this.appStateService.currentPageName = this.account.character.name;
+    this.account.character.name$.asObservable().subscribe( name => {
+      this.appStateService.currentPageName = name;
+    })
   }
 
 }

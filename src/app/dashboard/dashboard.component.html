@@ -4,7 +4,7 @@
       <i class='fa fa-envelope' *ngIf='(account.unreadMails !== 0)'>{{account.unreadMails}}</i>
       <i class='fa fa-times' (click)="account_signout(account); $event.stopPropagation()"></i>
     </div>
-    <h6>{{account.character.name}}</h6>
+    <h6>{{account.character.name$ | async}}</h6>
   </div>
   <div class='account' (click)="account_signup()">
     <div class='account-image new' >

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
+import { BehaviorSubject } from 'rxjs';
+
 import { Mail } from '../classes/mail/Mail';
 import{ Character } from '../classes/character/Character';
 import{ Account } from '../classes/account/Account';
@@ -31,7 +33,9 @@ export class ReceivedMailsComponent implements OnInit {
     ];
   }
   ngOnInit() {
-    this.appStateService.currentPageName = this.account.character.name;
+    this.account.character.name$.asObservable().subscribe( name => {
+        this.appStateService.currentPageName = name;
+    });
     // this.mailService.get_account( characterIndex: number )
     //     .subscribe(mails => this.mails = mails);
   }
