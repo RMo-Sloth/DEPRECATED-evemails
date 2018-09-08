@@ -18,9 +18,9 @@ export class CharacterMethodsService {
     this.httpClient.get(`https://esi.evetech.net/latest/characters/${character.characterId}/?datasource=tranquility`)
     .subscribe( (characterDetails: any) => {
       character.name$.next(characterDetails.name);
-      character.gender = characterDetails.gender;
-      character.corporation_id = characterDetails.corporation_id;
-      character.birthday = new Date( characterDetails.birthday );
+      character.gender$.next(characterDetails.gender);
+      character.corporation_id$.next( characterDetails.corporation_id );
+      character.birthday$.next( new Date( characterDetails.birthday ) );
     });
   }
   public append_characterPortraits( character: Character ): void{

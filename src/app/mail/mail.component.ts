@@ -8,7 +8,6 @@ import{ Account } from '../classes/account/Account';
 import { AppStateService } from '../app-state.service';
 import{ UserAccountService } from '../services/user-account.service';
 import{ MailService } from '../services/user-account/mail.service';
-//// TODO: can maybe use a next previous button using location???? idk...
 
 @Component({
   selector: 'app-mail',
@@ -40,7 +39,7 @@ export class MailComponent implements OnInit {
         // .subscribe(mail => this.mail = mail);
     this.account.character.name$.asObservable().subscribe( name => {
       this.appStateService.currentPageName = name;
-    })
+    });
   }
 
 }

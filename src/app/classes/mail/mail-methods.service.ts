@@ -12,7 +12,7 @@ export class MailMethodsService {
   ) { }
 
   public append_Mailinfo( mail: Mail ){
-
+    
   }
   public append_sender( mail:Mail ){
     mail.sender = this.charactersService.get_character( mail.senderIndex );
