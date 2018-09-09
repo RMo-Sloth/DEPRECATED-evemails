@@ -30,26 +30,21 @@ export class MailMethodsService {
     `https://esi.evetech.net/latest/characters/${account.character.characterId}/mail/${mail.index}/?datasource=tranquility`;
     this.http.get( url, httpOptions )
       .subscribe( ( mailInfo: any ) => {
-        mail.body$.next( mailInfo.body );
-      //   mails.forEach( receivedMail => {
-      //     let mail = new Mail( receivedMail.mail_id );
-      //     if( receivedMail.is_read === true ){
-      //       mail.is_read = true;
-      //     };
-      //     mail.senderIndex = receivedMail.from;
-      //     mail.sender = this.charactersService.get_character( mail.senderIndex );
-      //     mail.subject = receivedMail.subject;
-      //     mail.labels = receivedMail.labels;
-      //     mail.timestamp = new Date( receivedMail.timestamp );
-      //     this.addMail( mail, account );
-    // })
+        let body = this.translateFromEveHtml( mailInfo.body ) ;
+        mail.body$.next( body );
       });
-
   }
   public append_sender( mail:Mail ){
     mail.sender = this.charactersService.get_character( mail.senderIndex );
   }
   private append_recipient( mail: Mail ){
 
+  }
+  private translateFromEveHtml( EVE_Html: string){
+    console.log( EVE_Html );
+    EVE_Html = EVE_Html.replace(/<font.*?>/g, '');
+    EVE_Html = EVE_Html.replace(/<\/font>/g, '');
+    console.log( EVE_Html );
+    return EVE_Html;
   }
 }

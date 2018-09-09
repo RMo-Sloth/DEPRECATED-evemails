@@ -2,14 +2,13 @@
   margin: 0.5rem;
   border: 2px solid rgba(240, 240, 256, 0.2);
   border-radius: 0.5rem;
-  background-color: #333343;
+  background-color: #1a1a2c;
 }
 #mail-sender{
   padding: 0.5rem;
   border-radius: 0.5rem 0.5rem 0rem 0rem;
   display: flex;
   align-items: center;
-  background-color: #1a1a2c;
 }
 #mail-sender-details{
   padding-left: 0.5rem;
@@ -39,6 +38,7 @@ ul#mail-recipients>li:last-child::after{
 }
 #mail-body{
   padding: 0.5rem;
+  background-color: #333343;
 }
 ul#mail-actions{
   height: 3rem;

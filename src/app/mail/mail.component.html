@@ -12,10 +12,10 @@
   <!-- TODO: retreive recipient info -->
   <span id='sent-date'>{{mail.timestamp | date:"dd MMMM, yyyy"}}</span>
   <ul id='mail-recipients'>
-    <li>Hello</li>
+    <li>Recipients: </li>
     <li *ngFor="let recipient of mail.recipients">{{recipient.recipient_id}}</li>
   </ul>
-  <p id='mail-title'>I wanted to talk about: {{mail.subject}}</p>
+  <p id='mail-title'>Subject: {{mail.subject}}</p>
   <div id='mail-body' [innerHtml]="mail.body$ | async"></div>
   <ul id='mail-actions'>
     <li><i class="fa fa-reply"></i></li>
