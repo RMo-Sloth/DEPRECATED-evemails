@@ -16,7 +16,7 @@
     <li *ngFor="let recipient of mail.recipients">{{recipient.recipient_id}}</li>
   </ul>
   <p id='mail-title'>I wanted to talk about: {{mail.subject}}</p>
-  <div id='mail-body' [innerHtml]="mail.body"></div>
+  <div id='mail-body' [innerHtml]="mail.body$ | async"></div>
   <ul id='mail-actions'>
     <li><i class="fa fa-reply"></i></li>
     <li><i class="fa fa-reply-all"></i></li>

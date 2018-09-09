@@ -8,6 +8,7 @@ import{ Account } from '../../classes/account/Account';
 
 import { MailAccount } from '../../classes/MailAccount';
 import { CharactersService } from '../characters/characters.service';
+import { UserTokenMethodsService } from '../../classes/user-tokens/user-tokens-methods.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,14 +18,16 @@ export class MailService {
   constructor(
     public mailMethods: MailMethodsService,
     private http: HttpClient,
-    private charactersService: CharactersService
+    private charactersService: CharactersService,
+    private userTokenMethods: UserTokenMethodsService
   ) {}
 
   getMails( account: Account ): void {
+    let accessToken = this.userTokenMethods.get_accessToken( account.userTokens );
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
-        'Authorization': `Bearer ${account.userTokens.accessToken}`// TODO: get the accessToken from a function
+        'Authorization': `Bearer ${accessToken}`// TODO: get the accessToken from a function
       })
     };
     const url = `https://esi.evetech.net/latest/characters/${account.character.characterId}/mail/?datasource=tranquility`;
@@ -57,14 +60,17 @@ export class MailService {
       return mailId === mail.index;
     });
     if( foundMail === undefined ){
-      location.href = '/dashboard';
+      alert('sorry we could not find this mail');
+      // TODO: add logic when mail could not be found
+    }else{
+      // make sure to update the mail details (body$)
+      this.mailMethods.append_Mailinfo( foundMail, account );
+      return foundMail;
     }
-    // TODO: add logic when mail could not be found
     // options
     // request (detail) info if mail could not be found, will be async
     // load a fake message if none could be found
     // if not logged in refer to homepage with message
-    return foundMail;
   }
 }
 // TODO: allow server to mail to corparation or alliance ig permissions are set
