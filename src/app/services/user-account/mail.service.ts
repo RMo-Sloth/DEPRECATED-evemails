@@ -64,7 +64,7 @@ export class MailService {
       // TODO: add logic when mail could not be found
     }else{
       // make sure to update the mail details (body$)
-      this.mailMethods.append_Mailinfo( foundMail, account );
+      this.mailMethods.append_mailinfo( foundMail, account );
       return foundMail;
     }
     // options

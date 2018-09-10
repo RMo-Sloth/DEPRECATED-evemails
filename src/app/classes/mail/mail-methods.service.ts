@@ -18,7 +18,7 @@ export class MailMethodsService {
     private userTokenMethods: UserTokenMethodsService
   ) { }
 
-  public append_Mailinfo( mail: Mail, account: Account ){
+  public append_mailinfo( mail: Mail, account: Account ){
     let accessToken = this.userTokenMethods.get_accessToken( account.userTokens );
     const httpOptions = {
       headers: new HttpHeaders({
