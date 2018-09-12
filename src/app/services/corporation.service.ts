@@ -55,7 +55,6 @@ export class CorporationService {
         if( this.isRegisteredCorporation( index ) === false ){
           this.corporations.push( corporation );
         }
-        console.log( this.corporations );
         observer.next( corporation );
         observer.complete();
       }); // end subscribe
