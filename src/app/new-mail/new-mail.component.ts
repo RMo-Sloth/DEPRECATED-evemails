@@ -32,7 +32,9 @@ export class NewMailComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.appStateService.currentPageName = this.account.character.name;
+    this.account.character.name$.asObservable().subscribe( name => {
+      this.appStateService.currentPageName = name;
+    });
   }
 
 }

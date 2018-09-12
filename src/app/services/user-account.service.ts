@@ -6,6 +6,7 @@ import { Character } from '../classes/character/Character';
 import { UserTokens } from '../classes/user-tokens/UserTokens';
 
 import { CharactersService } from './characters/characters.service';
+import { MailService } from './user-account/mail.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,8 @@ export class UserAccountService {
   accounts$: BehaviorSubject<Account[]> = new BehaviorSubject([]);
 
   constructor(
-    public characterService: CharactersService
+    private characterService: CharactersService,
+    private mailService: MailService
   ) {
     if( localStorage.getItem('accounts') !== null )
     {
@@ -35,11 +37,13 @@ export class UserAccountService {
       let account = new Account();
       let character = this.characterService.get_character( characterId );
       let userTokens = new UserTokens();
-        userTokens.accessToken = '';
+        userTokens.accessToken = accessToken;
         userTokens.refreshToken = '';
         userTokens.expired = 0;
       account.character = character;
       account.userTokens = userTokens;
+
+      this.mailService.getMails( account );
 
       this.accounts.push( account );
       this.accounts$.next( this.accounts );

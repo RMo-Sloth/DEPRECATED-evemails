@@ -21,6 +21,6 @@ export class UserTokenMethodsService {
   private isExpired( userTokens: UserTokens ): boolean{
     // return ( userTokens.expired > Date.now() ) ? true : false;
     // TEMP:
-    return true;
+    return false;
   }
 }

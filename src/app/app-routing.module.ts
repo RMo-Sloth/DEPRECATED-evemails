@@ -13,7 +13,8 @@ const routes: Routes = [
   { path: ':account_id/mails', component: ReceivedMailsComponent },
   { path: ':account_id/mail/:mail_id', component: MailComponent },
   { path: ':account_id/new-mail', component: NewMailComponent },
-  { path: 'dashboard', component: DashboardComponent }
+  { path: 'dashboard', component: DashboardComponent },
+  { path: '**', component: DashboardComponent }
 ];
 
 @NgModule({

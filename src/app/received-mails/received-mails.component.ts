@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
+import { BehaviorSubject } from 'rxjs';
+
 import { Mail } from '../classes/mail/Mail';
 import{ Character } from '../classes/character/Character';
 import{ Account } from '../classes/account/Account';
@@ -16,11 +18,9 @@ import{ MailService } from '../services/user-account/mail.service';
 })
 export class ReceivedMailsComponent implements OnInit {
   account: Account;
-  mails: Mail[];
   navigationButtons; // TODO: typecheck
   constructor(
     public  appStateService : AppStateService,
-    public mailService: MailService,
     private route: ActivatedRoute,
     public userAccountService: UserAccountService
   ) {
@@ -33,9 +33,11 @@ export class ReceivedMailsComponent implements OnInit {
     ];
   }
   ngOnInit() {
-    this.appStateService.currentPageName = this.account.character.name;
-    this.mailService.getMails()
-        .subscribe(mails => this.mails = mails);
+    this.account.character.name$.asObservable().subscribe( name => {
+        this.appStateService.currentPageName = name;
+    });
+    // this.mailService.get_account( characterIndex: number )
+    //     .subscribe(mails => this.mails = mails);
   }
   // TODO: click on a read-more button to retreive more mails
   // TODO: apply filters on ngOnInit() ( before view )
