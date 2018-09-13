@@ -6,8 +6,6 @@ import { Observable } from 'rxjs';
 
 import { Mail } from '../interfaces/mail';
 
-
-
 @Injectable({
   providedIn: 'root'
 })
@@ -21,8 +19,19 @@ export class MailService {
   }
 
   public get_mail( index: number, account: number ): Observable<Mail> {
+
+    interface request_mailResponse{
+      body: string,
+      from: number,
+      labels: number[],
+      read: boolean,
+      recipients: number[],
+      subject: string,
+      timestamp: string
+    }
+
     return new Observable( observer => {
-      switch( true ){
+      switch( true ) {
         case this.isCompletelyRegisteredMail( index ):
           // return mail
           let mail = this.mails.find( mail => {
@@ -32,69 +41,77 @@ export class MailService {
           observer.complete();
           break;
         case this.isRegisteredMail( index ) :
-          // update the existing mail to have a body
-          this.append_body( index )
-          .subscribe( mailInfo => {
-            let mail = ;
-            observer.next( mail );
-            observer.complete();
-          });
+          this.request_mail( index, account )
+          .subscribe(
+            ( response: request_mailResponse ) => {
+              let mail = this.mails.find( mail => {
+                return mail.index === index;
+              });
+              // update the existing mail to have a body
+              mail.body = response.body;
+              observer.next( mail );
+              observer.complete();
+            },
+            error => {
+              // TODO: for now log errors to console
+              console.error(error);
+            }
+          ); // end subscribe request_mail
           break;
         default:
-          // add a new mail to the mails[]
-          // return the new mail
-      }
+          this.request_mail( index, account )
+          .subscribe(
+            ( response: request_mailResponse ) => {
+              let mail = {
+                index: index,
+                account: account,
+                labels: response.labels,
+                sender: response.from,
+                recipients: response.recipients,
+                subject: response.subject,
+                body: response.body,
+                timestamp: new Date( response.timestamp ),
+                isRead: response.read,
+              }
+              // add a new mail to the mails[]
+              this.add_mail( mail )
+              // return the new mail
+            },
+            error => {
+              // TODO: for now log errors to console
+              console.error(error);
+            }
+          ); // end subscribe request_mail
+      } // end switch
     }); // end observable
   }
   public get_mails( account: number ){
     // retreives a list of mails
 
   }
-  private request_mail( index: number, account: number ): Observable<HttpEvent<any>>{ // TODO: any should be more precise
-      // TODO: should I go through the http or go through a httpAccountService???
-      return this.http.get(``);
-      // TODO: should teh subscribe part be here?? Or should I just return the request ( SRP )
-      // .subscribe( mailInfo => {
-      //   const mail: Mail = {
-      //     index: index,
-      //     account: account,
-      //     labels: ,
-      //     sender: ,
-      //     recipients: ,
-      //     subject: ,
-      //     body: ,
-      //     timestamp: ,
-      //     isRead:
-      //   }
+  private request_mail( index: number, account: number ): Observable<HttpEvent<any>> {
+    return this.http.get(``);
+    // TODO: create service that accepts url + account
   }
   private add_mail( mail: Mail ){
     // check if the mail is added ( possible due to request delay )
-    if( this.isRegisteredMail( index ) === false ){
+    if( this.isRegisteredMail( mail.index ) === false ){
       this.mails.push( mail );
     }
   }
-  private append_body( mail ): void { // TODO: should this method exist at all??? WOn't mail.body = body after a request be easier???
-    return new Observable( observer => {
-      let details: Observable<any> = this.http.get(``)
-      .subscribe( mailInfo => {
-        let mail = this.mails.find( mail => {
-          return mail.index === index;
-        });
-        mail.body = mailInfo.body;
-        observer.next( mail );
-        observer.complete();
-      });
+  private isRegisteredMail( mailIndex: number ): boolean{
+    return this.mails.some( mail => {
+      return mail.index === mailIndex;
     });
   }
-  private isRegisteredMail( index: number ): boolean{
+  private isCompletelyRegisteredMail( mailIndex: number ){
     return this.mails.some( mail => {
-      return mail.index === index;
-    });
-  }
-  private isCompletelyRegisteredMail( mail: number ){
-    return this.mails.some( mail => {
-      return mail.index === index
+      return mail.index === mailIndex
         && mail.body !== undefined;
     });
   }
 }
+
+// TODO: this.remove_mail()
+// TODO: replace http with accountHttp.service ???
+// TODO: Return mail headers ( a list of mails without body )
