@@ -89,7 +89,7 @@ export class MailService {
     // retreives a list of mails
 
   }
-  private request_mail( index: number, account: number ): Observable<HttpEvent<any>> {
+  private request_mail( index: number, account: number ): Observable<any> {
     return this.http.get(``);
     // TODO: create service that accepts url + account
   }
