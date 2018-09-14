@@ -7,5 +7,5 @@ export interface Mail{
   readonly subject: string;
   body?: string;
   readonly timestamp: Date;
-  readonly isRead: boolean;
+  isRead: boolean;
 }
