@@ -48,7 +48,7 @@ export class MailService {
                 return mail.index === index;
               });
               // update the existing mail to have a body
-              mail.body = response.body;
+              mail.body = translateFromEveHtml( response.body );
               observer.next( mail );
               observer.complete();
             },
@@ -69,7 +69,7 @@ export class MailService {
                 sender: response.from,
                 recipients: response.recipients,
                 subject: response.subject,
-                body: response.body,
+                body: translateFromEveHtml( response.body ),
                 timestamp: new Date( response.timestamp ),
                 isRead: response.read,
               }
@@ -109,6 +109,11 @@ export class MailService {
       return mail.index === mailIndex
         && mail.body !== undefined;
     });
+  }
+  private translateFromEveHtml( EVE_Html: string) {
+    EVE_Html = EVE_Html.replace(/<font.*?>/g, '');
+    EVE_Html = EVE_Html.replace(/<\/font>/g, '');
+    return EVE_Html;
   }
 }
 
