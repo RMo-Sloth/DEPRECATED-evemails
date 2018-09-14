@@ -21,13 +21,13 @@ export class MailService {
   public get_mail( index: number, account: number ): Observable<Mail> {
 
     interface request_mailResponse{
-      body: string,
-      from: number,
-      labels: number[],
-      read: boolean,
-      recipients: number[],
-      subject: string,
-      timestamp: string
+      body: string;
+      from: number;
+      labels: number[];
+      read: boolean;
+      recipients: number[];
+      subject: string;
+      timestamp: string;
     }
 
     return new Observable( observer => {
@@ -48,7 +48,7 @@ export class MailService {
                 return mail.index === index;
               });
               // update the existing mail to have a body
-              mail.body = translateFromEveHtml( response.body );
+              mail.body = this.translateFromEveHtml( response.body );
               observer.next( mail );
               observer.complete();
             },
@@ -69,7 +69,7 @@ export class MailService {
                 sender: response.from,
                 recipients: response.recipients,
                 subject: response.subject,
-                body: translateFromEveHtml( response.body ),
+                body: this.translateFromEveHtml( response.body ),
                 timestamp: new Date( response.timestamp ),
                 isRead: response.read,
               }
