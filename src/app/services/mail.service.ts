@@ -120,3 +120,4 @@ export class MailService {
 // TODO: this.remove_mail()
 // TODO: replace http with accountHttp.service ???
 // TODO: Return mail headers ( a list of mails without body )
+// TODO: update isRead property of mails
