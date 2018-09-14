@@ -55,7 +55,6 @@ export class CharacterService {
         if( this.isRegisteredCharacter( index ) === false ){
           this.characters.push( character );
         }
-        console.log( this.characters );
         observer.next( character );
         observer.complete();
       }); // end subscribe
