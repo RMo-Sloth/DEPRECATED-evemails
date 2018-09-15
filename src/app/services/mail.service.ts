@@ -6,6 +6,8 @@ import { Observable } from 'rxjs';
 
 import { Mail } from '../interfaces/mail';
 
+import { AccountHttpService } from './account-http.service';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -14,6 +16,7 @@ export class MailService {
 
   constructor(
     private http: HttpClient,
+    private accountHttp: AccountHttpService,
   ) {
     this.mails = [];
   }
@@ -90,8 +93,13 @@ export class MailService {
 
   }
   private request_mail( index: number, account: number ): Observable<any> {
-    return this.http.get(``);
-    // TODO: create service that accepts url + account
+    return new Observable( observer => {
+      let httpHeaders = this.accountHttp.get_headers( account )
+      .subscribe( httpHeaders => {
+        observer.next( this.http.get( `https://esi.evetech.net/latest/characters/${account}/mail/${index}/?datasource=tranquility`, httpHeaders ) );
+        observer.complete();
+      });
+    });
   }
   private add_mail( mail: Mail ){
     // check if the mail is added ( possible due to request delay )
