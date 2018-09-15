@@ -1,0 +1,21 @@
+REFACTOR MODULES:
+
+Dashboard
+ReceivedMails
+Mail
+Screensaver
+Navigation
+
+REMOVE OLD SERVICES
+
+user-account.service
+
+REMOVE CLASSES
+
+Account
+Alliance
+Character
+Corporation
+Mail
+UserTokens
+MailAccount
