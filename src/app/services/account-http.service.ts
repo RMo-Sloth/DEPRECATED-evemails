@@ -22,22 +22,21 @@ export class AccountHttpService {
     };
   }
 
-  public get( url: string, account: number ):Observable<any>{
+  public get_headers( account: number ):Observable<any>{
     // get the account
     return new Observable( observer => {
       this.accountService.get_account( account )
       .subscribe( account => {
-        this.setAuthorizationHeader( account.accessToken );
-        observer.next( this.http.get( url, this.httpHeaders ) );
+        // compose headers
+        let httpHeaders = new HttpHeaders({
+          'Content-Type':  'application/json',
+          'Authorization': `Bearer ${account.accessToken}`,
+        });
+        observer.next( httpHeaders );
         observer.complete();
       }, error => {
         observer.error( error );
       }); // end subscribe
     }); // end observable
-  }
-  private setAuthorizationHeader( accessToken ): void {
-    this.httpHeaders.headers.set('Authorization', `Bearer ${accessToken}`);
-    console.log('need to remove this message after testing:');
-    console.log( this.httpHeaders );
   }
 }
