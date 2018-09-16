@@ -13,6 +13,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { NewMailComponent } from './new-mail/new-mail.component';
 import { UrlPipe } from './pipes/url.pipe';
 import { AccountDetailsComponent } from './dashboard/account-details/account-details.component';
+import { AccountNewComponent } from './dashboard/account-new/account-new.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { AccountDetailsComponent } from './dashboard/account-details/account-det
     DashboardComponent,
     NewMailComponent,
     UrlPipe,
-    AccountDetailsComponent
+    AccountDetailsComponent,
+    AccountNewComponent
   ],
   imports: [
     BrowserModule,

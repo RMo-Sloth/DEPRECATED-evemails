@@ -27,6 +27,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.pageTitleService.set_pageTitle( 'dashboard' );
+    // TODO: this should return indexes of the accounts
     this.accounts$ = this.userAccountService.accounts$;
     // TEMP: temporary way to obtain parameter values from the url
     this.route.fragment.subscribe( fragment => {
@@ -41,11 +42,9 @@ export class DashboardComponent implements OnInit {
           if( paramArray.access_token !== null ){
             let accessToken = paramArray.access_token;
             this.signupService.signup_account( accessToken );
+            history.replaceState({}, '', '/dashboard');
           }
       }
     });
-  }
-  private account_signup(){
-      location.href="https://login.eveonline.com/oauth/authorize?response_type=token&redirect_uri=http://localhost:4200/dashboard&Client_id=ca211b71e15249ed8ce2d36f034f6024&scope=esi-mail.organize_mail.v1%20esi-mail.read_mail.v1%20esi-mail.send_mail.v1";
   }
 }

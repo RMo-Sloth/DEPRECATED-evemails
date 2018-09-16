@@ -1,10 +1,4 @@
 <div id='accounts'>
   <app-account-details [accountIndex]="account.character.characterId" *ngFor="let account of accounts$ | async"></app-account-details>
-
-  <div class='account' (click)="account_signup()">
-    <div class='account-image new' >
-      <i class='fa fa-plus'></i>
-    </div>
-    <h6>Register a new character</h6>
-  </div>
+  <app-account-new></app-account-new>
 </div>
