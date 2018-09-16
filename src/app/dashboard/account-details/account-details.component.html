@@ -1,0 +1,16 @@
+<!-- <div class='account' routerLink="/{{account.character.characterId}}/inbox">
+  <div class='account-image' [style.background]="account.character.portraits.px128x128$ | async | url">
+    <i class='fa fa-envelope' *ngIf='(account.unreadMails$.value !== 0)'>{{account.unreadMails$ | async}}</i>
+    <i class='fa fa-times' (click)="account_signout(account); $event.stopPropagation()"></i>
+  </div>
+  <h6>{{account.character.name$ | async}}</h6>
+</div> -->
+
+
+<div class='account' routerLink="/{{character.index}}/inbox" *ngIf='character'>
+  <div class='account-image' [style.background]="character.portraits.px128x128 | url">
+    <!-- <i class='fa fa-envelope' *ngIf='(account.unreadMails$.value !== 0)'>{{account.unreadMails$ | async}}</i> -->
+    <i class='fa fa-times' (click)="account_signout( character.index ); $event.stopPropagation()"></i>
+  </div>
+  <h6>{{character.name}}</h6>
+</div>
