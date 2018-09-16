@@ -7,7 +7,7 @@ import { Mail } from '../classes/mail/Mail';
 import{ Character } from '../classes/character/Character';
 import{ Account } from '../classes/account/Account';
 
-import{ AppStateService } from '../app-state.service';
+import { PageTitleService } from '../services/page-title.service';
 import{ UserAccountService } from '../services/user-account.service';
 import{ MailService } from '../services/user-account/mail.service';
 
@@ -20,7 +20,7 @@ export class ReceivedMailsComponent implements OnInit {
   account: Account;
   navigationButtons; // TODO: typecheck
   constructor(
-    public  appStateService : AppStateService,
+    private pageTitleService : PageTitleService,
     private route: ActivatedRoute,
     public userAccountService: UserAccountService
   ) {
@@ -34,7 +34,7 @@ export class ReceivedMailsComponent implements OnInit {
   }
   ngOnInit() {
     this.account.character.name$.asObservable().subscribe( name => {
-        this.appStateService.currentPageName = name;
+        this.pageTitleService.set_pageTitle( name );
     });
     // this.mailService.get_account( characterIndex: number )
     //     .subscribe(mails => this.mails = mails);

@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import{ Character } from '../classes/character/Character';
 import{ Account } from '../classes/account/Account';
 
-import { AppStateService } from '../app-state.service';
+import { PageTitleService } from '../services/page-title.service';
 import{ UserAccountService } from '../services/user-account.service';
 
 @Component({
@@ -20,7 +20,7 @@ export class NewMailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    public  appStateService : AppStateService,
+    public  pageTitleService : PageTitleService,
     public userAccountService: UserAccountService
   ) {
     this.account_id = parseInt( this.route.snapshot.paramMap.get('account_id') );
@@ -33,7 +33,7 @@ export class NewMailComponent implements OnInit {
 
   ngOnInit() {
     this.account.character.name$.asObservable().subscribe( name => {
-      this.appStateService.currentPageName = name;
+      this.pageTitleService.set_pageTitle( name );
     });
   }
 

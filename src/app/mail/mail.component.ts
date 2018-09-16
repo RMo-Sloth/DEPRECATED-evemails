@@ -5,7 +5,7 @@ import { Mail } from '../classes/mail/Mail';
 import{ Character } from '../classes/character/Character';
 import{ Account } from '../classes/account/Account';
 
-import { AppStateService } from '../app-state.service';
+import { PageTitleService } from '../services/page-title.service';
 import{ UserAccountService } from '../services/user-account.service';
 import{ MailService } from '../services/user-account/mail.service';
 
@@ -19,7 +19,7 @@ export class MailComponent implements OnInit {
   mail: Mail;
   navigationButtons; // TODO: typecheck
   constructor(
-    public appStateService: AppStateService,
+    public pageTitleService: PageTitleService,
     public userAccountService: UserAccountService,
     public mailService: MailService,
     private route: ActivatedRoute
@@ -38,7 +38,7 @@ export class MailComponent implements OnInit {
     this.mail = this.mailService.getMail( this.account, mailIndex );
         // .subscribe(mail => this.mail = mail);
     this.account.character.name$.asObservable().subscribe( name => {
-      this.appStateService.currentPageName = name;
+      this.pageTitleService.set_pageTitle( name );
     });
   }
 

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AppStateService } from '../app-state.service';
+import { BehaviorSubject } from 'rxjs';
+
+import { PageTitleService } from '../services/page-title.service';
 
 @Component({
   selector: 'app-screensaver',
@@ -7,12 +9,14 @@ import { AppStateService } from '../app-state.service';
   styleUrls: ['./screensaver.component.css']
 })
 export class ScreensaverComponent implements OnInit {
+  private pageTitle$: BehaviorSubject<string>;
 
   constructor(
-    public appStateService: AppStateService
+    private pageTitleService: PageTitleService
   ) { }
 
   ngOnInit() {
+    this.pageTitle$ = this.pageTitleService.get_pageTitle();
   }
 
 }

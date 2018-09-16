@@ -4,11 +4,14 @@ import { BehaviorSubject } from 'rxjs';
 
 import{ Account } from '../classes/account/Account';
 
-import { AppStateService } from '../app-state.service';
+import { PageTitleService } from '../services/page-title.service';
 import { UserAccountService } from '../services/user-account.service';
 import { LocalStorageService } from '../services/local-storage/local-storage.service';
 import { SignupService } from '../services/signup/signup.service';
 import { SignoutService } from '../services/signout/signout.service';
+
+// TEMP:
+import { CharacterService } from '../services/character.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,16 +22,18 @@ export class DashboardComponent implements OnInit {
   public accounts$: BehaviorSubject<Account[]>;
 
   constructor(
-    public  appStateService : AppStateService,
+    private pageTitleService: PageTitleService,
     public  userAccountService : UserAccountService,
     private route: ActivatedRoute,
     private signupService: SignupService,
-    private signoutService: SignoutService
+    private signoutService: SignoutService,
+    // TEMP:
+    private CharacterService: CharacterService
   )
   {}
 
   ngOnInit() {
-    this.appStateService.currentPageName = 'dashboard';
+    this.pageTitleService.set_pageTitle( 'dashboard' );
     this.accounts$ = this.userAccountService.accounts$;
     // TEMP: temporary way to obtain parameter values from the url
     this.route.fragment.subscribe( fragment => {
@@ -46,6 +51,13 @@ export class DashboardComponent implements OnInit {
           }
       }
     });
+
+    // TEMP:
+    this.CharacterService.get_character( 95923637 )
+      .subscribe( corporation => console.log( corporation ) );
+    this.CharacterService.get_character( 95923637 )
+      .subscribe( corporation => console.log( corporation ) );
+
   }
   private account_signup(){
       location.href="https://login.eveonline.com/oauth/authorize?response_type=token&redirect_uri=http://localhost:4200/dashboard&Client_id=ca211b71e15249ed8ce2d36f034f6024&scope=esi-mail.organize_mail.v1%20esi-mail.read_mail.v1%20esi-mail.send_mail.v1";
