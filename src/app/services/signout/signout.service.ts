@@ -15,8 +15,8 @@ export class SignoutService {
     private localStorageService: LocalStorageService
   ) { }
 
-  public remove_account( account: Account ): void { // TODO: could return boolean on success
-      this.userAccountService.remove_account( account.character.characterId );
-      this.localStorageService.remove_account( account.character.characterId );
+  public remove_account( accountIndex: number ): void { // TODO: could return boolean on success
+      this.userAccountService.remove_account( accountIndex );
+      this.localStorageService.remove_account( accountIndex );
   }
 }
