@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { AccountService } from './account.service';
@@ -22,17 +21,19 @@ export class AccountHttpService {
     };
   }
 
-  public get_headers( account: number ):Observable<any>{
+  public get_headers( accountIndex: number ):Observable<any>{
     // get the account
     return new Observable( observer => {
-      this.accountService.get_account( account )
+      this.accountService.get_account( accountIndex )
       .subscribe( account => {
-        // compose headers
-        let httpHeaders = new HttpHeaders({
+      // compose headers
+      const httpOptions = {
+        headers: new HttpHeaders({
           'Content-Type':  'application/json',
-          'Authorization': `Bearer ${account.accessToken}`,
-        });
-        observer.next( httpHeaders );
+          'Authorization': `Bearer ${account.accessToken}`
+        })
+      }
+        observer.next( httpOptions );
         observer.complete();
       }, error => {
         observer.error( error );
