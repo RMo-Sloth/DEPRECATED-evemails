@@ -2,7 +2,7 @@
 
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 import { Mail } from '../interfaces/mail';
 
@@ -13,12 +13,14 @@ import { AccountHttpService } from './account-http.service';
 })
 export class MailService {
   private mails: Mail[];
+  private mails$: BehaviorSubject<Mail[]>;
 
   constructor(
     private http: HttpClient,
     private accountHttp: AccountHttpService,
   ) {
     this.mails = [];
+    this.mails$ = new BehaviorSubject([]);
   }
 
   public get_mail( index: number, account: number ): Observable<Mail> {
@@ -77,8 +79,12 @@ export class MailService {
                 isRead: response.read,
               }
               // add a new mail to the mails[]
-              this.add_mail( mail )
+              this.add_mail( mail );
+              // trigger refresh of the mails array
+              this.mails$.next( this.mails );
               // return the new mail
+              observer.next( mail );
+              observer.complete();
             },
             error => {
               // TODO: for now log errors to console
@@ -94,11 +100,11 @@ export class MailService {
     const httpOptions = this.accountHttp.get_headers( accountIndex )
     .subscribe( httpOptions => {
       this.http.get( `https://esi.evetech.net/latest/characters/${accountIndex}/mail?datasource=tranquility&labels=1`, httpOptions )
-      .subscribe( mails => {
+      .subscribe( ( mails: any ) => { // TODO: should check more strict than any
         // add each mail using add_mail
         // foreach doesn't work here so resorted to a for loop
-        for( let i=0; i<mails.length; i++ ) {
-          let mailInfo = mails[i];
+        // for( let i=0; i<mails.length; i++ ) {
+        mails.forEach( mailInfo => {
           let mail = {
             index: mailInfo.mail_id,
             account: accountIndex,
@@ -108,11 +114,12 @@ export class MailService {
             subject: mailInfo.subject,
             body: null,
             timestamp: new Date( mailInfo.timestamp ),
-            isRead: mailInfo.read,
+            isRead: mailInfo.is_read,
           }
           // add a new mail to the mails[]
           this.add_mail( mail );
-        };
+        }); // end foreach
+        this.mails$.next( this.mails );
       });
     });
   }
@@ -135,6 +142,8 @@ export class MailService {
     if( this.isRegisteredMail( mail.index ) === false ){
       this.mails.push( mail );
     }
+    // this.mails$.next( this.mails) is performed in functions invoking add_mail
+    // in order to prevent unnecessary reloading for each added mail
   }
   private isRegisteredMail( mailIndex: number ): boolean{
     return this.mails.some( mail => {
