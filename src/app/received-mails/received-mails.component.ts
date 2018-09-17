@@ -19,17 +19,20 @@ import{ MailService } from '../services/mail.service';
   styleUrls: ['./received-mails.component.css']
 })
 export class ReceivedMailsComponent implements OnInit {
-  accountIndex: number;
-  mails: Mail[]; //// TODO: maybe should be an observable
-  navigationButtons: NavigationButton[];
+
+  private accountIndex: number;
+  private mails$: BehaviorSubject<Mail[]>;
+  private navigationButtons: NavigationButton[];
+
   constructor(
-  private route: ActivatedRoute,
+    private route: ActivatedRoute,
     private pageTitleService : PageTitleService,
     private characterService: CharacterService,
     private mailService: MailService,
   ) {
     this.accountIndex = parseInt( this.route.snapshot.paramMap.get('account_id') );
-    this.mails = [];
+    this.mails$ = new BehaviorSubject([]); 
+    this.mails$ = this.mailService.mails$;
     this.navigationButtons = [
       { faClass: 'home', routerUrl: '/dashboard'},
       { faClass: 'search', routerUrl: '/dashboard'},
@@ -42,7 +45,7 @@ export class ReceivedMailsComponent implements OnInit {
     .subscribe( character => {
       this.pageTitleService.set_pageTitle( character.name );
     });
-    this.mailService.get_inboxMails( this.accountIndex )
+    this.mailService.get_inboxMails( this.accountIndex );
     //     .subscribe(mails => this.mails = mails);
   }
   // TODO: click on a read-more button to retreive more mails

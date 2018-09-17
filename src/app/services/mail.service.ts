@@ -13,7 +13,7 @@ import { AccountHttpService } from './account-http.service';
 })
 export class MailService {
   private mails: Mail[];
-  private mails$: BehaviorSubject<Mail[]>;
+  public mails$: BehaviorSubject<Mail[]>;
 
   constructor(
     private http: HttpClient,
@@ -114,7 +114,7 @@ export class MailService {
             subject: mailInfo.subject,
             body: null,
             timestamp: new Date( mailInfo.timestamp ),
-            isRead: mailInfo.is_read,
+            isRead: (mailInfo.is_read === true) ? true : false ,
           }
           // add a new mail to the mails[]
           this.add_mail( mail );

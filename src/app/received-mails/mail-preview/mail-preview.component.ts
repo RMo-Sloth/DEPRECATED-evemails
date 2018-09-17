@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { CharacterService } from '../../services/character.service';
 
 // interfaces
 import { Mail } from '../../interfaces/mail';
@@ -12,9 +14,22 @@ export class MailPreviewComponent implements OnInit {
   @Input() accountIndex: number;
   @Input() mail: Mail;
 
-  constructor() { }
+  private portrait$: BehaviorSubject<string>;
+  private sender$: BehaviorSubject<string>;
+
+  constructor(
+    private characterService: CharacterService,
+  ) {
+    this.portrait$ = new BehaviorSubject('');
+    this.sender$ = new BehaviorSubject('');
+  }
 
   ngOnInit() {
+    this.characterService.get_character( this.mail.sender )
+    .subscribe( character => {
+      this.portrait$.next( character.portraits.px64x64 );
+      this.sender$.next( character.name );
+    });
   }
 
 
