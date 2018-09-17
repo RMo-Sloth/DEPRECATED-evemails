@@ -1,7 +1,7 @@
 // TODO: UNTESTED!!!!
 
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { Mail } from '../interfaces/mail';
@@ -88,10 +88,21 @@ export class MailService {
       } // end switch
     }); // end observable
   }
-  public get_mails( account: number ){
+
+  public get_mails( accountIndex: number ): void {
     // retreives a list of mails
+    const httpOptions = this.accountHttp.get_headers( accountIndex )
+    .subscribe( httpOptions => {
+      this.http.get( `https://esi.evetech.net/latest/characters/${accountIndex}/mail?datasource=tranquility`, httpOptions )
+      .subscribe( mails => console.log(mails) );
+    });
+    // add each mail using add_mail
+  }
+
+  private request_mails( accountIndex: number ): void {
 
   }
+
   private request_mail( index: number, account: number ): Observable<any> {
     return new Observable( observer => {
       let httpHeaders = this.accountHttp.get_headers( account )
