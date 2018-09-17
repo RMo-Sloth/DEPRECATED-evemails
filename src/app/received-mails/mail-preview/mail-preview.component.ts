@@ -9,8 +9,8 @@ import { Mail } from '../../interfaces/mail';
   styleUrls: ['./mail-preview.component.css']
 })
 export class MailPreviewComponent implements OnInit {
-  @input() accountIndex: number;
-  @input() mail: Mail;
+  @Input() accountIndex: number;
+  @Input() mail: Mail;
 
   constructor() { }
 
