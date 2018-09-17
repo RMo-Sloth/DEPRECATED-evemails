@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 import { Account } from '../interfaces/account';
 
@@ -9,31 +9,31 @@ import { Account } from '../interfaces/account';
 })
 export class AccountService {
   accounts: Account[];
+  accounts$: BehaviorSubject<Account[]>;
 
   constructor() {
     this.accounts = [];
+    this.accounts$ = new BehaviorSubject([]);
+
+    if( localStorage.getItem('accounts') !== null )
+    {
+      let accounts = JSON.parse( localStorage.getItem('accounts') );
+      accounts.forEach( account => {
+        this.add_account( account );
+      });
+    }
   }
 
-  public add_account(
-    index: number,
-    accessToken: string,
-    refreshToken: string
-  ): Observable<Account>{
-    return new Observable( observer => {
-      if( this.isRegisteredAccount( index ) === false ){
-        const account: Account = {
-          index: index,
-          accessToken: accessToken,
-          refreshToken: refreshToken,
-          }
-          observer.next( account );
-          observer.complete();
-      }else{
-        observer.error("The account you are trying to add already exist");
-      }
-    }); // end observable
+  public add_account( account: Account ): void {
+    if( this.isRegisteredAccount( account.index ) === false ){
+      this.accounts.push( account );
+      this.accounts$.next( this.accounts );
+    }else{
+      console.error("The account you are trying to add already exist");
+    }
   }
-  public get_account( index: number ): Observable<Account>{
+
+  public get_account( index: number ): Observable<Account> {
     return new Observable( observer => {
       if( this.isRegisteredAccount( index ) === true ){
         let account = this.accounts.find( account => {
@@ -45,8 +45,16 @@ export class AccountService {
         // TODO: alert user account isn't registered maybe refer to authentication page?
         observer.error("The user account you are trying to use isn't registed on this device.");
       }
-  }); // end observable
+    }); // end observable
   }
+
+  public remove_account( accountIndex: number ): void{
+    this.accounts = this.accounts.filter( account => {
+      return account.index !== accountIndex;
+    });
+    this.accounts$.next( this.accounts );
+  }
+
   private isRegisteredAccount( index: number ): boolean{
     return this.accounts.some( account => {
       return account.index === index;

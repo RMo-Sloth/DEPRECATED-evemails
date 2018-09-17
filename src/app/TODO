@@ -19,3 +19,7 @@ Corporation
 Mail
 UserTokens
 MailAccount
+
+two ways to authenticate:
+  One time token
+  Reusable token

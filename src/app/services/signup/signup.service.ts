@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { UserAccountService } from '../user-account.service';
+import { Account } from '../../interfaces/account';
+
+import { AccountService } from '../account.service';
 import { LocalStorageService } from '../local-storage/local-storage.service';
 
 interface BasicAccountInfo{
@@ -20,7 +22,7 @@ export class SignupService {
 
   constructor(
     private http: HttpClient,
-    private userAccountService: UserAccountService,
+    private accountService: AccountService,
     private localStorageService: LocalStorageService
   ) { }
 
@@ -28,8 +30,12 @@ export class SignupService {
     // TODO:  we should retreive the accessToken, refreshToken and expiration through a serverside request, the parameter of this function should then be the authorization_code not the accessToken.
     this.get_accountInfo( accessToken )
       .subscribe( (accountInfo: BasicAccountInfo) => {
-        const characterIndex = accountInfo.CharacterID;
-        this.register_account( characterIndex, accessToken, '')
+        const account: Account = {
+          index: accountInfo.CharacterID,
+          accessToken: accessToken,
+          refreshToken: ''
+        };
+        this.register_account( account );
       });
   }
   private get_accountInfo( accessToken ): Observable<BasicAccountInfo>{
@@ -43,9 +49,9 @@ export class SignupService {
     // the accessToken is added to the url to prevent browser-caching.
     return this.http.get<BasicAccountInfo>(`https://esi.tech.ccp.is/verify/?token=${accessToken}`, httpOptions);
   }
-  private register_account( characterIndex, accessToken, refreshToken ){
-    this.userAccountService.add_account( characterIndex,  accessToken, refreshToken ); // TODO: should add accessToken too.
-    this.localStorageService.add_account( characterIndex, accessToken, refreshToken ); // TODO: add expiration time of accessToken too
+  private register_account( account: Account ){
+    this.accountService.add_account( account );
+    this.localStorageService.add_account( account );
   }
 
 }

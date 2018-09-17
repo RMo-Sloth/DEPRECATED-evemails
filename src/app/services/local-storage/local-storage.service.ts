@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 
+// interfaces
+import { Account } from '../../interfaces/account';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -18,30 +21,28 @@ export class LocalStorageService {
       return relevantAccount.refreshToken;
     }
   }
-  public add_account( characterIndex: number, accessToken: string, refreshToken: string ): void{
+
+  public add_account( account: Account ): void{
     let accounts: any = this.get_accounts();
-    let newAccount: any = {
-      characterId: characterIndex,
-      refreshToken: refreshToken,
-      accessToken: accessToken
-    };
+    // can refactor the for-loop to be executed before th e if statement
     for( let i=0; i<accounts.length; i++){
-      if( accounts[i].characterId === characterIndex ){
+      if( accounts[i].index === account.index ){
         alert('The account you are trying to add already exists! Please remove it and try again.');
         return; // end function execution
       }
     }
-    accounts.push( newAccount );
+    accounts.push( account );
     localStorage.setItem( 'accounts', JSON.stringify(accounts) );
-
   }
-  public remove_account( characterIndex ): void{
+
+  public remove_account( accountIndex: number ): void{
     let accounts: any = this.get_accounts();
     accounts = accounts.filter( account => {
-      return account.characterId !== characterIndex;
+      return account.index !== accountIndex;
     });
     localStorage.setItem( 'accounts', JSON.stringify(accounts) );
   }
+
   public update_refreshToken( characterIndex, refreshToken): void{
     let accounts:any = this.get_accounts();
     let relevantAccount = accounts.find( account => {
@@ -54,6 +55,7 @@ export class LocalStorageService {
     }
     localStorage.setItem( 'accounts', JSON.stringify(accounts) );
   }
+
   public get_accounts(): any { // TODO: typecheck might be nice
     const accounts:any = localStorage.getItem('accounts');
     if( accounts === null ){
