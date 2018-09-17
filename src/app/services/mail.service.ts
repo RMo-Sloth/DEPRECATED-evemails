@@ -94,9 +94,26 @@ export class MailService {
     const httpOptions = this.accountHttp.get_headers( accountIndex )
     .subscribe( httpOptions => {
       this.http.get( `https://esi.evetech.net/latest/characters/${accountIndex}/mail?datasource=tranquility`, httpOptions )
-      .subscribe( mails => console.log(mails) );
+      .subscribe( mails => {
+        // add each mail using add_mail
+        for( let i=0; i<mails.length; i++ ) {
+          let mailInfo = mails[i];
+          let mail = {
+            index: mailInfo.mail_id,
+            account: accountIndex,
+            labels: mailInfo.labels,
+            sender: mailInfo.from,
+            recipients: mailInfo.recipients,
+            subject: mailInfo.subject,
+            body: null,
+            timestamp: new Date( mailInfo.timestamp ),
+            isRead: mailInfo.read,
+          }
+          // add a new mail to the mails[]
+          this.add_mail( mail );
+        };
+      });
     });
-    // add each mail using add_mail
   }
 
   private request_mails( accountIndex: number ): void {

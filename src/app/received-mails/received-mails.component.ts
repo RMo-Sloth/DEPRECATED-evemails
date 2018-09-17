@@ -42,7 +42,7 @@ export class ReceivedMailsComponent implements OnInit {
     .subscribe( character => {
       this.pageTitleService.set_pageTitle( character.name );
     });
-    // this.mailService.get_account( characterIndex: number )
+    this.mailService.get_mails( this.accountIndex )
     //     .subscribe(mails => this.mails = mails);
   }
   // TODO: click on a read-more button to retreive more mails
