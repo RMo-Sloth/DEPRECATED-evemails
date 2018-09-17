@@ -89,13 +89,14 @@ export class MailService {
     }); // end observable
   }
 
-  public get_mails( accountIndex: number ): void {
+  public get_inboxMails( accountIndex: number ): void {
     // retreives a list of mails
     const httpOptions = this.accountHttp.get_headers( accountIndex )
     .subscribe( httpOptions => {
-      this.http.get( `https://esi.evetech.net/latest/characters/${accountIndex}/mail?datasource=tranquility`, httpOptions )
+      this.http.get( `https://esi.evetech.net/latest/characters/${accountIndex}/mail?datasource=tranquility&labels=1`, httpOptions )
       .subscribe( mails => {
         // add each mail using add_mail
+        // foreach doesn't work here so resorted to a for loop
         for( let i=0; i<mails.length; i++ ) {
           let mailInfo = mails[i];
           let mail = {
@@ -116,7 +117,7 @@ export class MailService {
     });
   }
 
-  private request_mails( accountIndex: number ): void {
+  private request_inboxMails( accountIndex: number ): void {
 
   }
 
