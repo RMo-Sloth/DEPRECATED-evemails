@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+
+// interfaces
+import { Mail } from '../../interfaces/mail';
 
 @Component({
   selector: 'app-mail-preview',
@@ -6,10 +9,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./mail-preview.component.css']
 })
 export class MailPreviewComponent implements OnInit {
+  @input() accountIndex: number;
+  @input() mail: Mail;
 
   constructor() { }
 
   ngOnInit() {
   }
+
 
 }

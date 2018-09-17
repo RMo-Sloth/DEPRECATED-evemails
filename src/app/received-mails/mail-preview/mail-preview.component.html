@@ -1,3 +1,15 @@
 <p>
   mail-preview works!
 </p>
+
+
+<!-- TODO: seperate component should require a accountIndex and mail object -->
+  <!-- <li *ngFor="let mail of mails" routerLink="/{{accountIndex}}/mail/{{mail.index}}">
+    <div class='sender-image' [style.background]="mail.sender.portraits.px64x64$ | async | url" >
+      <i class='fa fa-envelope' *ngIf='( mail.isRead === false )'></i>
+    </div>
+    <div class='mail-info'>
+      <h4 class='sender-name'>{{mail.sender}}<h6 class='date'>{{mail.timestamp | date}}</h6></h4>
+      <p class='mail-topic'>{{mail.subject}}</p>
+    </div>
+  </li> -->
