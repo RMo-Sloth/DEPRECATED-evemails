@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
 import { BehaviorSubject } from 'rxjs';
 
-import { Mail } from '../classes/mail/Mail';
-import{ Character } from '../classes/character/Character';
-import{ Account } from '../classes/account/Account';
+// interfaces
+import { Mail } from '../interfaces/mail';
+import { Character } from '../interfaces/character';
+import { Account } from '../interfaces/account';
+import { NavigationButton } from '../interfaces/navigation-button';
 
+// services
 import { PageTitleService } from '../services/page-title.service';
-import{ UserAccountService } from '../services/user-account.service';
-import{ MailService } from '../services/user-account/mail.service';
+import { CharacterService } from '../services/character.service';
+import{ MailService } from '../services/mail.service';
 
 @Component({
   selector: 'app-received-mails',
@@ -17,24 +19,28 @@ import{ MailService } from '../services/user-account/mail.service';
   styleUrls: ['./received-mails.component.css']
 })
 export class ReceivedMailsComponent implements OnInit {
-  account: Account;
-  navigationButtons; // TODO: typecheck
+  accountIndex: number;
+  mails: Mail[]; //// TODO: maybe should be an observable
+  navigationButtons: NavigationButton[];
   constructor(
+  private route: ActivatedRoute,
     private pageTitleService : PageTitleService,
-    private route: ActivatedRoute,
-    public userAccountService: UserAccountService
+    private characterService: CharacterService,
+    private mailService: MailService,
   ) {
-    const account_id = parseInt( this.route.snapshot.paramMap.get('account_id') );
-    this.account = this.userAccountService.get_account( account_id );
+    this.accountIndex = parseInt( this.route.snapshot.paramMap.get('account_id') );
+    this.mails = [];
     this.navigationButtons = [
       { faClass: 'home', routerUrl: '/dashboard'},
       { faClass: 'search', routerUrl: '/dashboard'},
-      { faClass: 'pencil', routerUrl: `/${this.account.character.characterId}/new-mail`}
+      { faClass: 'pencil', routerUrl: `/${this.accountIndex }/new-mail`}
     ];
   }
   ngOnInit() {
-    this.account.character.name$.asObservable().subscribe( name => {
-        this.pageTitleService.set_pageTitle( name );
+    this.pageTitleService.set_pageTitle( 'mails' );
+    this.characterService.get_character( this.accountIndex )
+    .subscribe( character => {
+      this.pageTitleService.set_pageTitle( character.name );
     });
     // this.mailService.get_account( characterIndex: number )
     //     .subscribe(mails => this.mails = mails);
