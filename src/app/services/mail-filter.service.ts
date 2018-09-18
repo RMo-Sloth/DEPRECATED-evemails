@@ -12,7 +12,7 @@ import { MailService } from './mail.service';
 })
 export class MailFilterService {
 
-  private filteredMails$: BehaviorSubject<Mail[]>;
+  public filteredMails$: BehaviorSubject<Mail[]>;
   // filter properties
   accountIndex: number;
   labels: number[];
@@ -29,11 +29,11 @@ export class MailFilterService {
       this.filter( mails );
     });
   }
-  private set_filterAccountIndex( accountIndex: number ): void {
+  public set_filterAccountIndex( accountIndex: number ): void {
     this.accountIndex = accountIndex;
   }
 
-  private set_filterLabels( labels: number[] ): void {
+  public set_filterLabels( labels: number[] ): void {
     this.labels = labels;
   }
 
