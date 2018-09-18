@@ -12,6 +12,7 @@ import { NavigationButton } from '../interfaces/navigation-button';
 import { PageTitleService } from '../services/page-title.service';
 import { CharacterService } from '../services/character.service';
 import{ MailService } from '../services/mail.service';
+import{ MailFilterService } from '../services/mail-filter.service';
 
 @Component({
   selector: 'app-received-mails',
@@ -29,10 +30,13 @@ export class ReceivedMailsComponent implements OnInit {
     private pageTitleService : PageTitleService,
     private characterService: CharacterService,
     private mailService: MailService,
+    private mailFilterService: MailFilterService,
   ) {
     this.accountIndex = parseInt( this.route.snapshot.paramMap.get('account_id') );
-    this.mails$ = new BehaviorSubject([]); 
-    this.mails$ = this.mailService.mails$;
+    this.mails$ = new BehaviorSubject([]);
+    // this.mails$ = this.mailService.mails$;
+    this.mailFilterService.set_filterAccountIndex( this.accountIndex );
+    this.mails$ = this.mailFilterService.filteredMails$;
     this.navigationButtons = [
       { faClass: 'home', routerUrl: '/dashboard'},
       { faClass: 'search', routerUrl: '/dashboard'},
