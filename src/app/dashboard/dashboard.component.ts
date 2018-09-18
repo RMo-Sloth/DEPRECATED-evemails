@@ -7,7 +7,6 @@ import{ Account } from '../interfaces/account';
 
 // services
 import { PageTitleService } from '../services/page-title.service';
-import { LocalStorageService } from '../services/local-storage/local-storage.service';
 import { SignupService } from '../services/signup/signup.service';
 import { AccountService } from '../services/account.service';
 
