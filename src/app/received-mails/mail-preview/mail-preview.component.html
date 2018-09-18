@@ -1,10 +1,9 @@
-<!-- TODO: seperate component should require a accountIndex and mail object -->
-  <li routerLink="/{{accountIndex}}/mail/{{mail.index}}">
-    <div class='sender-image' [style.background]="portrait$ | async | url">
-      <i class='fa fa-envelope' *ngIf='( mail.isRead === false )'></i>
-    </div>
-    <div class='mail-info'>
-      <h4 class='sender-name'>{{sender$ | async}}<h6 class='date'>{{mail.timestamp | date}}</h6></h4>
-      <p class='mail-topic'>{{mail.subject}}</p>
-    </div>
-  </li>
+<li routerLink="/{{accountIndex}}/mail/{{mail.index}}" [class.odd]='isOdd' [class.even]='!isOdd'>
+  <div class='sender-image' [style.background]="portrait$ | async | url">
+    <i class='fa fa-envelope' *ngIf='( mail.isRead === false )'></i>
+  </div>
+  <div class='mail-info'>
+    <h4 class='sender-name'>{{sender$ | async}}<h6 class='date'>{{mail.timestamp | date}}</h6></h4>
+    <p class='mail-topic'>{{mail.subject}}</p>
+  </div>
+</li>

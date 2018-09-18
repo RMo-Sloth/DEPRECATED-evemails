@@ -13,6 +13,7 @@ import { Mail } from '../../interfaces/mail';
 export class MailPreviewComponent implements OnInit {
   @Input() accountIndex: number;
   @Input() mail: Mail;
+  @Input() isOdd: boolean;
 
   private portrait$: BehaviorSubject<string>;
   private sender$: BehaviorSubject<string>;

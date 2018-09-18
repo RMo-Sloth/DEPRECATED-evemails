@@ -33,3 +33,9 @@ li>.mail-info>.mail-topic{
 li>.mail-info>.sender-name>.date{
   float: right;
 }
+li.odd {
+  background-color: rgba(256,256,256,0.1);
+}
+li.even {
+  background-color: rgba(256,256,256,0.2);
+}
