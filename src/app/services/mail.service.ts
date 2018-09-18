@@ -97,13 +97,8 @@ export class MailService {
 
   public get_inboxMails( accountIndex: number ): void {
     // retreives a list of mails
-    const httpOptions = this.accountHttp.get_headers( accountIndex )
-    .subscribe( httpOptions => {
-      this.http.get( `https://esi.evetech.net/latest/characters/${accountIndex}/mail?datasource=tranquility&labels=1`, httpOptions )
+      this.request_inboxMails( accountIndex )
       .subscribe( ( mails: any ) => { // TODO: should check more strict than any
-        // add each mail using add_mail
-        // foreach doesn't work here so resorted to a for loop
-        // for( let i=0; i<mails.length; i++ ) {
         mails.forEach( mailInfo => {
           let mail = {
             index: mailInfo.mail_id,
@@ -120,12 +115,21 @@ export class MailService {
           this.add_mail( mail );
         }); // end foreach
         this.mails$.next( this.mails );
-      });
-    });
+      }); // end subscribe
+    // });
   }
 
-  private request_inboxMails( accountIndex: number ): void {
-
+  private request_inboxMails( accountIndex: number ): Observable<any> {
+    return new Observable( observer => {
+    const httpOptions = this.accountHttp.get_headers( accountIndex )
+    .subscribe( httpOptions => {
+      this.http.get( `https://esi.evetech.net/latest/characters/${accountIndex}/mail?datasource=tranquility&labels=1`, httpOptions )
+      .subscribe( mailInfo => {
+        observer.next( mailInfo );
+        observer.complete();
+      });
+    });
+  }); // end obeservable
   }
 
   private request_mail( index: number, account: number ): Observable<any> {
@@ -137,6 +141,7 @@ export class MailService {
       });
     });
   }
+
   private add_mail( mail: Mail ){
     // check if the mail is added ( possible due to request delay )
     if( this.isRegisteredMail( mail.index ) === false ){
@@ -164,6 +169,6 @@ export class MailService {
 }
 
 // TODO: this.remove_mail()
-// TODO: replace http with accountHttp.service ???
-// TODO: Return mail headers ( a list of mails without body )
 // TODO: update isRead property of mails
+// TODO: load mails with lastloaded id
+// lastloaded id is accountbound however so set it in the account or set it in th email itself. Account approach seems simpler.
