@@ -1,7 +1,5 @@
 <ul id='received-mails'>
-
   <app-mail-preview [accountIndex]="accountIndex" [mail]='mail' *ngFor="let mail of mails$ | async"></app-mail-preview>
-
-  <li class='load-more'><span>... load more ...</span></li><!-- TODO: add loadmore functionality, seperate the functionality out in a seperate component, display when available. When loading change text to loading and disable button until content is loaded -->
+  <app-more-mails [accountIndex]="accountIndex"></app-more-mails>
 </ul>
 <app-navigation [buttons]="navigationButtons"></app-navigation>

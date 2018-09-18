@@ -1,0 +1,12 @@
+li{
+  height: auto;
+  display: flex;
+  list-style: none;
+  cursor: pointer;
+}
+li.load-more{
+  height: 4rem;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+}

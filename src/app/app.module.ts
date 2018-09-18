@@ -15,6 +15,7 @@ import { UrlPipe } from './pipes/url.pipe';
 import { AccountDetailsComponent } from './dashboard/account-details/account-details.component';
 import { AccountNewComponent } from './dashboard/account-new/account-new.component';
 import { MailPreviewComponent } from './received-mails/mail-preview/mail-preview.component';
+import { MoreMailsComponent } from './received-mails/more-mails/more-mails.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { MailPreviewComponent } from './received-mails/mail-preview/mail-preview
     UrlPipe,
     AccountDetailsComponent,
     AccountNewComponent,
-    MailPreviewComponent
+    MailPreviewComponent,
+    MoreMailsComponent
   ],
   imports: [
     BrowserModule,
