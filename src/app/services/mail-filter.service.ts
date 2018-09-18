@@ -62,7 +62,7 @@ export class MailFilterService {
   private mailboxStateFilter( labels: number[] ): boolean {
     switch( this.mailboxState ){
       case 'inbox':
-        return labels.includes(1) );
+        return labels.includes(1);
       case 'outbox':
         // assuming all outbox mails are not inbox
         return !labels.includes(1);
