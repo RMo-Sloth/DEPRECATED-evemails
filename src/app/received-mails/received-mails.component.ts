@@ -34,7 +34,6 @@ export class ReceivedMailsComponent implements OnInit {
   ) {
     this.accountIndex = parseInt( this.route.snapshot.paramMap.get('account_id') );
     this.mails$ = new BehaviorSubject([]);
-    // this.mails$ = this.mailService.mails$;
     this.mailFilterService.set_filterAccountIndex( this.accountIndex );
     this.mails$ = this.mailFilterService.filteredMails$;
     this.navigationButtons = [
@@ -44,7 +43,6 @@ export class ReceivedMailsComponent implements OnInit {
     ];
   }
   ngOnInit() {
-    this.pageTitleService.set_pageTitle( 'mails' );
     this.characterService.get_character( this.accountIndex )
     .subscribe( character => {
       this.pageTitleService.set_pageTitle( character.name );
@@ -52,7 +50,5 @@ export class ReceivedMailsComponent implements OnInit {
     this.mailService.get_inboxMails( this.accountIndex );
     //     .subscribe(mails => this.mails = mails);
   }
-  // TODO: click on a read-more button to retreive more mails
-  // TODO: apply filters on ngOnInit() ( before view )
-  // TODO: apply interface for filtering on name and subject
 }
+// TODO: apply interface for filtering on name and subject

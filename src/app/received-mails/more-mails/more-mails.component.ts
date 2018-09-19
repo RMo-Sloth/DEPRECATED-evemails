@@ -17,3 +17,4 @@ export class MoreMailsComponent implements OnInit {
     console.log('loading mails');
   }
 }
+  // TODO: click on a read-more button to retreive more mails
