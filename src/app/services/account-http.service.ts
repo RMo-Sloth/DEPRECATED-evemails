@@ -8,25 +8,18 @@ import { AccountService } from './account.service';
   providedIn: 'root'
 })
 export class AccountHttpService {
-  private httpHeaders;
 
   constructor(
     private http: HttpClient,
     private accountService: AccountService,
-  ) {
-    this.httpHeaders = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json'
-      })
-    };
-  }
+  ) {}
 
   public get_headers( accountIndex: number ):Observable<any>{
-    // get the account
+    /* get the account*/
     return new Observable( observer => {
       this.accountService.get_account( accountIndex )
       .subscribe( account => {
-      // compose headers
+      /* compose headers*/
       const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type':  'application/json',
@@ -38,6 +31,6 @@ export class AccountHttpService {
       }, error => {
         observer.error( error );
       }); // end subscribe
-    }); // end observable
+    }); /* end observable */
   }
 }
