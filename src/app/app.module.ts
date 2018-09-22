@@ -16,6 +16,7 @@ import { AccountDetailsComponent } from './dashboard/account-details/account-det
 import { AccountNewComponent } from './dashboard/account-new/account-new.component';
 import { MailPreviewComponent } from './received-mails/mail-preview/mail-preview.component';
 import { MoreMailsComponent } from './received-mails/more-mails/more-mails.component';
+import { CharacterPipe } from './pipes/character.pipe';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { MoreMailsComponent } from './received-mails/more-mails/more-mails.compo
     AccountDetailsComponent,
     AccountNewComponent,
     MailPreviewComponent,
-    MoreMailsComponent
+    MoreMailsComponent,
+    CharacterPipe
   ],
   imports: [
     BrowserModule,
