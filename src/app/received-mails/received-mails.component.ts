@@ -33,22 +33,23 @@ export class ReceivedMailsComponent implements OnInit {
     private mailFilterService: MailFilterService,
   ) {
     this.accountIndex = parseInt( this.route.snapshot.paramMap.get('account_id') );
-    this.mails$ = new BehaviorSubject([]);
-    this.mailFilterService.set_filterAccountIndex( this.accountIndex );
-    this.mails$ = this.mailFilterService.filteredMails$;
     this.navigationButtons = [
       { faClass: 'home', routerUrl: '/dashboard'},
       { faClass: 'search', routerUrl: '/dashboard'},
       { faClass: 'pencil', routerUrl: `/${this.accountIndex }/new-mail`}
     ];
   }
+  ngOnChanges(){
+  }
   ngOnInit() {
+    this.mails$ = new BehaviorSubject([]);
+    this.mails$ = this.mailFilterService.filteredMails$;
+    this.mailFilterService.set_filterAccountIndex( this.accountIndex );
     this.characterService.get_character( this.accountIndex )
     .subscribe( character => {
       this.pageTitleService.set_pageTitle( character.name );
     });
     this.mailService.get_initialMails( this.accountIndex );
-    //     .subscribe(mails => this.mails = mails);
   }
 }
 // TODO: apply interface for filtering on name and subject

@@ -2,13 +2,17 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 
+/* INTERFACES */
 import { Mail } from '../interfaces/mail';
 
+/* SERVICES */
 import { AccountHttpService } from './account-http.service';
 
 interface LastLoadedMail {
   accountIndex: number;
   lastLoadedMail: number;
+  allMailsAreLoaded$: BehaviorSubject<boolean>;
+  // TODO: refactor lastLoadedMail to index
 }
 
 @Injectable({
@@ -29,6 +33,8 @@ export class MailService {
     this.lastLoadedMails = [];
     this.mails$ = new BehaviorSubject([]);
   }
+
+  /* SINGLE MAILS*/
 
   public get_mail( index: number, account: number ): Observable<Mail> {
 
@@ -102,36 +108,67 @@ export class MailService {
     }); // end observable
   }
 
-  public get_inboxMails( accountIndex: number ): void {
-    // retreives a list of mails
-      this.request_inboxMails( accountIndex )
-      .subscribe( ( mails: any ) => { // TODO: should check more strict than any
-        mails.forEach( mailInfo => {
-          let mail = {
-            index: mailInfo.mail_id,
-            account: accountIndex,
-            labels: mailInfo.labels,
-            sender: mailInfo.from,
-            recipients: mailInfo.recipients,
-            subject: mailInfo.subject,
-            body: null,
-            timestamp: new Date( mailInfo.timestamp ),
-            isRead: (mailInfo.is_read === true) ? true : false ,
-          }
-          // add a new mail to the mails[]
-          this.add_mail( mail );
-        }); // end foreach
+  private request_mail( index: number, account: number ): Observable<any> {
+    return new Observable( observer => {
+      let httpHeaders = this.accountHttp.get_headers( account )
+      .subscribe( httpHeaders => {
+        observer.next( this.http.get( `https://esi.evetech.net/latest/characters/${account}/mail/${index}/?datasource=tranquility`, httpHeaders ) );
+        observer.complete();
+      });
+    });
+  }
+
+  private translateFromEveHtml( EVE_Html: string) {
+    EVE_Html = EVE_Html.replace(/<font.*?>/g, '');
+    EVE_Html = EVE_Html.replace(/<\/font>/g, '');
+    return EVE_Html;
+  }
+
+  /* MAIL LISTS */
+
+  public add_moreMails( accountIndex: number ): void {
+    /* retreives a list of mails */
+    this.request_moreMails( accountIndex )
+    .subscribe( ( mails: any ) => {
+      // TODO: should check more strict than any
+      // TODO: this foreach loop is duplicated
+      // detect if last mail is requested
+      mails.forEach( mailInfo => {
+        let mail = {
+          index: mailInfo.mail_id,
+          account: accountIndex,
+          labels: mailInfo.labels,
+          sender: mailInfo.from,
+          recipients: mailInfo.recipients,
+          subject: mailInfo.subject,
+          body: null,
+          timestamp: new Date( mailInfo.timestamp ),
+          isRead: (mailInfo.is_read === true) ? true : false ,
+        }
+        // add a new mail to the mails[]
+        this.add_mail( mail );
+      }); // end foreach
+
+      if( mails.length < 50 && mails.length > 0 ) {
         let lastMailInfo = mails[ mails.length - 1 ];
-        this.register_lastLoadedMail( accountIndex, lastMailInfo.mail_id );
+        this.register_lastLoadedMail( accountIndex, lastMailInfo.mail_id, true );
         this.mails$.next( this.mails );
-      }); // end subscribe
-    // });
+      } else if( mails.length === 0 ) {
+        this.register_lastLoadedMail( accountIndex, null, true );
+      } else if( mails.length === 50 ) {
+        let lastMailInfo = mails[ mails.length - 1 ];
+        this.register_lastLoadedMail( accountIndex, lastMailInfo.mail_id, false );
+        this.mails$.next( this.mails );
+      }
+    }); // end subscribe
   }
 
   public get_initialMails( accountIndex ): void {
-    // maybe a get_initialMails function?? Would check if some mails already exist. If yes runs no functions if no load mails
     if( this.accountHasMails( accountIndex ) === true ){
       // don't load more mails unless the user requests it
+      // do refresh this.mails$ because get_initialMails() is triggering the filter
+      // if this.mails$ isn't refreshed here it will possible load the data of the wrong account
+      this.mails$.next( this.mails );
     } else {
       this.request_initialMails( accountIndex )
       .subscribe( ( mails: any ) => { // TODO: should check more strict than any
@@ -148,11 +185,18 @@ export class MailService {
             timestamp: new Date( mailInfo.timestamp ),
             isRead: (mailInfo.is_read === true) ? true : false ,
           }
-          // add a new mail to the mails[]
+          /* add a new mail to the mails[]*/
           this.add_mail( mail );
         }); // end foreach
-        let lastMailInfo = mails[ mails.length - 1 ];
-        this.register_lastLoadedMail( accountIndex, lastMailInfo.mail_id );
+        if( mails.length === 0 ) {
+            this.register_lastLoadedMail( accountIndex, null, true );
+        } else if( mails.length < 50 ) {
+          let lastMailInfo = mails[ mails.length - 1 ];
+          this.register_lastLoadedMail( accountIndex, lastMailInfo.mail_id, true );
+        } else if( mails.length === 50) {
+          let lastMailInfo = mails[ mails.length - 1 ];
+          this.register_lastLoadedMail( accountIndex, lastMailInfo.mail_id, false );
+        }
         this.mails$.next( this.mails );
       }); // end subscribe
 
@@ -176,13 +220,24 @@ export class MailService {
     }); // end obeservable
   }
 
-  private request_mail( index: number, account: number ): Observable<any> {
+  private request_moreMails( accountIndex: number ): Observable<any> {
     return new Observable( observer => {
-      let httpHeaders = this.accountHttp.get_headers( account )
-      .subscribe( httpHeaders => {
-        observer.next( this.http.get( `https://esi.evetech.net/latest/characters/${account}/mail/${index}/?datasource=tranquility`, httpHeaders ) );
-        observer.complete();
-      });
+      // // TODO: should this be defined here or in get_moreMails and passed as parameter?
+      const lastLoadedMail: LastLoadedMail = this.get_lastLoadedMail( accountIndex );
+      this.accountHttp.get_headers( accountIndex )
+      .subscribe( httpOptions => {
+        this.http.get( `https://esi.evetech.net/latest/characters/${accountIndex}/mail?datasource=tranquility&last_mail_id=${lastLoadedMail.lastLoadedMail}`, httpOptions )
+        .subscribe( mailInfo => {
+          observer.next( mailInfo );
+          observer.complete();
+        });
+      }); // end subscribe
+    }); // end observable
+  }
+
+  private isRegisteredMail( mailIndex: number ): boolean {
+    return this.mails.some( mail => {
+      return mail.index === mailIndex;
     });
   }
 
@@ -191,14 +246,10 @@ export class MailService {
     if( this.isRegisteredMail( mail.index ) === false ){
       this.mails.push( mail );
     }
-    // this.mails$.next( this.mails) is performed in functions invoking add_mail
-    // in order to prevent unnecessary reloading for each individual added mail
-  }
-
-  private isRegisteredMail( mailIndex: number ): boolean {
-    return this.mails.some( mail => {
-      return mail.index === mailIndex;
-    });
+    /*
+    this.mails$.next( this.mails) is performed in functions invoking add_mail
+    in order to prevent unnecessary reloading for each individual added mail
+    */
   }
 
   private isCompletelyRegisteredMail( mailIndex: number ): boolean {
@@ -208,22 +259,21 @@ export class MailService {
     });
   }
 
-  private translateFromEveHtml( EVE_Html: string) {
-    EVE_Html = EVE_Html.replace(/<font.*?>/g, '');
-    EVE_Html = EVE_Html.replace(/<\/font>/g, '');
-    return EVE_Html;
-  }
+  /* LAST LOADED MAIL INFO */
 
-  private register_lastLoadedMail( accountIndex, mailIndex ): void {
+  private register_lastLoadedMail( accountIndex: number, mailIndex: number, allMailsAreLoaded: boolean ): void {
+    // TODO: not usre it may be better to split update and adding functionality
     if( this.isRegisteredLoadedMail( accountIndex ) === true ) {
       let lastLoadedMail = this.get_lastLoadedMail( accountIndex );
       lastLoadedMail.lastLoadedMail = mailIndex;
+      lastLoadedMail.allMailsAreLoaded$.next( allMailsAreLoaded );
     } else {
       let lastLoadedMail = {
         accountIndex: accountIndex,
-        lastLoadedMail: mailIndex
+        lastLoadedMail: mailIndex,
+        allMailsAreLoaded$: new BehaviorSubject( allMailsAreLoaded )
       }
-      this.lastLoadedMails.push( lastLoadedMail )
+      this.lastLoadedMails.push( lastLoadedMail );
     }
   }
 
@@ -233,20 +283,23 @@ export class MailService {
     });
   }
 
-  private get_lastLoadedMail( accountIndex ): LastLoadedMail {
+  public get_lastLoadedMail( accountIndex ): LastLoadedMail {
     if( this.isRegisteredLoadedMail( accountIndex ) ){
-      const lastLoadedMail = this.lastLoadedMails.find( lastLoadedMail => {
-        return lastLoadedMail.accountIndex === accountIndex;
-      });
+      const lastLoadedMail = this.find_lastLoadedMail( accountIndex );
       return lastLoadedMail;
-    } else  {
-      return null;
+    } else {
+      this.register_lastLoadedMail( accountIndex, null, null );
+      const lastLoadedMail = this.find_lastLoadedMail( accountIndex );
+      return lastLoadedMail;
     }
+  }
+
+  private find_lastLoadedMail( accountIndex ): LastLoadedMail {
+    return this.lastLoadedMails.find( lastLoadedMail => {
+      return lastLoadedMail.accountIndex === accountIndex;
+    });
   }
 }
 
 // TODO: this.remove_mail()
-// TODO: update isRead property of mails
-// TODO: load mails with lastloaded id
-// lastloaded id is accountbound however so set it in the account or set it in th email itself. Account approach seems simpler. {accountIndex: number, lastReceivedMail: number}
 // TODO: Should I create a seperate service that modifies mails? That would create great interdepency between this class and the new class.
