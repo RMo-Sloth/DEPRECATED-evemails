@@ -1,1 +1,1 @@
-  <li class='load-more' (click)='loadMoreMails()'><span>... load more ...</span></li><!-- TODO: add loadmore functionality, seperate the functionality out in a seperate component, display when available. When loading change text to loading and disable button until content is loaded -->
+  <li class='load-more' (click)='loadMoreMails()' *ngIf="displayLoadMoreButton$ | async"><span>... load more ...</span></li>
