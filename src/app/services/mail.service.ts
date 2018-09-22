@@ -19,7 +19,7 @@ interface LastLoadedMail {
   providedIn: 'root'
 })
 export class MailService {
-  
+
   private mails: Mail[];
   /* lastLoadedMails tracks the last mails received by requesting get_mails
   NOT by requesting a single mail ( or it will potentially skip loading mails )*/
@@ -113,8 +113,11 @@ export class MailService {
     return new Observable( observer => {
       let httpHeaders = this.accountHttp.get_headers( account )
       .subscribe( httpHeaders => {
-        observer.next( this.http.get( `https://esi.evetech.net/latest/characters/${account}/mail/${index}/?datasource=tranquility`, httpHeaders ) );
-        observer.complete();
+        this.http.get( `https://esi.evetech.net/latest/characters/${account}/mail/${index}/?datasource=tranquility`, httpHeaders )
+        .subscribe( request_mailResponse => {
+          observer.next( request_mailResponse );
+          observer.complete();
+        });
       });
     });
   }
@@ -256,7 +259,7 @@ export class MailService {
   private isCompletelyRegisteredMail( mailIndex: number ): boolean {
     return this.mails.some( mail => {
       return mail.index === mailIndex
-        && mail.body !== undefined;
+        && mail.body !== null;
     });
   }
 
