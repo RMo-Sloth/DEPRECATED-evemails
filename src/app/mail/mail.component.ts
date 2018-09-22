@@ -4,9 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 /* INTERFACES */
 import { Mail } from '../interfaces/mail';
 import { NavigationButton } from '../interfaces/navigation-button';
-// import { Mail } from '../classes/mail/Mail';
-// import{ Character } from '../classes/character/Character';
-// import{ Account } from '../classes/account/Account';
 
 /* SERVICES */
 import { PageTitleService } from '../services/page-title.service';

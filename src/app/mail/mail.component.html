@@ -1,10 +1,10 @@
-<div id='mail'>
+<div id='mail' *ngIf='mail'>
   <div id='mail-sender'><!-- TODO: would be cool to color the border of mail-sender based on type e.g. alliance = purple, self = green -->
     <div id='mail-sender-image'>
-      <img src='{{mail.sender.portraits.px64x64$ | async}}' />
+      <img src='' />
     </div>
     <div id='mail-sender-details'>
-      <h4>{{mail.sender.name$ | async }}</h4>
+      <h4>sender</h4>
       <h6 id='corporation-name'>corporationName</h6><!-- TODO: optional -->
       <h6 id='alliance-name'>allianceName</h6><!-- TODO: optional -->
     </div>
@@ -13,10 +13,10 @@
   <span id='sent-date'>{{mail.timestamp | date:"dd MMMM, yyyy"}}</span>
   <ul id='mail-recipients'>
     <li>Recipients: </li>
-    <li *ngFor="let recipient of mail.recipients">{{recipient.recipient_id}}</li>
+    <!-- <li *ngFor="let recipient of mail.recipients">{{recipient.recipient_id}}</li> -->
   </ul>
   <p id='mail-title'>Subject: {{mail.subject}}</p>
-  <div id='mail-body' [innerHtml]="mail.body$ | async"></div>
+  <div id='mail-body' [innerHtml]=""></div>
   <ul id='mail-actions'>
     <li><i class="fa fa-reply"></i></li>
     <li><i class="fa fa-reply-all"></i></li>
