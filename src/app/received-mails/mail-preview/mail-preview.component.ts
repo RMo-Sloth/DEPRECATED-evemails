@@ -21,7 +21,7 @@ export class MailPreviewComponent implements OnInit {
   constructor(
     private characterService: CharacterService,
   ) {
-    this.portrait$ = new BehaviorSubject( null );
+    this.portrait$ = new BehaviorSubject('http://image.eveonline.com/Character/1_64.jpg');
     this.sender$ = new BehaviorSubject('');
   }
 
