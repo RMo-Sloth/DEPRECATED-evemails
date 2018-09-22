@@ -29,6 +29,7 @@ export class UserAccountService {
       });
     }
   }
+  
   public add_account( characterId: number,  accessToken: string, refreshToken: string ):void{
     let exists = this.accounts.some( account => {
       return account.character.characterId === characterId;
@@ -49,12 +50,14 @@ export class UserAccountService {
       this.accounts$.next( this.accounts );
     }
   }
+
   public remove_account( characterIndex:number ): void{
     this.accounts = this.accounts.filter( account => {
       return account.character.characterId !== characterIndex;
     });
     this.accounts$.next( this.accounts );
   }
+
   public get_account( characterIndex: number ): Account{
     for( let i=0; this.accounts.length > i; i++ ){
       if( this.accounts[i].character.characterId  === characterIndex ){

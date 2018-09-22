@@ -19,6 +19,7 @@ interface LastLoadedMail {
   providedIn: 'root'
 })
 export class MailService {
+  
   private mails: Mail[];
   /* lastLoadedMails tracks the last mails received by requesting get_mails
   NOT by requesting a single mail ( or it will potentially skip loading mails )*/

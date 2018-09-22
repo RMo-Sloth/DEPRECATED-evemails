@@ -8,7 +8,8 @@ import { Character } from '../interfaces/character';
   providedIn: 'root'
 })
 export class CharacterService {
-  characters: Character[];
+  
+  private characters: Character[];
 
   constructor(
     private http: HttpClient
@@ -33,6 +34,7 @@ export class CharacterService {
       }
     }); // end observable
   }
+
   private add_character( index: number ): Observable<Character>{
     return new Observable( observer => {
       let details: Observable<any> = this.http.get(`https://esi.evetech.net/latest/characters/${index}/?datasource=tranquility`);
@@ -60,6 +62,7 @@ export class CharacterService {
       }); // end subscribe
     }); // end observable
   }
+
   private isRegisteredCharacter( index: number ): boolean{
     return this.characters.some( character => {
       return character.index === index;

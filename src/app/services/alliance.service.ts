@@ -9,13 +9,33 @@ import { Alliance } from '../interfaces/alliance';
   providedIn: 'root'
 })
 export class AllianceService {
-  alliances: Alliance[];
+
+  private alliances: Alliance[];
 
   constructor(
     private http: HttpClient
   ) {
     this.alliances = [];
   }
+
+  public get_alliance( index: number ): Observable<Alliance>{
+    return new Observable( observer => {
+      if( this.isRegisteredAlliance( index ) === true ){
+        let alliance = this.alliances.find( alliance => {
+          return alliance.index === index;
+        });
+        observer.next( alliance );
+        observer.complete();
+      }else{
+        this.add_alliance( index )
+        .subscribe( alliance => {
+          observer.next( alliance );
+          observer.complete();
+        });
+      }
+  }); // end observable
+  }
+
   private add_alliance( index: number ): Observable<Alliance>{
     return new Observable( observer => {
       let details: Observable<any> = this.http.get(`https://esi.evetech.net/latest/alliances/${index}/?datasource=tranquility`);
@@ -40,23 +60,7 @@ export class AllianceService {
       }); // end subscribe
     }); // end observable
   }
-  public get_alliance( index: number ): Observable<Alliance>{
-    return new Observable( observer => {
-      if( this.isRegisteredAlliance( index ) === true ){
-        let alliance = this.alliances.find( alliance => {
-          return alliance.index === index;
-        });
-        observer.next( alliance );
-        observer.complete();
-      }else{
-        this.add_alliance( index )
-        .subscribe( alliance => {
-          observer.next( alliance );
-          observer.complete();
-        });
-      }
-  }); // end observable
-  }
+
   private isRegisteredAlliance( index: number ): boolean{
     return this.alliances.some( alliance => {
       return alliance.index === index;

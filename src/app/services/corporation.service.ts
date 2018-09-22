@@ -8,7 +8,8 @@ import { Corporation } from '../interfaces/corporation';
   providedIn: 'root'
 })
 export class CorporationService {
-  corporations: Corporation[];
+
+  private corporations: Corporation[];
 
   constructor(
     private http: HttpClient
@@ -33,6 +34,7 @@ export class CorporationService {
       }
     }); // end observable
   }
+
   private add_corporation( index: number ): Observable<Corporation>{
     return new Observable( observer => {
       let details: Observable<any> = this.http.get(`https://esi.evetech.net/latest/corporations/${index}/?datasource=tranquility`);
@@ -60,6 +62,7 @@ export class CorporationService {
       }); // end subscribe
     }); // end observable
   }
+
   private isRegisteredCorporation( index: number ): boolean{
     return this.corporations.some( corporation => {
       return corporation.index === index;

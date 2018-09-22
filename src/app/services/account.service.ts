@@ -8,7 +8,8 @@ import { Account } from '../interfaces/account';
   providedIn: 'root'
 })
 export class AccountService {
-  accounts: Account[];
+
+  private accounts: Account[];
   accounts$: BehaviorSubject<Account[]>;
 
   constructor() {
