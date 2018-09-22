@@ -32,3 +32,5 @@ add services through pipes
   x character
     corpration
     allaince
+
+new bug appeared where sometimes not all mails have been loaded. It seemed to be introduced when mailService.request_mail() had been modified
