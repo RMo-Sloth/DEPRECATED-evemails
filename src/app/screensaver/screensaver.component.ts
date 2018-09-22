@@ -8,7 +8,9 @@ import { PageTitleService } from '../services/page-title.service';
   templateUrl: './screensaver.component.html',
   styleUrls: ['./screensaver.component.css']
 })
+
 export class ScreensaverComponent implements OnInit {
+
   private pageTitle$: BehaviorSubject<string>;
 
   constructor(
