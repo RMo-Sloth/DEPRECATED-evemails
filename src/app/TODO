@@ -27,3 +27,5 @@ two ways to authenticate:
 deal with failing http requests
   expired token
   service not available
+
+add services through pipes
