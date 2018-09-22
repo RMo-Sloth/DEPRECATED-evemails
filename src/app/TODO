@@ -23,3 +23,7 @@ MailAccount
 two ways to authenticate:
   One time token
   Reusable token
+
+deal with failing http requests
+  expired token
+  service not available
