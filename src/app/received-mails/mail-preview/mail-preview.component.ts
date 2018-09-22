@@ -21,7 +21,7 @@ export class MailPreviewComponent implements OnInit {
   constructor(
     private characterService: CharacterService,
   ) {
-    this.portrait$ = new BehaviorSubject('');
+    this.portrait$ = new BehaviorSubject( null );
     this.sender$ = new BehaviorSubject('');
   }
 
