@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 
-import { Account } from '../../classes/account/Account';
-
 import { LocalStorageService } from '../local-storage/local-storage.service';
 import { AccountService } from '../account.service';
 
