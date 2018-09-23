@@ -13,7 +13,7 @@ x user-account/mail.service
 REMOVE CLASSES
 
 Account
-Alliance
+x Alliance
 Character
 Corporation
 Mail
