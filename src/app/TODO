@@ -15,11 +15,11 @@ REMOVE CLASSES
 
 Account
 x Alliance
-Character
+x Character
 x Corporation
 x Mail
 UserTokens
-MailAccount
+x MailAccount
 
 two ways to authenticate:
   One time token
