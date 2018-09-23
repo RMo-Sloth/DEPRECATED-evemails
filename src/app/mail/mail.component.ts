@@ -20,6 +20,7 @@ export class MailComponent implements OnInit {
   private accountIndex: number;
   private mailIndex: number;
   private mail: Mail;
+
   private navigationButtons: NavigationButton[];
 
   constructor(
@@ -39,8 +40,6 @@ export class MailComponent implements OnInit {
     this.mailService.get_mail( this.mailIndex, this.accountIndex )
     .subscribe( mail => {
       this.mail = mail;
-      console.log(mail)
     });
   }
-
 }

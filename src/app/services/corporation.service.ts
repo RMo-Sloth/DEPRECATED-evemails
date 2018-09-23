@@ -25,7 +25,7 @@ export class CorporationService {
         });
         observer.next( corporation );
         observer.complete();
-      }else{
+      } else {
         this.add_corporation( index )
         .subscribe( corporation => {
           observer.next( corporation );
@@ -54,7 +54,7 @@ export class CorporationService {
           }
         }
         // extra check if the corporation is added ( possibly during the request delay )
-        if( this.isRegisteredCorporation( index ) === false ){
+        if( this.isRegisteredCorporation( index ) === false ) {
           this.corporations.push( corporation );
         }
         observer.next( corporation );
