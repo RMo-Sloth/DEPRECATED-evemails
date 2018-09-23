@@ -14,7 +14,7 @@ import { PageTitleService } from '../services/page-title.service';
 export class NewMailComponent implements OnInit {
 
   account_id: number;
-  account: Account;
+  account: any;
   navigationButtons; // TODO: add type
 
   constructor(
