@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import{ Character } from '../classes/character/Character';
-import{ Account } from '../classes/account/Account';
+// import{ Character } from '../classes/character/Character';
+// import{ Account } from '../classes/account/Account';
 
 import { PageTitleService } from '../services/page-title.service';
 
