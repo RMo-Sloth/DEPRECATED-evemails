@@ -9,6 +9,7 @@ x Navigation
 REMOVE OLD SERVICES
 x user-account service
 x user-account/mail.service
+x xharacters/characters.service
 
 REMOVE CLASSES
 
