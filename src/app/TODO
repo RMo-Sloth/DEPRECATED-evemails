@@ -7,6 +7,7 @@ x Screensaver
 x Navigation
 
 REMOVE OLD SERVICES
+x user-account service
 
 user-account.service
 
@@ -27,10 +28,5 @@ two ways to authenticate:
 deal with failing http requests
   expired token
   service not available
-
-add services through pipes
-  x character
-    corpration
-    allaince
 
 new bug appeared where sometimes not all mails have been loaded. It seemed to be introduced when mailService.request_mail() had been modified

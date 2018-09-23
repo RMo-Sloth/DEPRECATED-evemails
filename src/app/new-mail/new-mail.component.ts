@@ -5,7 +5,6 @@ import{ Character } from '../classes/character/Character';
 import{ Account } from '../classes/account/Account';
 
 import { PageTitleService } from '../services/page-title.service';
-import{ UserAccountService } from '../services/user-account.service';
 
 @Component({
   selector: 'app-new-mail',
@@ -21,14 +20,13 @@ export class NewMailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     public  pageTitleService : PageTitleService,
-    public userAccountService: UserAccountService
   ) {
-    this.account_id = parseInt( this.route.snapshot.paramMap.get('account_id') );
-    this.account = this.userAccountService.get_account( this.account_id );
-    this.navigationButtons = [
-      { faClass: 'home', routerUrl: '/dashboard'},
-      { faClass: 'envelope', routerUrl: `/${this.account.character.characterId}/mails`}
-    ];
+    // this.account_id = parseInt( this.route.snapshot.paramMap.get('account_id') );
+    // this.account = this.userAccountService.get_account( this.account_id );
+    // this.navigationButtons = [
+    //   { faClass: 'home', routerUrl: '/dashboard'},
+    //   { faClass: 'envelope', routerUrl: `/${this.account.character.characterId}/mails`}
+    // ];
   }
 
   ngOnInit() {
