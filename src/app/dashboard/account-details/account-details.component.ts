@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 
 // services
 import { CharacterService } from '../../services/character.service';
-import { SignoutService } from '../../services/signout/signout.service';
+import { SignoutService } from '../../services/signout.service';
 
 // interfaces
 import { Character } from '../../interfaces/character';
