@@ -6,14 +6,14 @@ Mail
 x Screensaver
 x Navigation
 
-REMOVE OLD SERVICES
+x REMOVE OLD SERVICES
 x user-account service
 x user-account/mail.service
 x xharacters/characters.service
 
-REMOVE CLASSES
+x REMOVE CLASSES
 
-Account
+x Account
 x Alliance
 x Character
 x Corporation
