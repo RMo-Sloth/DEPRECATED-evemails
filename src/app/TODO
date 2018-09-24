@@ -18,9 +18,9 @@ x Alliance
 x Character
 x Corporation
 x Mail
-UserTokens
+x UserTokens
 x MailAccount
-account
+x account
 
 two ways to authenticate:
   One time token
