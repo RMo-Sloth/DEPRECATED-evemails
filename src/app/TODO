@@ -30,4 +30,4 @@ deal with failing http requests
   expired token
   service not available
 
-new bug appeared where sometimes not all mails have been loaded. It seemed to be introduced when mailService.request_mail() had been modified
+new bug appeared where sometimes not all mails have been loaded. It seemed to be introduced when mailService.request_mail() had been modified. It has to do with expired tokens ( which probably stops the normal fflow of events, resulting in a new filtering of the emails ).
