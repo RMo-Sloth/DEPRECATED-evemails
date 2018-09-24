@@ -6,14 +6,15 @@ import { Account } from '../interfaces/account';
 @Injectable({
   providedIn: 'root'
 })
+
 export class LocalStorageService {
 
   constructor() { }
 
   public get_refreshToken( characterIndex ): string{
-    let accounts:any = this.get_accounts();
+    let accounts = this.get_accounts();
     let relevantAccount = accounts.find( account => {
-      return account.characterId === characterIndex;
+      return account.index === characterIndex;
     });
     if( relevantAccount === undefined ){
       console.error('Cannot access a character that is not defined in the local storage.');
@@ -22,48 +23,46 @@ export class LocalStorageService {
     }
   }
 
-  public add_account( account: Account ): void{
-    let accounts: any = this.get_accounts();
-    // can refactor the for-loop to be executed before th e if statement
-    for( let i=0; i<accounts.length; i++){
-      if( accounts[i].index === account.index ){
-        alert('The account you are trying to add already exists! Please remove it and try again.');
-        return; // end function execution
-      }
+  public add_account( newAccount: Account ): void {
+    let accounts: Account[] = this.get_accounts();
+    let accountAlreadyExists: boolean = accounts.some( account => {
+      return account.index === newAccount.index;
+    });
+    if( accountAlreadyExists === true ) {
+      alert('The account you are trying to add already exists! Please remove it and try again.');
+    } else {
+      accounts.push( newAccount );
+      localStorage.setItem( 'accounts', JSON.stringify(accounts) );
     }
-    accounts.push( account );
-    localStorage.setItem( 'accounts', JSON.stringify(accounts) );
   }
 
-  public remove_account( accountIndex: number ): void{
-    let accounts: any = this.get_accounts();
+  public remove_account( accountIndex: number ): void {
+    let accounts: Account[] = this.get_accounts();
     accounts = accounts.filter( account => {
       return account.index !== accountIndex;
     });
     localStorage.setItem( 'accounts', JSON.stringify(accounts) );
   }
 
-  public update_refreshToken( characterIndex, refreshToken): void{
-    let accounts:any = this.get_accounts();
-    let relevantAccount = accounts.find( account => {
-      return account.characterId === characterIndex;
+  public update_refreshToken( characterIndex, refreshToken ): void {
+    let accounts: Account[] = this.get_accounts();
+    let relevantAccount: Account = accounts.find( account => {
+      return account.index === characterIndex;
     });
-    if( relevantAccount === undefined ){
+    if( relevantAccount === undefined ) {
       console.error('Cannot access a character that is not defined in the local storage.');
-    }else{
+    } else {
       relevantAccount.refreshToken = refreshToken;
     }
     localStorage.setItem( 'accounts', JSON.stringify(accounts) );
   }
 
-  public get_accounts(): any { // TODO: typecheck might be nice
-    const accounts:any = localStorage.getItem('accounts');
-    if( accounts === null ){
+  public get_accounts(): Account[] {
+    const accounts: string = localStorage.getItem('accounts');
+    if( accounts === null ) {
       return [];
-    }else{
+    } else {
       return JSON.parse( accounts );
     }
   }
 }
-
-// TODO: implement more strict type-checking
