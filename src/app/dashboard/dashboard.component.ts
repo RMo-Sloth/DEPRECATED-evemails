@@ -7,7 +7,7 @@ import{ Account } from '../interfaces/account';
 
 // services
 import { PageTitleService } from '../services/page-title.service';
-import { SignupService } from '../services/signup/signup.service';
+import { SignupService } from '../services/signup.service';
 import { AccountService } from '../services/account.service';
 
 @Component({
