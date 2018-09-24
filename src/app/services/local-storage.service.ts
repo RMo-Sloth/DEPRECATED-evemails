@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
-// interfaces
-import { Account } from '../../interfaces/account';
+/* INTERFACES */
+import { Account } from '../interfaces/account';
 
 @Injectable({
   providedIn: 'root'

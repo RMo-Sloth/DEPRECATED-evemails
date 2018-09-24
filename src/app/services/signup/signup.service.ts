@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { Account } from '../../interfaces/account';
 
 import { AccountService } from '../account.service';
-import { LocalStorageService } from '../local-storage/local-storage.service';
+import { LocalStorageService } from '../local-storage.service';
 
 interface BasicAccountInfo{
   CharacterID: number,
