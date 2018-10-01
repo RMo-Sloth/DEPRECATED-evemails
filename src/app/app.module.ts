@@ -4,7 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { ScreensaverComponent } from './components/banner/screensaver.component';
+import { BannerComponent } from './components/banner/banner.component';
 import { ReceivedMailsComponent } from './components/mails/received-mails.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -21,7 +21,7 @@ import { MailSenderComponent } from './components/mail/mail-sender/mail-sender.c
 @NgModule({
   declarations: [
     AppComponent,
-    ScreensaverComponent,
+    BannerComponent,
     ReceivedMailsComponent,
     NavigationComponent,
     MailComponent,

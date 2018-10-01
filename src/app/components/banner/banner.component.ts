@@ -5,11 +5,11 @@ import { PageTitleService } from '../../services/page-title.service';
 
 @Component({
   selector: 'app-screensaver',
-  templateUrl: './screensaver.component.html',
-  styleUrls: ['./screensaver.component.css']
+  templateUrl: './banner.component.html',
+  styleUrls: ['./banner.component.css']
 })
 
-export class ScreensaverComponent implements OnInit {
+export class BannerComponent implements OnInit {
 
   private pageTitle$: BehaviorSubject<string>;
 
