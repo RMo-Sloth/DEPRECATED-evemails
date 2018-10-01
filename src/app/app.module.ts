@@ -9,11 +9,11 @@ import { ReceivedMailsComponent } from './received-mails/received-mails.componen
 import { NavigationComponent } from './navigation/navigation.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { MailComponent } from './mail/mail.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NewMailComponent } from './new-mail/new-mail.component';
 import { UrlPipe } from './pipes/url.pipe';
-import { AccountDetailsComponent } from './dashboard/account-details/account-details.component';
-import { AccountNewComponent } from './dashboard/account-new/account-new.component';
+import { AccountDetailsComponent } from './components/dashboard/account-details/account-details.component';
+import { AccountNewComponent } from './components/dashboard/account-new/account-new.component';
 import { MailPreviewComponent } from './received-mails/mail-preview/mail-preview.component';
 import { MoreMailsComponent } from './received-mails/more-mails/more-mails.component';
 import { MailSenderComponent } from './mail/mail-sender/mail-sender.component';

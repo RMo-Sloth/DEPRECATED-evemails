@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import{ MailComponent } from './mail/mail.component'
 import { ReceivedMailsComponent } from './received-mails/received-mails.component';
-import{ DashboardComponent } from './dashboard/dashboard.component'
+import{ DashboardComponent } from './components/dashboard/dashboard.component'
 import{ NewMailComponent } from './new-mail/new-mail.component'
 
 const routes: Routes = [

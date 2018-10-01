@@ -2,11 +2,11 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 
 // services
-import { CharacterService } from '../../services/character.service';
-import { SignoutService } from '../../services/signout.service';
+import { CharacterService } from '../../../services/character.service';
+import { SignoutService } from '../../../services/signout.service';
 
 // interfaces
-import { Character } from '../../interfaces/character';
+import { Character } from '../../../interfaces/character';
 
 @Component({
   selector: 'app-account-details',

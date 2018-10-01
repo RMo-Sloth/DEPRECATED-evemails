@@ -3,12 +3,12 @@ import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 
 // interfaces
-import{ Account } from '../interfaces/account';
+import{ Account } from '../../interfaces/account';
 
 // services
-import { PageTitleService } from '../services/page-title.service';
-import { SignupService } from '../services/signup.service';
-import { AccountService } from '../services/account.service';
+import { PageTitleService } from '../../services/page-title.service';
+import { SignupService } from '../../services/signup.service';
+import { AccountService } from '../../services/account.service';
 
 @Component({
   selector: 'app-dashboard',
