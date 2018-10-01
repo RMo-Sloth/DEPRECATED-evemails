@@ -1,9 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { CharacterService } from '../../services/character.service';
 
-// interfaces
-import { Mail } from '../../interfaces/mail';
+/* SERVICES */
+import { CharacterService } from '../../../services/character.service';
+
+/* INTERFACES */
+import { Mail } from '../../../interfaces/mail';
 
 @Component({
   selector: 'app-mail-preview',

@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 // services
-import { MailService } from '../../services/mail.service';
+import { MailService } from '../../../services/mail.service';
 
 @Component({
   selector: 'app-more-mails',

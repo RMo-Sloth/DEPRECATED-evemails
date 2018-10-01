@@ -3,16 +3,16 @@ import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 
 // interfaces
-import { Mail } from '../interfaces/mail';
-import { Character } from '../interfaces/character';
-import { Account } from '../interfaces/account';
-import { NavigationButton } from '../interfaces/navigation-button';
+import { Mail } from '../../interfaces/mail';
+import { Character } from '../../interfaces/character';
+import { Account } from '../../interfaces/account';
+import { NavigationButton } from '../../interfaces/navigation-button';
 
 // services
-import { PageTitleService } from '../services/page-title.service';
-import { CharacterService } from '../services/character.service';
-import{ MailService } from '../services/mail.service';
-import{ MailFilterService } from '../services/mail-filter.service';
+import { PageTitleService } from '../../services/page-title.service';
+import { CharacterService } from '../../services/character.service';
+import{ MailService } from '../../services/mail.service';
+import{ MailFilterService } from '../../services/mail-filter.service';
 
 @Component({
   selector: 'app-received-mails',

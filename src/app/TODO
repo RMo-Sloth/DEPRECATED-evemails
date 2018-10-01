@@ -38,7 +38,7 @@ refactor components to a components folder
   x mail
   x navigation
   x new-mail
-  received mails ( inbox )
+  x received mails ( inbox )
   screensaver
 Rename component
   screensaver to banner

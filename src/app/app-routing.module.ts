@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import{ MailComponent } from './components/mail/mail.component'
-import { ReceivedMailsComponent } from './received-mails/received-mails.component';
+import { ReceivedMailsComponent } from './components/mails/received-mails.component';
 import{ DashboardComponent } from './components/dashboard/dashboard.component'
 import{ NewMailComponent } from './components/new-mail/new-mail.component'
 
