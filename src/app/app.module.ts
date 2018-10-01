@@ -4,7 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { ScreensaverComponent } from './screensaver/screensaver.component';
+import { ScreensaverComponent } from './components/banner/screensaver.component';
 import { ReceivedMailsComponent } from './components/mails/received-mails.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { AppRoutingModule } from './app-routing.module';

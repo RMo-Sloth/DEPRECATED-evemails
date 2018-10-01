@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-import { PageTitleService } from '../services/page-title.service';
+import { PageTitleService } from '../../services/page-title.service';
 
 @Component({
   selector: 'app-screensaver',
