@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { ScreensaverComponent } from './screensaver/screensaver.component';
 import { ReceivedMailsComponent } from './received-mails/received-mails.component';
-import { NavigationComponent } from './navigation/navigation.component';
+import { NavigationComponent } from './components/navigation/navigation.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { MailComponent } from './components/mail/mail.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';

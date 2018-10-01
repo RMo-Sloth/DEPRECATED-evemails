@@ -36,7 +36,7 @@ rename received mails to inbox
 refactor components to a components folder
   x dashboard
   x mail
-  navigation
+  x navigation
   new-mail
   received mails ( inbox )
   screensaver
