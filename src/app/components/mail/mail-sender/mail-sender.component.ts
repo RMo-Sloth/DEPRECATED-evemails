@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import{ CharacterService } from '../../services/character.service';
-import{ CorporationService } from '../../services/corporation.service';
-import{ AllianceService } from '../../services/alliance.service';
+import{ CharacterService } from '../../../services/character.service';
+import{ CorporationService } from '../../../services/corporation.service';
+import{ AllianceService } from '../../../services/alliance.service';
 
 @Component({
   selector: 'app-mail-sender',

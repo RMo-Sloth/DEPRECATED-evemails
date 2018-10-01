@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 /* INTERFACES */
-import { Mail } from '../interfaces/mail';
-import { NavigationButton } from '../interfaces/navigation-button';
+import { Mail } from '../../interfaces/mail';
+import { NavigationButton } from '../../interfaces/navigation-button';
 
 /* SERVICES */
-import { PageTitleService } from '../services/page-title.service';
-import{ MailService } from '../services/mail.service';
+import { PageTitleService } from '../../services/page-title.service';
+import{ MailService } from '../../services/mail.service';
 
 @Component({
   selector: 'app-mail',
