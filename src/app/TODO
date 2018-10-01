@@ -37,7 +37,7 @@ refactor components to a components folder
   x dashboard
   x mail
   x navigation
-  new-mail
+  x new-mail
   received mails ( inbox )
   screensaver
 

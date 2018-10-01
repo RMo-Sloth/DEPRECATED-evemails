@@ -10,7 +10,7 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { AppRoutingModule } from './/app-routing.module';
 import { MailComponent } from './components/mail/mail.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { NewMailComponent } from './new-mail/new-mail.component';
+import { NewMailComponent } from './components/new-mail/new-mail.component';
 import { UrlPipe } from './pipes/url.pipe';
 import { AccountDetailsComponent } from './components/dashboard/account-details/account-details.component';
 import { AccountNewComponent } from './components/dashboard/account-new/account-new.component';

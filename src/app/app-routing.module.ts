@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import{ MailComponent } from './components/mail/mail.component'
 import { ReceivedMailsComponent } from './received-mails/received-mails.component';
 import{ DashboardComponent } from './components/dashboard/dashboard.component'
-import{ NewMailComponent } from './new-mail/new-mail.component'
+import{ NewMailComponent } from './components/new-mail/new-mail.component'
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
