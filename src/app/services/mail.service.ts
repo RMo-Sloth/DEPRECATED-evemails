@@ -4,16 +4,16 @@ import { Observable, BehaviorSubject } from 'rxjs';
 
 /* INTERFACES */
 import { Mail } from '../interfaces/mail';
-
-/* SERVICES */
-import { AccountHttpService } from './account-http.service';
-
 interface LastLoadedMail {
   accountIndex: number;
   lastLoadedMail: number;
   allMailsAreLoaded$: BehaviorSubject<boolean>;
   // TODO: refactor lastLoadedMail to index
 }
+
+
+/* SERVICES */
+import { AccountHttpService } from './account-http.service';
 
 @Injectable({
   providedIn: 'root'

@@ -1,9 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 // services
 import { CharacterService } from '../../../services/character.service';
 import { SignoutService } from '../../../services/signout.service';
+import { MailCounterService } from '../../../services/mail-counter.service';
 
 // interfaces
 import { Character } from '../../../interfaces/character';
@@ -16,9 +17,12 @@ import { Character } from '../../../interfaces/character';
 export class AccountDetailsComponent implements OnInit {
   @Input() accountIndex: number;
   private character: Character;
+  private unreadMails$: BehaviorSubject<number>;
+
   constructor(
     private characterService: CharacterService,
     private signoutService: SignoutService,
+    private mailCounter: MailCounterService,
   ) { }
 
   ngOnInit() {
@@ -26,6 +30,7 @@ export class AccountDetailsComponent implements OnInit {
     .subscribe( character => {
       this.character = character;
     });
+    this.unreadMails$ = this.mailCounter.get_unreadMailCounter( this.accountIndex ).unreadMailCount$;
   }
 
   private account_signout(){

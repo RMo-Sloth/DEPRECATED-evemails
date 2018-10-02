@@ -16,6 +16,7 @@ interface BasicAccountInfo {
 /* SERVICES */
 import { AccountService } from './account.service';
 import { LocalStorageService } from './local-storage.service';
+import { MailCounterService } from './mail-counter.service';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +27,8 @@ export class SignupService {
   constructor(
     private http: HttpClient,
     private accountService: AccountService,
-    private localStorageService: LocalStorageService
+    private localStorageService: LocalStorageService,
+    private mailCounter: MailCounterService
   ) { }
 
   public signup_account( accessToken ): void {
@@ -57,6 +59,7 @@ export class SignupService {
   private register_account( account: Account ) {
     this.accountService.add_account( account );
     this.localStorageService.add_account( account );
+    this.mailCounter.add_account( account.index );
   }
 
 }
