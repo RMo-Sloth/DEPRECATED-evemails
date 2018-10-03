@@ -303,6 +303,19 @@ export class MailService {
       return lastLoadedMail.accountIndex === accountIndex;
     });
   }
+
+  /* MARK AS READ */
+
+  public update_mailAsRead( mail: Mail ): void {
+    this.accountHttp.get_headers( mail.account )
+    .subscribe( httpOptions => {
+      let mailIsread = {read: true};
+      this.http.put(`https://esi.evetech.net/dev/characters/${mail.account}/mail/${mail.index}/?datasource=tranquility`, mailIsread, httpOptions)
+      .subscribe( success => {
+          mail.isRead = true;
+      });
+    };
+  }
 }
 
 // TODO: this.remove_mail()

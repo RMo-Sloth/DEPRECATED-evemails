@@ -40,6 +40,10 @@ export class MailComponent implements OnInit {
     this.mailService.get_mail( this.mailIndex, this.accountIndex )
     .subscribe( mail => {
       this.mail = mail;
+      if( mail.isRead === false ){
+        this.mailService.update_mailAsRead( mail );
+        // trigger update isRead
+      }
     });
   }
 }
