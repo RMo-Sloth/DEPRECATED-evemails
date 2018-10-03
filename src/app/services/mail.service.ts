@@ -314,9 +314,30 @@ export class MailService {
       .subscribe( success => {
           mail.isRead = true;
       });
-    };
+    });
   }
-}
 
-// TODO: this.remove_mail()
+  /* REMOVE MAIL */
+
+  public remove_mail( mail: Mail ): Observable<boolean> {
+    return new Observable( observer => {
+      this.accountHttp.get_headers( mail.account )
+      .subscribe( httpOptions => {
+        this.http.delete( `https://esi.evetech.net/dev/characters/${mail.account}/mail/${mail.index}/?datasource=tranquility`, httpOptions )
+        .subscribe(
+          succes => {
+            let newMails: Mail[] = this.mails.filter( oldMail => {
+              return oldMail.index !== mail.index;
+            });
+            this.mails = newMails;
+            observer.next( true );
+          },
+          error => {
+            observer.next( false ); //// TODO: does this work test it how????
+          });
+        );
+      }); // TODO: observer.next if get_headers fails ( need get_headers to throw an error )
+    }); // end observable
+  };
+}
 // TODO: Should I create a seperate service that modifies mails? That would create great interdepency between this class and the new class.

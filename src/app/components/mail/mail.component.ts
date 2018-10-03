@@ -46,4 +46,15 @@ export class MailComponent implements OnInit {
       }
     });
   }
+
+  remove() {
+    this.mailService.remove_mail( this.mail )
+    .subscribe( success => {
+      if( success === true ) {
+
+      } else if ( success === false ) {
+        alert('Failed to remove the mail.');
+      }
+    });
+  }
 }

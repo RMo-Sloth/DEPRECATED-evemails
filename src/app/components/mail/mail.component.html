@@ -14,7 +14,7 @@
     <li><i class="fa fa-reply"></i></li>
     <li><i class="fa fa-reply-all"></i></li>
     <li><i class="fa fa-reply fa-flip-horizontal"></i></li>
-    <li><i class="fa fa-trash"></i></li>
+    <li (click)="remove()"><i class="fa fa-trash"></i></li>
   </ul>
 </div>
 <app-navigation [buttons]="navigationButtons"></app-navigation>
