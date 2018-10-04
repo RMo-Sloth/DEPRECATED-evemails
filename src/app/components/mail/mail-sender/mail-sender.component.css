@@ -1,0 +1,9 @@
+#mail-sender{
+  padding: 0.5rem;
+  border-radius: 0.5rem 0.5rem 0rem 0rem;
+  display: flex;
+  align-items: center;
+}
+#mail-sender-details{
+  padding-left: 0.5rem;
+}

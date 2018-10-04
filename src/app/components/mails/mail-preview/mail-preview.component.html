@@ -1,0 +1,9 @@
+<li routerLink="/{{accountIndex}}/mails/{{mail.index}}" [class.odd]='isOdd' [class.even]='!isOdd'>
+  <div class='sender-image' [style.background]="portrait$ | async | url">
+    <i class='fa fa-envelope' *ngIf='( mail.isRead === false )'></i>
+  </div>
+  <div class='mail-info'>
+    <h4 class='sender-name'>{{sender$ | async}}<h6 class='date'>{{mail.timestamp | date}}</h6></h4>
+    <p class='mail-topic'>{{mail.subject}}</p>
+  </div>
+</li>

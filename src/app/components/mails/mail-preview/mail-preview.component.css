@@ -1,0 +1,41 @@
+li{
+  height: auto;
+  display: flex;
+  list-style: none;
+  cursor: pointer;
+}
+li>.sender-image{
+  position: relative;
+  width: 64px;
+  height: 64px;
+  border-radius: 4px;
+  margin: 5px 3px 5px 6px;
+}
+li>.sender-image>.fa-envelope{
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  padding: 16px;
+  border-radius: 4px;
+  font-size: 32px;
+  background-color: rgba( 256 ,256 ,256, 0.2 );
+  color: rgb(240, 240, 256);
+}
+li>.mail-info{
+  flex:1 0;
+  padding: 5px 6px 5px 3px;
+}
+li>.mail-info>.mail-topic{
+  margin-top: 3px;
+}
+li>.mail-info>.sender-name>.date{
+  float: right;
+}
+li.odd {
+  background-color: rgba(256,256,256,0.1);
+}
+li.even {
+  background-color: rgba(256,256,256,0.2);
+}

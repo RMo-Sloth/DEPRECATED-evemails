@@ -1,0 +1,9 @@
+ul#received-mails{
+  padding: 0px;
+}
+ul#received-mails>li:nth-child(odd){
+  background-color: rgba(256,256,256,0.1);
+}
+ul#received-mails>li:nth-child(even){
+  background-color: rgba(256,256,256,0.2);
+}

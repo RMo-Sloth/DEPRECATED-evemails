@@ -1,0 +1,6 @@
+
+<nav id='main-navigation'>
+  <ul>
+    <li *ngFor="let button of buttons" routerLink="{{button.routerUrl}}"><i class="fa fa-{{button.faClass}}"></i></li>
+  </ul>
+</nav>

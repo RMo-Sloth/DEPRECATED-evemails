@@ -1,0 +1,5 @@
+<ul id='received-mails'>
+  <app-mail-preview [accountIndex]="accountIndex" [mail]='mail' [isOdd]='i%2===0' *ngFor="let mail of mails$ | async; let i = index"></app-mail-preview>
+  <app-more-mails [accountIndex]="accountIndex"></app-more-mails>
+</ul>
+<app-navigation [buttons]="navigationButtons"></app-navigation>

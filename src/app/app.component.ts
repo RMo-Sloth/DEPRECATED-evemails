@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { AppStateService } from './app-state.service';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +6,5 @@ import { AppStateService } from './app-state.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  constructor(
-    public appStateService: AppStateService
-  ){}
+  constructor(){}
 }

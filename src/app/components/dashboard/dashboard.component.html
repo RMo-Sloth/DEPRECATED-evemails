@@ -1,0 +1,4 @@
+<div id='accounts'>
+  <app-account-details [accountIndex]="account.index" *ngFor="let account of accounts$ | async"></app-account-details>
+  <app-account-new></app-account-new>
+</div>
