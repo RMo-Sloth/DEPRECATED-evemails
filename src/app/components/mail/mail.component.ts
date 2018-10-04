@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 /* INTERFACES */
 import { Mail } from '../../interfaces/mail';
@@ -26,7 +26,8 @@ export class MailComponent implements OnInit {
   constructor(
     private pageTitleService: PageTitleService,
     private mailService: MailService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     this.accountIndex = parseInt( this.route.snapshot.paramMap.get('account_id') );
     this.mailIndex = parseInt( this.route.snapshot.paramMap.get('mail_id') );
@@ -51,7 +52,7 @@ export class MailComponent implements OnInit {
     this.mailService.remove_mail( this.mail )
     .subscribe( success => {
       if( success === true ) {
-
+        this.router.navigate([`../`], { relativeTo: this.route });
       } else if ( success === false ) {
         alert('Failed to remove the mail.');
       }

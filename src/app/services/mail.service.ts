@@ -330,12 +330,12 @@ export class MailService {
               return oldMail.index !== mail.index;
             });
             this.mails = newMails;
+            this.mails$.next( this.mails );
             observer.next( true );
           },
           error => {
             observer.next( false ); //// TODO: does this work test it how????
           });
-        );
       }); // TODO: observer.next if get_headers fails ( need get_headers to throw an error )
     }); // end observable
   };
