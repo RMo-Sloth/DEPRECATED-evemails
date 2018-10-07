@@ -4,6 +4,8 @@ import { Observable, BehaviorSubject } from 'rxjs';
 /* INTERFACES */
 import { Account } from '../interfaces/account';
 
+/* SERVICES */
+import { AccountTokenService } from './account-token.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +15,9 @@ export class AccountService {
   private accounts: Account[];
   accounts$: BehaviorSubject<Account[]>;
 
-  constructor() {
+  constructor(
+    private accountToken: AccountTokenService,
+  ) {
     this.accounts = [];
     this.accounts$ = new BehaviorSubject([]);
 
@@ -27,12 +31,21 @@ export class AccountService {
   }
 
   public add_account( account: Account ): void {
-    if( this.isRegisteredAccount( account.index ) === false ){
+    if( this.isRegisteredAccount( account.index ) === false ) {
       this.accounts.push( account );
       this.accounts$.next( this.accounts );
-    }else{
+      this.accountToken.initiate_tokenUpdater( account.index );
+    } else {
       console.error("The account you are trying to add already exist");
     }
+  }
+
+  public remove_account( accountIndex: number ): void {
+    this.accounts = this.accounts.filter( account => {
+      return account.index !== accountIndex;
+    });
+    this.accounts$.next( this.accounts );
+    this.accountToken.end_tokenUpdater( account.index );
   }
 
   public get_account( index: number ): Observable<Account> {
@@ -48,13 +61,6 @@ export class AccountService {
         observer.error("The user account you are trying to use isn't registed on this device.");
       }
     }); // end observable
-  }
-
-  public remove_account( accountIndex: number ): void {
-    this.accounts = this.accounts.filter( account => {
-      return account.index !== accountIndex;
-    });
-    this.accounts$.next( this.accounts );
   }
 
   private isRegisteredAccount( index: number ): boolean {
