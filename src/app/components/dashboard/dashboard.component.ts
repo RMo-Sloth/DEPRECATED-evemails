@@ -30,14 +30,14 @@ export class DashboardComponent implements OnInit {
     this.pageTitleService.set_pageTitle( 'dashboard' );
     this.accounts$ = this.accountService.accounts$;
 
-    this.route.queryParamMap.subscribe( queryParameters => {
+    this.route.queryParamMap.subscribe( (queryParameters: any ) => {
 
       /* check if registration with an access_token is used */
       if( queryParameters.params.code == true ) {
         this.signupService.signup_byAuthorizationCode( queryParameters.params.code );
         history.replaceState({}, '', '/dashboard');
       } else { /* check if registration with an access_token is used */
-        this.route.fragment.subscribe( fragment => {
+        this.route.fragment.subscribe( ( fragment: any ) => {
             // console.log(fragment); // TODO: why is this undefined after navigation from a mailbox, etc?!?!
             if( fragment !== null && fragment !== undefined ) {
               let params: any = fragment.split("&");
@@ -53,13 +53,7 @@ export class DashboardComponent implements OnInit {
             }
           }
         }); // end subscribe
-      }); // end subscribe paramMap
-    }
-
-
-    // TODO: obtain parameters of a recurring verification
-
-
-
+      };
+    }); // end subscribe paramMap
   }
 }
