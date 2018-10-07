@@ -35,8 +35,8 @@ export class ReceivedMailsComponent implements OnInit {
     this.accountIndex = parseInt( this.route.snapshot.paramMap.get('account_id') );
     this.navigationButtons = [
       { faClass: 'home', routerUrl: '/dashboard'},
-      { faClass: 'search', routerUrl: '/dashboard'},
-      { faClass: 'pencil', routerUrl: `/${this.accountIndex }/new-mail`}
+      /*{ faClass: 'search', routerUrl: '/dashboard'},
+      { faClass: 'pencil', routerUrl: `/${this.accountIndex }/new-mail`}*/
     ];
   }
   ngOnChanges(){
