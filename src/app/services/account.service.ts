@@ -45,7 +45,7 @@ export class AccountService {
       return account.index !== accountIndex;
     });
     this.accounts$.next( this.accounts );
-    this.accountToken.end_tokenUpdater( account.index );
+    this.accountToken.end_tokenUpdater( accountIndex );
   }
 
   public get_account( index: number ): Observable<Account> {
