@@ -40,9 +40,11 @@ export class AccountTokenService {
   }
 
   public end_tokenUpdater( accountIndex ): void {
-    let interval = this.get_interval( accountIndex );
-    window.clearInterval( interval.interval );
-    this.remove_interval( accountIndex );
+    if( this.intervalExists( accountIndex ) === true) {
+      let interval = this.get_interval( accountIndex );
+      window.clearInterval( interval.interval );
+      this.remove_interval( accountIndex );
+    }
   }
 
   private update_accessToken( refreshToken: string ): Observable<string>{
@@ -62,6 +64,10 @@ export class AccountTokenService {
         observer.complete();
       });
     });
+  }
+
+  private intervalExists( accountIndex: number  ): bool {
+    return this.intervals.some( interval => interval.accountIndex === accountIndex );
   }
 
   private get_interval( accountIndex: number ): Interval {
