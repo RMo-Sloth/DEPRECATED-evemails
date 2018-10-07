@@ -31,9 +31,27 @@ export class SignupService {
     private mailCounter: MailCounterService
   ) { }
 
+  public signup_byAuthorizationCode( authorization_code: string ): void {
+    this.request_authorization( authorization_code )
+    .subscribe( ( response: any ) => {
+      const accessToken = response.access_token;
+      const refreshToken = response.refresh_token;
+      this.request_accountInfo( accessToken )
+      .subscribe( (accountInfo: BasicAccountInfo) => {
+        const accountIndex = accountInfo.CharacterID;
+        const account: Account = {
+          index: accountIndex,
+          accessToken: accessToken,
+          refreshToken: refreshToken
+        };
+        this.register_account( account );
+      });
+    });
+  }
+
   public signup_account( accessToken ): void {
     // TODO:  we should retreive the accessToken, refreshToken and expiration through a serverside request, the parameter of this function should then be the authorization_code not the accessToken.
-    this.get_accountInfo( accessToken )
+    this.request_accountInfo( accessToken )
       .subscribe( (accountInfo: BasicAccountInfo) => {
         const account: Account = {
           index: accountInfo.CharacterID,
@@ -44,7 +62,11 @@ export class SignupService {
       });
   }
 
-  private get_accountInfo( accessToken ): Observable<BasicAccountInfo> {
+  private request_authorization( authorizationCode ): Observable<any> {
+    return this.http.get(`https://www.eve-mails.com/php/authorization.php?code=${authorizationCode}`);
+  }
+
+  private request_accountInfo( accessToken ): Observable<BasicAccountInfo> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',

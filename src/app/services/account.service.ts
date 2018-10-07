@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 
+/* INTERFACES */
 import { Account } from '../interfaces/account';
 
+/* SERVICES */
+import { AccountTokenService } from './account-token.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +15,9 @@ export class AccountService {
   private accounts: Account[];
   accounts$: BehaviorSubject<Account[]>;
 
-  constructor() {
+  constructor(
+    private accountToken: AccountTokenService,
+  ) {
     this.accounts = [];
     this.accounts$ = new BehaviorSubject([]);
 
@@ -26,12 +31,26 @@ export class AccountService {
   }
 
   public add_account( account: Account ): void {
-    if( this.isRegisteredAccount( account.index ) === false ){
+    if( this.isRegisteredAccount( account.index ) === false ) {
       this.accounts.push( account );
       this.accounts$.next( this.accounts );
-    }else{
+      if( account.refreshToken != '' ) {
+        this.accountToken.initiate_tokenUpdater( account.refreshToken, account.index )
+        .subscribe( accessToken => {
+          account.accessToken = accessToken;
+        });
+      }
+    } else {
       console.error("The account you are trying to add already exist");
     }
+  }
+
+  public remove_account( accountIndex: number ): void {
+    this.accounts = this.accounts.filter( account => {
+      return account.index !== accountIndex;
+    });
+    this.accounts$.next( this.accounts );
+    this.accountToken.end_tokenUpdater( accountIndex );
   }
 
   public get_account( index: number ): Observable<Account> {
@@ -42,24 +61,23 @@ export class AccountService {
         });
         observer.next( account );
         observer.complete();
-      }else{
+      } else {
         // TODO: alert user account isn't registered maybe refer to authentication page?
         observer.error("The user account you are trying to use isn't registed on this device.");
       }
     }); // end observable
   }
 
-  public remove_account( accountIndex: number ): void{
-    this.accounts = this.accounts.filter( account => {
-      return account.index !== accountIndex;
-    });
-    this.accounts$.next( this.accounts );
-  }
-
-  private isRegisteredAccount( index: number ): boolean{
+  private isRegisteredAccount( index: number ): boolean {
     return this.accounts.some( account => {
       return account.index === index;
     });
   }
 
+  public update_accessToken( accessToken: string, accountIndex: number ): void {
+    this.get_account( accountIndex )
+    .subscribe( account => {
+      account.accessToken = accessToken;
+    });
+  }
 }

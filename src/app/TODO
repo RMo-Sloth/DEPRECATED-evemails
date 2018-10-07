@@ -23,8 +23,8 @@ x MailAccount
 x account
 
 two ways to authenticate:
-  One time token
-  Reusable token
+x One time token
+x Reusable token
 
 deal with failing http requests
   expired token
