@@ -80,9 +80,3 @@ export class AccountTokenService {
     });
   }
 }
-
-// service rethink
-// req: no service looping
-// activates a loop refreshing the tokens
-// return observable with the latest accessToken
-// change on the observable will trigger a change in the account.service
