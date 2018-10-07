@@ -66,7 +66,7 @@ export class AccountTokenService {
     });
   }
 
-  private intervalExists( accountIndex: number  ): bool {
+  private intervalExists( accountIndex: number  ): boolean {
     return this.intervals.some( interval => interval.accountIndex === accountIndex );
   }
 
