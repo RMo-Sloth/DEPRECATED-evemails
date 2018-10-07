@@ -76,7 +76,7 @@ export class AccountTokenService {
 
   private remove_interval( accountIndex: number ): void {
     this.intervals = this.intervals.filter( interval => {
-      return interval.accountIndex === accountIndex
+      return interval.accountIndex !== accountIndex
     });
   }
 }
