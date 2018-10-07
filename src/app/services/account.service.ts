@@ -34,7 +34,12 @@ export class AccountService {
     if( this.isRegisteredAccount( account.index ) === false ) {
       this.accounts.push( account );
       this.accounts$.next( this.accounts );
-      this.accountToken.initiate_tokenUpdater( account.index );
+      if( account.refreshToken != '' ) {
+        this.accountToken.initiate_tokenUpdater( account.refreshToken, account.index )
+        .subscribe( accessToken => {
+          account.accessToken = accessToken;
+        });
+      }
     } else {
       console.error("The account you are trying to add already exist");
     }
