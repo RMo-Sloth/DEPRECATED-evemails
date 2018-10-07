@@ -3,15 +3,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 /* INTERFACES */
-import { Account } from '../interfaces/account';
 interface Interval {
   accountIndex: number;
   interval: any; // TODO: What should I typecheck for?
 }
-
-/* SERVICES */
-import { AccountHttpService } from './account-http.service';
-import { AccountService } from './account.service';
 
 @Injectable({
   providedIn: 'root'
@@ -22,23 +17,26 @@ export class AccountTokenService {
   private intervals: Interval[];
 
   constructor(
-    private accountHttp: AccountHttpService,
-    private account: AccountService,
     private http: HttpClient,
   ) {
     this.intervals = [];
   }
 
-  public initiate_tokenUpdater( accountIndex: number ): void {
-    let interval = window.setInterval(
-      this.update_accessToken( accountIndex ),
-      1100000
-    );
-    let newInterval = {
-      accountIndex: accountIndex,
-      interval: interval
-    };
-    this.intervals.push( newInterval );
+  public initiate_tokenUpdater( refreshToken: string, accountIndex: number ): Observable<string> {
+    return new Observable( observer => {
+      let interval = window.setInterval(
+        this.update_accessToken( refreshToken )
+        .subscribe( accessToken => {
+          observer.next( accessToken );
+        }),
+        1100000
+      )
+      let newInterval = {
+        accountIndex: accountIndex,
+        interval: interval
+      };
+      this.intervals.push( newInterval );
+    });
   }
 
   public end_tokenUpdater( accountIndex ): void {
@@ -47,25 +45,21 @@ export class AccountTokenService {
     this.remove_interval( accountIndex );
   }
 
-  private update_accessToken( accountIndex ){
-    this.request_newAccesstoken( accountIndex )
-    .subscribe( accessToken => {
-      this.account.update_accessToken( accessToken, accountIndex );
+  private update_accessToken( refreshToken: string ): Observable<string>{
+    return new Observable( observer => {
+      this.request_newAccesstoken( refreshToken )
+      .subscribe( accessToken => {
+          observer.next( accessToken );
+      });
     });
   }
 
-  private request_newAccesstoken( accountIndex ): Observable<string> {
+  private request_newAccesstoken( refreshToken: string ): Observable<string> {
     return new Observable( observer => {
-      this.accountHttp.get_headers( accountIndex )
-      .subscribe( ( httpHeaders: any ) => {
-        this.account.get_account( accountIndex )
-        .subscribe( ( account: Account ) => {
-          this.http.post( `https://www.eve-mails.com/php/authorization-refresh.php`, { refresh_token: account.refreshToken },  httpHeaders )
-          .subscribe( ( response: any ) => {
-            observer.next( response.access_token );
-            observer.complete();
-          });
-        });
+      this.http.post( `https://www.eve-mails.com/php/authorization-refresh.php`, { refresh_token: refreshToken })
+      .subscribe( ( response: any ) => {
+        observer.next( response.access_token );
+        observer.complete();
       });
     });
   }
@@ -80,3 +74,9 @@ export class AccountTokenService {
     });
   }
 }
+
+// service rethink
+// req: no service looping
+// activates a loop refreshing the tokens
+// return observable with the latest accessToken
+// change on the observable will trigger a change in the account.service
