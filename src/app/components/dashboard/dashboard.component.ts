@@ -30,22 +30,36 @@ export class DashboardComponent implements OnInit {
     this.pageTitleService.set_pageTitle( 'dashboard' );
     this.accounts$ = this.accountService.accounts$;
 
-    // TEMP: temporary way to obtain parameter values from the url
-    this.route.fragment.subscribe( fragment => {
-    // console.log(fragment); // TODO: why is this undefined after navigation from a mailbox, etc?!?!
-      if( fragment !== null && fragment !== undefined ){
-        let params: any = fragment.split("&");
-        let paramArray: any = [];
-        params.forEach( param => {
-          param = param.split('=');
-          paramArray[param[0]] = param[1];
-        });
-        if( paramArray.access_token !== null ){
-          let accessToken = paramArray.access_token;
-          this.signupService.signup_account( accessToken );
-          history.replaceState({}, '', '/dashboard');
-        }
-      }
-    });
+    this.route.queryParamMap.subscribe( queryParameters => {
+
+      /* check if registration with an access_token is used */
+      if( queryParameters.params.code == true ) {
+        this.signupService.signup_byAuthorizationCode( queryParameters.params.code );
+        history.replaceState({}, '', '/dashboard');
+      } else { /* check if registration with an access_token is used */
+        this.route.fragment.subscribe( fragment => {
+            // console.log(fragment); // TODO: why is this undefined after navigation from a mailbox, etc?!?!
+            if( fragment !== null && fragment !== undefined ) {
+              let params: any = fragment.split("&");
+              let paramArray: any = [];
+              params.forEach( param => {
+                param = param.split('=');
+                paramArray[param[0]] = param[1];
+              });
+            if( paramArray.access_token !== null ){
+              let accessToken = paramArray.access_token;
+              this.signupService.signup_account( accessToken );
+              history.replaceState({}, '', '/dashboard');
+            }
+          }
+        }); // end subscribe
+      }); // end subscribe paramMap
+    }
+
+
+    // TODO: obtain parameters of a recurring verification
+
+
+
   }
 }
