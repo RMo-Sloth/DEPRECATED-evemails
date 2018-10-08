@@ -17,11 +17,11 @@ import{ MailService } from '../../services/mail.service';
 
 export class MailComponent implements OnInit {
 
-  private accountIndex: number;
-  private mailIndex: number;
-  private mail: Mail;
+  public accountIndex: number;
+  public mailIndex: number;
+  public mail: Mail;
 
-  private navigationButtons: NavigationButton[];
+  public navigationButtons: NavigationButton[];
 
   constructor(
     private pageTitleService: PageTitleService,

@@ -17,8 +17,8 @@ export class MailPreviewComponent implements OnInit {
   @Input() mail: Mail;
   @Input() isOdd: boolean;
 
-  private portrait$: BehaviorSubject<string>;
-  private sender$: BehaviorSubject<string>;
+  public portrait$: BehaviorSubject<string>;
+  public sender$: BehaviorSubject<string>;
 
   constructor(
     private characterService: CharacterService,

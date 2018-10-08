@@ -21,9 +21,9 @@ import{ MailFilterService } from '../../services/mail-filter.service';
 })
 export class ReceivedMailsComponent implements OnInit {
 
-  private accountIndex: number;
-  private mails$: BehaviorSubject<Mail[]>;
-  private navigationButtons: NavigationButton[];
+  public accountIndex: number;
+  public mails$: BehaviorSubject<Mail[]>;
+  public navigationButtons: NavigationButton[];
 
   constructor(
     private route: ActivatedRoute,

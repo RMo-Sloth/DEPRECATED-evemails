@@ -16,8 +16,8 @@ import { Character } from '../../../interfaces/character';
 })
 export class AccountDetailsComponent implements OnInit {
   @Input() accountIndex: number;
-  private character: Character;
-  private unreadMails$: BehaviorSubject<number>;
+  public character: Character;
+  public unreadMails$: BehaviorSubject<number>;
 
   constructor(
     private characterService: CharacterService,

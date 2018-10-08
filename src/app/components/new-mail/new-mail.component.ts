@@ -13,13 +13,13 @@ import { PageTitleService } from '../../services/page-title.service';
 })
 export class NewMailComponent implements OnInit {
 
-  account_id: number;
-  account: any;
-  navigationButtons; // TODO: add type
+  public account_id: number;
+  public account: any;
+  public navigationButtons; // TODO: add type
 
   constructor(
     private route: ActivatedRoute,
-    public  pageTitleService : PageTitleService,
+    private pageTitleService : PageTitleService,
   ) {
     // this.account_id = parseInt( this.route.snapshot.paramMap.get('account_id') );
     // this.account = this.userAccountService.get_account( this.account_id );

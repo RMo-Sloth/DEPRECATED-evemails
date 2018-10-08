@@ -11,10 +11,10 @@ import{ AllianceService } from '../../../services/alliance.service';
 })
 export class MailSenderComponent implements OnInit {
 
-  private senderName: string;
-  private senderPortrait: string;
-  private senderCorporation: string;
-  private senderAlliance: string;
+  public senderName: string;
+  public senderPortrait: string;
+  public senderCorporation: string;
+  public senderAlliance: string;
 
   @Input() senderIndex: number;
 

@@ -11,10 +11,10 @@ import { MailService } from '../../../services/mail.service';
 })
 export class MoreMailsComponent implements OnInit {
   @Input() accountIndex: number;
-  private displayLoadMoreButton$: BehaviorSubject<boolean>;
+  public displayLoadMoreButton$: BehaviorSubject<boolean>;
 
   constructor(
-    private mailService: MailService,
+    public mailService: MailService,
   ) {
   }
 
@@ -32,7 +32,7 @@ export class MoreMailsComponent implements OnInit {
     });
   }
 
-  private loadMoreMails(): void {
+  public loadMoreMails(): void {
     this.mailService.add_moreMails( this.accountIndex );
   }
 }
