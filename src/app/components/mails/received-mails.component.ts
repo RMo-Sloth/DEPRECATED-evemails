@@ -21,9 +21,9 @@ import{ MailFilterService } from '../../services/mail-filter.service';
 })
 export class ReceivedMailsComponent implements OnInit {
 
-  private accountIndex: number;
-  private mails$: BehaviorSubject<Mail[]>;
-  private navigationButtons: NavigationButton[];
+  public accountIndex: number;
+  public mails$: BehaviorSubject<Mail[]>;
+  public navigationButtons: NavigationButton[];
 
   constructor(
     private route: ActivatedRoute,
@@ -35,8 +35,8 @@ export class ReceivedMailsComponent implements OnInit {
     this.accountIndex = parseInt( this.route.snapshot.paramMap.get('account_id') );
     this.navigationButtons = [
       { faClass: 'home', routerUrl: '/dashboard'},
-      { faClass: 'search', routerUrl: '/dashboard'},
-      { faClass: 'pencil', routerUrl: `/${this.accountIndex }/new-mail`}
+      /*{ faClass: 'search', routerUrl: '/dashboard'},
+      { faClass: 'pencil', routerUrl: `/${this.accountIndex }/new-mail`}*/
     ];
   }
   ngOnChanges(){

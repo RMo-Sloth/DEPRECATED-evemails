@@ -31,9 +31,8 @@ export class DashboardComponent implements OnInit {
     this.accounts$ = this.accountService.accounts$;
 
     this.route.queryParamMap.subscribe( (queryParameters: any ) => {
-
       /* check if registration with an access_token is used */
-      if( queryParameters.params.code == true ) {
+      if( queryParameters.params.code ) {
         this.signupService.signup_byAuthorizationCode( queryParameters.params.code );
         history.replaceState({}, '', '/dashboard');
       } else { /* check if registration with an access_token is used */

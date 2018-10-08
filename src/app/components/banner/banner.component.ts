@@ -11,7 +11,7 @@ import { PageTitleService } from '../../services/page-title.service';
 
 export class BannerComponent implements OnInit {
 
-  private pageTitle$: BehaviorSubject<string>;
+  public pageTitle$: BehaviorSubject<string>;
 
   constructor(
     private pageTitleService: PageTitleService
