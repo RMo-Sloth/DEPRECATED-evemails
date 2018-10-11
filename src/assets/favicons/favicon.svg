@@ -1,0 +1,26 @@
+<svg width="512" height="512">
+
+  <defs>
+    <clipPath id="clip-envelope">
+      <path d='M16,87 L496,87 A10,10 0 0,1 506, 97 L506,427 A-10,10 0 0,1 496,437 L16,437 A-10,-10 0 0,1 6,427 L6, 97 A10,-10 0 0,1 16,87'></path>
+    </clipPath>
+  </defs>
+
+  <rect fill='#000' width='512' height='512'></rect>
+
+  <rect x='6' y='87' width='500' fill='#EEF' height='350' clip-path='url(#clip-envelope)'>
+  </rect>
+
+  <line stroke='#77F' stroke-width='10' x1='31' y1='387' x2='256' y2='187' clip-path='url(#clip-envelope)'></line>
+
+  <line stroke='#77F' stroke-width='10' x1='256' y1='187' x2='481' y2='387' clip-path='url(#clip-envelope)'></line>
+
+  <line stroke='#44F' stroke-width='10' x1='31' y1='437' x2='481' y2='437' clip-path='url(#clip-envelope)'></line>
+
+  <polygon points="31,87 481,87 256,302" fill='#EEF' />
+
+  <line stroke='#44f' stroke-width='10' x1='31' y1='87' x2='481' y2='87' clip-path='url(#clip-envelope)'></line>
+
+  <polyline points="31,437 31,87 256,302 481,87 481,437"
+  stroke='#44f' stroke-width='50' fill='none' clip-path='url(#clip-envelope)'/>
+</svg>
