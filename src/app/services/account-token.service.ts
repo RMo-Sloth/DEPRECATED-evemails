@@ -47,11 +47,12 @@ export class AccountTokenService {
     }
   }
 
-  private update_accessToken( refreshToken: string ): Observable<string>{
+  public update_accessToken( refreshToken: string ): Observable<string>{
     return new Observable( observer => {
       this.request_newAccesstoken( refreshToken )
       .subscribe( accessToken => {
           observer.next( accessToken );
+          observer.complete();
       });
     });
   }

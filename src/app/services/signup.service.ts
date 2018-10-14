@@ -42,7 +42,8 @@ export class SignupService {
         const account: Account = {
           index: accountIndex,
           accessToken: accessToken,
-          refreshToken: refreshToken
+          refreshToken: refreshToken,
+          authenticationFlow: 'explicit'
         };
         this.register_account( account );
       });
@@ -56,7 +57,8 @@ export class SignupService {
         const account: Account = {
           index: accountInfo.CharacterID,
           accessToken: accessToken,
-          refreshToken: ''
+          refreshToken: '',
+          authenticationFlow: 'implicit'
         };
         this.register_account( account );
       });
