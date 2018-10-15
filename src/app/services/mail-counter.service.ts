@@ -86,4 +86,10 @@ export class MailCounterService {
       return unreadMailCounter.accountIndex === accountIndex;
     });
   }
+
+  public decrease_mailCounter( accountIndex: number ){
+    let unreadMailCounter = this.get_unreadMailCounter( accountIndex );
+    let newMailCounter = unreadMailCounter.unreadMailCount$.getValue() - 1;
+    unreadMailCounter.unreadMailCount$.next( newMailCounter );
+  }
 }

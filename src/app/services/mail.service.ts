@@ -14,6 +14,7 @@ interface LastLoadedMail {
 
 /* SERVICES */
 import { AccountHttpService } from './account-http.service';
+import { MailCounterService } from './mail-counter.service';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +30,7 @@ export class MailService {
   constructor(
     private http: HttpClient,
     private accountHttp: AccountHttpService,
+    private mailCounter: MailCounterService,
   ) {
     this.mails = [];
     this.lastLoadedMails = [];
@@ -310,9 +312,10 @@ export class MailService {
     this.accountHttp.get_headers( mail.account )
     .subscribe( httpOptions => {
       let mailIsread = {read: true};
-      this.http.put(`https://esi.evetech.net/dev/characters/${mail.account}/mail/${mail.index}/?datasource=tranquility`, mailIsread, httpOptions)
+      this.http.put( `https://esi.evetech.net/dev/characters/${mail.account}/mail/${mail.index}/?datasource=tranquility`, mailIsread, httpOptions )
       .subscribe( success => {
           mail.isRead = true;
+          this.mailCounter.decrease_mailCounter( mail.account );
       });
     });
   }
