@@ -176,7 +176,7 @@ export class MailService {
       // if this.mails$ isn't refreshed here it will possible load the data of the wrong account
       this.mails$.next( this.mails );
     } else {
-      this.request_initialMails( accountIndex )
+      this.request_latestMails( accountIndex )
       .subscribe( ( mails: any ) => { // TODO: should check more strict than any
         // TODO: this is duplicated code (also in get_inboxmails!)
         mails.forEach( mailInfo => {
@@ -209,11 +209,35 @@ export class MailService {
     }
   }
 
+  public get_latestMails( accountIndex: number ) {
+    this.request_latestMails( accountIndex )
+    .subscribe( ( mails: any ) => { // TODO: should check more strict than any
+      // TODO: this is duplicated code
+      console.log('mails requested')
+      mails.forEach( mailInfo => {
+        let mail = {
+          index: mailInfo.mail_id,
+          account: accountIndex,
+          labels: mailInfo.labels,
+          sender: mailInfo.from,
+          recipients: mailInfo.recipients,
+          subject: mailInfo.subject,
+          body: null,
+          timestamp: new Date( mailInfo.timestamp ),
+          isRead: (mailInfo.is_read === true) ? true : false ,
+        }
+        /* add a new mail to the mails[]*/
+        this.add_mail( mail );
+      }); // end foreach
+      this.mails$.next( this.mails );
+    });
+  }
+
   private accountHasMails( accountIndex ): boolean {
     return this.mails.some( mail => mail.account === accountIndex );
   }
 
-  private request_initialMails( accountIndex: number ): Observable<any> {
+  private request_latestMails( accountIndex: number ): Observable<any> {
     return new Observable( observer => {
       this.accountHttp.get_headers( accountIndex )
       .subscribe( httpOptions => {

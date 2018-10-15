@@ -17,6 +17,7 @@ interface BasicAccountInfo {
 import { AccountService } from './account.service';
 import { LocalStorageService } from './local-storage.service';
 import { MailCounterService } from './mail-counter.service';
+import { MailService } from './mail.service';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +29,8 @@ export class SignupService {
     private http: HttpClient,
     private accountService: AccountService,
     private localStorageService: LocalStorageService,
-    private mailCounter: MailCounterService
+    private mailCounter: MailCounterService,
+    private mailService: MailService,
   ) { }
 
   public signup_byAuthorizationCode( authorization_code: string ): void {
@@ -84,6 +86,14 @@ export class SignupService {
     this.accountService.add_account( account );
     this.localStorageService.add_account( account );
     this.mailCounter.add_account( account.index );
+
+    // if a new mail has been received update the mails through the mailService
+    this.mailCounter.get_newMailDetected$( account.index )
+    .subscribe( newMail => {
+      if ( newMail === true ) {
+        this.mailService.get_latestMails( account.index );
+      }
+    });
   }
 
 }
