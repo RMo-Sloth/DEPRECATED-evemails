@@ -40,6 +40,10 @@ export class NewMailComponent implements OnInit {
     });
   }
 
+  private select_recipient(): void {
+    alert('opening the window to select a recipient has not been implemented yet');
+  }
+
   private sendMail(): void{
     alert("sending mails isn't implemented yet");
   }
