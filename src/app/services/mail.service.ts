@@ -213,7 +213,6 @@ export class MailService {
     this.request_latestMails( accountIndex )
     .subscribe( ( mails: any ) => { // TODO: should check more strict than any
       // TODO: this is duplicated code
-      console.log('mails requested')
       mails.forEach( mailInfo => {
         let mail = {
           index: mailInfo.mail_id,
