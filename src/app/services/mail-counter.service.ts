@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 /* INTERFACES */
 interface UnreadMailCounter {
   accountIndex: number;
   unreadMailCount$: BehaviorSubject<number>;
+  newMailDetected$: BehaviorSubject<boolean>;
   refreshTimeout: any;
 }
 
@@ -67,15 +68,26 @@ export class MailCounterService {
     });
   }
 
-  private update_unreadMailCount( accountIndex: number, unreadMails: number ) {
+  private update_unreadMailCount( accountIndex: number, newUnreadMails: number ) {
     let unreadMailCounter = this.get_unreadMailCounter( accountIndex );
-    unreadMailCounter.unreadMailCount$.next( unreadMails );
+    let oldUnreadMails = unreadMailCounter.unreadMailCount$.getValue();
+    if( newUnreadMails > oldUnreadMails ) {
+      // new mails detected! Load them to the mailarray.
+      unreadMailCounter.newMailDetected$.next( true );
+    }
+    unreadMailCounter.unreadMailCount$.next( newUnreadMails );
+  }
+
+  public get_newMailDetected$( accountIndex: number ): BehaviorSubject<boolean> {
+    let unreadMailCounter = this.get_unreadMailCounter( accountIndex );
+    return unreadMailCounter.newMailDetected$;
   }
 
   private add_unreadMailCounter( accountIndex: number, unreadMailCount: number ) {
     let unreadMailCounter = {
       accountIndex: accountIndex,
       unreadMailCount$: new BehaviorSubject( unreadMailCount ),
+      newMailDetected$: new BehaviorSubject( false ),
       refreshTimeout: null
     };
     this.unreadMailCounters.push( unreadMailCounter );
@@ -87,7 +99,7 @@ export class MailCounterService {
     });
   }
 
-  public decrease_mailCounter( accountIndex: number ){
+  public decrease_mailCounter( accountIndex: number ) {
     let unreadMailCounter = this.get_unreadMailCounter( accountIndex );
     let newMailCounter = unreadMailCounter.unreadMailCount$.getValue() - 1;
     unreadMailCounter.unreadMailCount$.next( newMailCounter );

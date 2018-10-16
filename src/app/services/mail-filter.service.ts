@@ -43,6 +43,9 @@ export class MailFilterService {
       && this.labelsFilter( mail.labels )
       && this.mailboxStateFilter( mail.labels );
     });
+    filteredMails.sort( function( currentMail:Mail, nextMail:Mail ) {
+      return nextMail.timestamp.getTime() - currentMail.timestamp.getTime();
+    });
     this.filteredMails$.next( filteredMails );
   }
 
