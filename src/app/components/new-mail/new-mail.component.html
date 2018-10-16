@@ -1,4 +1,37 @@
-<p>
-  new-mail works!
-</p>
+<div id='new-mail' *ngIf='this.sender' >
+  <div id='senderAndRecipients'>
+    <img id='sender' [attr.src] ='sender.portraits.px64x64' />
+    <div id='recipients'>
+      <span>
+        <div id='new-recipient' class='recipient' (click)='select_recipient()'>
+          <i class="fa fa-plus"></i>
+        </div>
+        <div class='recipient alliance' [style.background]='sender.portraits.px64x64 | url'>
+        </div>
+      </span>
+      <span>
+        <div id='more-recipients' class='recipient' *ngIf='hideRecipients$ | async'>
+          <span>...</span>
+        </div>
+      </span>
+    </div>
+  </div>
+  <input id='mail-subject' type='text' placeholder="Please provide a subject">
+  <textarea id='mail-text' placeholder="Please provide a message"></textarea>
+  <ul id='new-mail-actions'>
+    <li (click)='sendMail()'>
+      <i _ngcontent-c10="" class="fa fa-reply fa-flip-horizontal"></i>
+    </li>
+  </ul>
+</div>
 <app-navigation [buttons]="navigationButtons"></app-navigation>
+<!-- TODO: would be good to autofocus on the title after load -->
+<!-- TODO: seperate items out into their own components:
+* should track characterIndexes in the new-mail component
+* recipients component
+  * recipient
+  * add recipient
+  * remove recipient
+  * search recipient
+  * see all recipients
+  -->

@@ -34,7 +34,7 @@ ul#mail-recipients>li:last-child::after{
 ul#mail-actions{
   height: 3rem;
   border-radius: 0rem 0rem 0.5rem 0.5rem;
-  margin-top: 0.5rem;
+  margin-top: 0px;
   display: flex;
   background-color: #1a1a2c;
 }
