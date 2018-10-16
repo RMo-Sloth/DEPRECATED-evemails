@@ -17,6 +17,7 @@ import { AccountNewComponent } from './components/dashboard/account-new/account-
 import { MailPreviewComponent } from './components/mails/mail-preview/mail-preview.component';
 import { MoreMailsComponent } from './components/mails/more-mails/more-mails.component';
 import { MailSenderComponent } from './components/mail/mail-sender/mail-sender.component';
+import { NewMailRecipientsComponent } from './components/new-mail/new-mail-recipients/new-mail-recipients.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { MailSenderComponent } from './components/mail/mail-sender/mail-sender.c
     AccountNewComponent,
     MailPreviewComponent,
     MoreMailsComponent,
-    MailSenderComponent
+    MailSenderComponent,
+    NewMailRecipientsComponent
   ],
   imports: [
     BrowserModule,
