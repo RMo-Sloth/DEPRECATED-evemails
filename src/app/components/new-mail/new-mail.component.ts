@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 
-// import{ Character } from '../classes/character/Character';
-// import{ Account } from '../classes/account/Account';
+/* INTERFACES */
 
+/* SERVICES */
 import { PageTitleService } from '../../services/page-title.service';
+import { CharacterService } from '../../services/character.service';
 
 @Component({
   selector: 'app-new-mail',
@@ -12,27 +14,34 @@ import { PageTitleService } from '../../services/page-title.service';
   styleUrls: ['./new-mail.component.css']
 })
 export class NewMailComponent implements OnInit {
-
-  public account_id: number;
-  public account: any;
+  public accountIndex: number;
+  public sender;
   public navigationButtons; // TODO: add type
+  public hideRecipients$: BehaviorSubject<boolean>;
 
   constructor(
     private route: ActivatedRoute,
     private pageTitleService : PageTitleService,
+    private characterService: CharacterService,
   ) {
-    // this.account_id = parseInt( this.route.snapshot.paramMap.get('account_id') );
-    // this.account = this.userAccountService.get_account( this.account_id );
-    // this.navigationButtons = [
-    //   { faClass: 'home', routerUrl: '/dashboard'},
-    //   { faClass: 'envelope', routerUrl: `/${this.account.character.characterId}/mails`}
-    // ];
+    this.accountIndex = parseInt( this.route.snapshot.paramMap.get('account_id') );
+    this.hideRecipients$ = new BehaviorSubject( false );
+    this.navigationButtons = [
+      { faClass: 'home', routerUrl: '/dashboard'},
+      { faClass: 'envelope', routerUrl: `/${this.accountIndex}/mails`}
+    ];
   }
 
   ngOnInit() {
-    this.account.character.name$.asObservable().subscribe( name => {
-      this.pageTitleService.set_pageTitle( name );
+    this.characterService.get_character( this.accountIndex )
+    .subscribe( character => {
+      this.sender = character;
+      this.pageTitleService.set_pageTitle( `${character.name} - new mail` );
     });
+  }
+
+  private sendMail(): void{
+    alert("sending mails isn't implemented yet");
   }
 
 }
