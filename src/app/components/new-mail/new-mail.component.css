@@ -33,21 +33,6 @@ ul#new-mail-actions>li>i{
   padding-bottom: 0.5rem;
   font-size: 2rem;
 }
-.recipient{
-  padding: 0px;
-  margin-right: -10px;
-  border: 1px solid grey;
-  position: relative;
-  border-radius: 50%;
-  height: 30px;
-  width: 30px;
-  background-size: cover !important;
-  float: right; /* temp */
-  z-index: 1; /* TEMP:  */
-}
-.recipient:first-child {
-  margin-right: 0px;
-}
 img#sender{
   margin: 2px;
 }
@@ -60,32 +45,6 @@ input{
   font-size: 1.3rem;
   text-align: center;
 }
-div#new-recipient{
-  padding: 0px;
-  border: 1px solid white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-image: url(http://image.eveonline.com/Character/1_30.jpg);
-  z-index: 50;
-}
-div#more-recipients{
-  padding: 0px;
-  border: 1px solid white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-image: url(http://image.eveonline.com/Character/1_30.jpg);
-  z-index: 50;
-}
-
-#recipients{
-  display: flex;
-  flex-direction: column;
-  padding: 0px 2px;
-  justify-content: space-between;
-  flex:1;
-}
 #senderAndRecipients{
   display: flex;
 }
@@ -94,3 +53,10 @@ input#mail-subject{
   margin-bottom: 2px;
 }
 /* TODO: clean up this junky css */
+#recipients{
+  display: flex;
+  flex-direction: column;
+  padding: 0px 2px;
+  justify-content: space-between;
+  flex:1;
+}

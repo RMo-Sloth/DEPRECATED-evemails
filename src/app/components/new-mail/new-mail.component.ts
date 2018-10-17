@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
 
 /* INTERFACES */
 
@@ -17,7 +16,6 @@ export class NewMailComponent implements OnInit {
   public accountIndex: number;
   public sender;
   public navigationButtons; // TODO: add type
-  public hideRecipients$: BehaviorSubject<boolean>;
 
   constructor(
     private route: ActivatedRoute,
@@ -25,7 +23,6 @@ export class NewMailComponent implements OnInit {
     private characterService: CharacterService,
   ) {
     this.accountIndex = parseInt( this.route.snapshot.paramMap.get('account_id') );
-    this.hideRecipients$ = new BehaviorSubject( false );
     this.navigationButtons = [
       { faClass: 'home', routerUrl: '/dashboard'},
       { faClass: 'envelope', routerUrl: `/${this.accountIndex}/mails`}
@@ -38,10 +35,6 @@ export class NewMailComponent implements OnInit {
       this.sender = character;
       this.pageTitleService.set_pageTitle( `${character.name} - new mail` );
     });
-  }
-
-  private select_recipient(): void {
-    alert('opening the window to select a recipient has not been implemented yet');
   }
 
   private sendMail(): void{
