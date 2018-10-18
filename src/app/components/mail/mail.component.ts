@@ -21,7 +21,9 @@ export class MailComponent implements OnInit {
   public mailIndex: number;
   public mail: Mail;
 
+
   public navigationButtons: NavigationButton[];
+  public replyRoute: string;
 
   constructor(
     private pageTitleService: PageTitleService,
@@ -41,11 +43,13 @@ export class MailComponent implements OnInit {
     this.mailService.get_mail( this.mailIndex, this.accountIndex )
     .subscribe( mail => {
       this.mail = mail;
+      // trigger update isRead
       if( mail.isRead === false ){
         this.mailService.update_mailAsRead( mail );
-        // trigger update isRead
       }
-    });
+    }); // end get_mail()
+    // generate replyRoute
+    this.replyRoute = `/${this.accountIndex}/mail/reply/${this.mailIndex}`;
   }
 
   remove() {

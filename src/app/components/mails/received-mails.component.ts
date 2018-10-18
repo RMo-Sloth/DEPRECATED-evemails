@@ -36,7 +36,7 @@ export class ReceivedMailsComponent implements OnInit {
     this.navigationButtons = [
       { faClass: 'home', routerUrl: '/dashboard'},
       /*{ faClass: 'search', routerUrl: '/dashboard'} */
-      { faClass: 'pencil', routerUrl: `/${this.accountIndex }/new-mail`}
+      { faClass: 'pencil', routerUrl: `/${this.accountIndex }/mail/new`}
     ];
   }
   ngOnChanges(){
