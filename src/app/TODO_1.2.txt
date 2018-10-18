@@ -29,3 +29,5 @@ x RECIPIENTS
 
   x FAVICONS
   x  ADD NEW HI_RES FAVICONS
+
+  INFORMATION (i) for explanations. How would it work on touchscreen???
