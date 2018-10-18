@@ -26,8 +26,8 @@ li#new-recipient{
   height: 30px;
   width: 30px;
   background-size: cover !important;
-  float: right; /* temp */
-  z-index: 1; /* TEMP:  */
+  float: right; 
+  cursor: pointer;
 }
 .recipient:first-child {
   margin-right: 0px;
