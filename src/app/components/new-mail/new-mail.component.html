@@ -1,13 +1,13 @@
 <div id='new-mail' *ngIf='this.sender' >
   <div id='senderAndRecipients'>
     <img id='sender' [attr.src] ='sender.portraits.px64x64' />
-      <app-new-mail-recipients id='recipients'></app-new-mail-recipients>
+      <app-new-mail-recipients id='recipients' [recipientsIndexes]='recipients' (recipientsOutput)='updateRecipientsArray($event)'></app-new-mail-recipients>
   </div>
-  <input id='mail-subject' type='text' placeholder="Please provide a subject">
-  <textarea id='mail-text' placeholder="Please provide a message"></textarea>
+  <input id='mail-subject' type='text' placeholder="Please provide a subject" value="{{subject$ | async}}">
+  <textarea id='mail-text' placeholder="Please provide a message" value='{{mailBody$ | async}}'></textarea>
   <ul id='new-mail-actions'>
     <li (click)='sendMail()'>
-      <i _ngcontent-c10="" class="fa fa-reply fa-flip-horizontal"></i>
+      <i class="fa fa-reply fa-flip-horizontal"></i>
     </li>
   </ul>
 </div>
