@@ -372,7 +372,7 @@ export class MailService {
     return new Observable( observer => {
       this.accountHttp.get_headers( accountIndex )
       .subscribe( httpOptions => {
-        let url = `https://esi.evetech.net/dev/characters/${accountIndex}/mail/?datasource=tranquility`;
+        let url = `https://esi.evetech.net/v1/characters/${accountIndex}/mail/?datasource=tranquility`;
         let data = {
           "approved_cost": 0,
           "subject": subject,
@@ -392,7 +392,8 @@ export class MailService {
             observer.complete();
           },
           error => {
-            observer.error( console.log( error ) ); //// TODO: does this work test it how????
+            // TODO: does this work test it how????
+            observer.error( console.log( error ) );
             observer.complete();
           });
       });
