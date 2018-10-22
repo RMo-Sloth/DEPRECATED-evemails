@@ -14,56 +14,70 @@ import { CharacterService } from '../../../services/character.service';
 })
 export class NewMailRecipientsComponent implements OnInit {
 
+  public recipients_1$: BehaviorSubject<any[]>;
+  public recipients_2$: BehaviorSubject<any[]>;
+  public hideRecipients$: BehaviorSubject<boolean>;
+
+  @Input() recipients: number[];
+  @Output() recipientsChange: EventEmitter<number[]> = new EventEmitter();
+
   constructor(
       private characterService: CharacterService,
   ) {
-    this.recipients$ = new BehaviorSubject( [] );
     this.recipients_1$ = new BehaviorSubject( [] );
     this.recipients_2$ = new BehaviorSubject( [] );
     this.hideRecipients$ = new BehaviorSubject( false );
   }
-  @Input() recipientsIndexes: number[];
-  @Output() recipientsOutput: EventEmitter<number[]> = new EventEmitter();
-  public recipients$: BehaviorSubject<Character[]>;
-  public recipients_1$: BehaviorSubject<Character[]>;
-  public recipients_2$: BehaviorSubject<Character[]>;
-  public hideRecipients$: BehaviorSubject<boolean>;
 
   ngOnInit() {
-    /* recipients_1$, recipients_2$ and hideRecipients$ are generated from recipients$ */
-    this.recipients$.subscribe( recipients => {
-      let firstRecipientArray = recipients.slice(0, 8);
-      this.recipients_1$.next( firstRecipientArray );
-
-      if( recipients.length <= 17 ){
-        let secondRecipientArray = recipients.slice(8, 17);
-        this.recipients_2$.next( secondRecipientArray );
-        this.hideRecipients$.next( false );
-      }
-      if( recipients.length > 17 ){
-        let secondRecipientArray = recipients.slice(8, 16);
-        this.recipients_2$.next( secondRecipientArray );
-        this.hideRecipients$.next( true );
-      }
-    });
-
   }
 
-  ngOnChanges() { /* respond to changes on @Input */
-    this.recipientsIndexes.forEach( recipientIndex => {
-      this.recipients$.next( [] );
-      this.characterService.get_character( recipientIndex )
+  ngOnChanges() {
+    /* respond to changes on @Input */
+
+    /* empty recipient_1$ and recipient_2$ */
+    this.recipients_1$.next( [] );
+    this.recipients_2$.next( [] );
+
+    let firstRecipients = this.recipients.slice(0, 8);
+
+    /* mutate the recipients to characters*/
+    firstRecipients.forEach( recipient => {
+      this.characterService.get_character( recipient )
       .subscribe( character => {
-        let recipients = this.recipients$.getValue();
-        // TODO: check if character already exists in array
-        recipients.push( character );
-        this.recipients$.next( recipients );
+        let newRecipients_1 = this.recipients_1$.getValue();
+        newRecipients_1.push( character );
+        this.recipients_1$.next( newRecipients_1 );
       });
     });
-    if( this.recipientsIndexes.length === 0 ){
-      this.recipients$.next( [] );
+
+    if( this.recipients.length <= 17 ){
+      let secondRecipientArray = this.recipients.slice(8, 17);
+      /* mutate the recipients to characters*/
+      secondRecipientArray.forEach( recipient => {
+        this.characterService.get_character( recipient )
+        .subscribe( character => {
+          let newRecipients_2 = this.recipients_1$.getValue();
+          newRecipients_2.push( character );
+          this.recipients_2$.next( newRecipients_2 );
+        });
+      });
+      this.hideRecipients$.next( false );
     }
-    console.log('Input changed');
+    if( this.recipients.length > 17 ){
+      let secondRecipientArray = this.recipients.slice(8, 16);
+      /* mutate the recipients to characters*/
+      secondRecipientArray.forEach( recipient => {
+        this.characterService.get_character( recipient )
+        .subscribe( character => {
+          let newRecipients_2 = this.recipients_1$.getValue();
+          newRecipients_2.push( character );
+          this.recipients_2$.next( newRecipients_2 );
+        });
+      });
+      this.hideRecipients$.next( true );
+    }
+    // TODO: refactor umutating chracters to a function ( that would also handle corp, alliance in the future )
   }
 
   private select_recipient(): void {
@@ -71,28 +85,19 @@ export class NewMailRecipientsComponent implements OnInit {
     alert('opening the window to select a recipient has not been implemented yet, but it adds a recipient instead');
     this.characterService.get_character( 2114493768 )
     .subscribe( character => {
-      let recipients = this.recipients$.getValue();
       // TODO: check if character already exists in array
-      recipients.push( character );
-      this.recipients$.next( recipients );
-      this.recipientsIndexes.push( character.index );
-      this.recipientsOutput.emit( this.recipientsIndexes );
+      let recipients = this.recipients.slice();
+      recipients.push( character.index );
+      this.recipientsChange.emit( recipients  );
     });
   }
   private open_recipientDetails( recipient ): void{
     // TODO: implement a recipientDetails screen / component
     alert('clicking temporarily removes the character');
-    // TEMP: remove on click
-    // let recipients = this.recipients$.getValue();
-    // recipients = recipients.filter( currentRecipient => {
-    //   return currentRecipient.index !== recipient.index;
-    // });
-    // this.recipients$.next( recipients );
-    //
-    let recipientsIndexes = this.recipientsIndexes.filter( currentRecipientIndex => {
-      return currentRecipientIndex !== recipient.index;
+    let recipients = this.recipients.filter( currentRecipient => {
+      return currentRecipient !== recipient.index;
     });
-    this.recipientsOutput.emit( recipientsIndexes );
+    this.recipientsChange.emit( recipients );
   }
 
 }

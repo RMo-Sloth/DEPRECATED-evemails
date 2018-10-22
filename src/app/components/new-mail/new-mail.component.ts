@@ -5,6 +5,7 @@ import { BehaviorSubject } from 'rxjs';
 /* INTERFACES */
 import { Character } from '../../interfaces/character';
 import { Mail } from '../../interfaces/mail';
+import { NewMail } from '../../interfaces/new-mail';
 
 /* SERVICES */
 import { PageTitleService } from '../../services/page-title.service';
@@ -20,11 +21,9 @@ export class NewMailComponent implements OnInit {
   public accountIndex: number;
   public mailIndex: number;
   public sender: Character; // Character of accountIndex
-  public mail: Mail; // mail of mailindex
+  public mail :NewMail;
   public recipients;
   public type: string;
-  public subject$: BehaviorSubject<string>;
-  public mailBody$: BehaviorSubject<string>;
 
   public navigationButtons; // TODO: add type
 
@@ -37,8 +36,13 @@ export class NewMailComponent implements OnInit {
     this.accountIndex = parseInt( this.route.snapshot.paramMap.get('account_id') );
     this.mailIndex = parseInt( this.route.snapshot.paramMap.get('mail_id') );
     this.type = this.route.snapshot.paramMap.get('type');
-    this.subject$ = new BehaviorSubject( '' );
-    this.mailBody$ = new BehaviorSubject( '' );
+
+    this.mail = {
+      subject : 'mail-subject',
+      body: 'body',
+      recipients: [],
+    };
+
     this.recipients = [];
     this.navigationButtons = [
       { faClass: 'home', routerUrl: '/dashboard'},
@@ -61,8 +65,8 @@ export class NewMailComponent implements OnInit {
         let mailIndex = parseInt( this.route.snapshot.paramMap.get('mail_id') );
         this.mailService.get_mail( mailIndex, this.accountIndex )
         .subscribe( mail => {
-          this.subject$.next( `Re: ${mail.subject}` );
-          this.mailBody$.next( mail.body );
+          this.mail.subject = `Re: ${mail.subject}`;
+          this.mail.body = mail.body;
           this.recipients = [ mail.sender ];
         });
         break;
@@ -73,11 +77,18 @@ export class NewMailComponent implements OnInit {
 
   private updateRecipientsArray( recipientIndexes ){
     this.recipients = recipientIndexes;
-    console.log( recipientIndexes );
   }
 
   private sendMail(): void{
-    alert("sending mails isn't implemented yet");
+
+    this.mailService.send_mail( this.mail.body, this.mail.subject, [1,2], this.accountIndex )
+    .subscribe(
+      succes => {
+        alert('mail has been sent');
+      },
+      error => {
+        alert('sending mail failed');
+      });
   }
 }
 // TODO: should receive array of recipients from the recipientsarray
