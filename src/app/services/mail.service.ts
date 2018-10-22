@@ -365,5 +365,39 @@ export class MailService {
       }); // TODO: observer.next if get_headers fails ( need get_headers to throw an error )
     }); // end observable
   };
+
+  /* SEND MAIL */
+
+  public send_mail( message: string, subject: string, recipients: number[], accountIndex: number ): Observable<any> {
+    return new Observable( observer => {
+      this.accountHttp.get_headers( accountIndex )
+      .subscribe( httpOptions => {
+        let url = `https://esi.evetech.net/dev/characters/${accountIndex}/mail/?datasource=tranquility`;
+        let data = {
+          "approved_cost": 0,
+          "subject": subject,
+          "body": message,
+          //// TODO: implement recipients
+          "recipients": [
+            {
+              "recipient_id": 93898701,
+              "recipient_type": "character"
+            }
+          ]
+        };
+        this.http.post( url, data, httpOptions)
+        .subscribe(
+          succes => {
+            observer.next();
+            observer.complete();
+          },
+          error => {
+            observer.error( console.log( error ) ); //// TODO: does this work test it how????
+            observer.complete();
+          });
+      });
+    });
+  }
 }
+
 // TODO: Should I create a seperate service that modifies mails? That would create great interdepency between this class and the new class.
