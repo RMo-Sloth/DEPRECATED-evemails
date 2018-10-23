@@ -18,6 +18,7 @@ import { MailPreviewComponent } from './components/mails/mail-preview/mail-previ
 import { MoreMailsComponent } from './components/mails/more-mails/more-mails.component';
 import { MailSenderComponent } from './components/mail/mail-sender/mail-sender.component';
 import { NewMailRecipientsComponent } from './components/new-mail/new-mail-recipients/new-mail-recipients.component';
+import { IsInSameCorporationPipe } from './pipes/is-in-same-corporation.pipe';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { NewMailRecipientsComponent } from './components/new-mail/new-mail-recip
     MailPreviewComponent,
     MoreMailsComponent,
     MailSenderComponent,
-    NewMailRecipientsComponent
+    NewMailRecipientsComponent,
+    IsInSameCorporationPipe
   ],
   imports: [
     BrowserModule,
