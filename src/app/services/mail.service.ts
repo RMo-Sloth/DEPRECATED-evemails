@@ -4,6 +4,8 @@ import { Observable, BehaviorSubject } from 'rxjs';
 
 /* INTERFACES */
 import { Mail } from '../interfaces/mail';
+import { NewMail } from '../interfaces/new-mail';
+import { Recipient } from '../interfaces/recipient';
 interface LastLoadedMail {
   accountIndex: number;
   lastLoadedMail: number;
@@ -368,22 +370,24 @@ export class MailService {
 
   /* SEND MAIL */
 
-  public send_mail( message: string, subject: string, recipients: number[], accountIndex: number ): Observable<any> {
+  public send_mail( newMail: NewMail, accountIndex: number ): Observable<any> {
     return new Observable( observer => {
       this.accountHttp.get_headers( accountIndex )
       .subscribe( httpOptions => {
         let url = `https://esi.evetech.net/v1/characters/${accountIndex}/mail/?datasource=tranquility`;
+        let recipients = [];
+        newMail.recipients.forEach( recipient => {
+          recipients.push({
+            recipient_id: recipient.index,
+            recipient_type: recipient.type
+          });
+        });
         let data = {
           "approved_cost": 0,
-          "subject": subject,
-          "body": message,
+          "subject": newMail.subject,
+          "body": newMail.body,
           //// TODO: implement recipients
-          "recipients": [
-            {
-              "recipient_id": 93898701,
-              "recipient_type": "character"
-            }
-          ]
+          "recipients": recipients
         };
         this.http.post( url, data, httpOptions)
         .subscribe(
