@@ -31,3 +31,6 @@ x RECIPIENTS
   x  ADD NEW HI_RES FAVICONS
 
   INFORMATION (i) for explanations. How would it work on touchscreen???
+
+RECIPIENT MARKING
+  * Could improve efficiency of the corporationpipe the ( not yet existing at the time of writing) alliancePipe, friendspipe and selfpipe.
