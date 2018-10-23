@@ -1,0 +1,29 @@
+  <span>
+  <ul>
+    <li id='new-recipient' class='recipient' (click)='select_recipient()'>
+      <i class="fa fa-plus"></i>
+    </li>
+    <li *ngFor='let recipient of recipients_1$ | async; let i = index'  class='recipient alliance' [style.background]='recipient.portraits.px64x64 | url' [style.z-index]='24-i'
+      (click)='open_recipientDetails( recipient )'
+    >
+    </li>
+  </ul>
+  </span>
+  <span>
+    <ul>
+      <li id='more-recipients' class='recipient' *ngIf='hideRecipients$ | async'>
+        <span>...</span>
+      </li>
+      <li *ngFor='let recipient of recipients_2$ | async; let i = index'  class='recipient alliance' [style.background]='recipient.portraits.px64x64 | url' [style.z-index]='24-i'
+        (click)='open_recipientDetails( recipient )'
+      >
+      </li>
+  </ul>
+  </span>
+  <!-- TODO: should change recipients border based on same
+    * alliance,corp or normal
+    * add recipient
+    * remove recipient
+    * search recipient
+    * see all recipients
+    -->

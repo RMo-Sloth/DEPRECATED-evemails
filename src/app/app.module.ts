@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
-import { HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import {FormsModule} from "@angular/forms";
 
 import { AppComponent } from './app.component';
 import { BannerComponent } from './components/banner/banner.component';
@@ -17,6 +17,7 @@ import { AccountNewComponent } from './components/dashboard/account-new/account-
 import { MailPreviewComponent } from './components/mails/mail-preview/mail-preview.component';
 import { MoreMailsComponent } from './components/mails/more-mails/more-mails.component';
 import { MailSenderComponent } from './components/mail/mail-sender/mail-sender.component';
+import { NewMailRecipientsComponent } from './components/new-mail/new-mail-recipients/new-mail-recipients.component';
 
 @NgModule({
   declarations: [
@@ -32,12 +33,14 @@ import { MailSenderComponent } from './components/mail/mail-sender/mail-sender.c
     AccountNewComponent,
     MailPreviewComponent,
     MoreMailsComponent,
-    MailSenderComponent
+    MailSenderComponent,
+    NewMailRecipientsComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

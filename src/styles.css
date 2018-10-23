@@ -73,8 +73,24 @@ li:focus{
 }
 input{
   width: 100%;
-  border-radius: 0.2rem;
+  /* border-radius: 0.2rem; */
 }
 a{
 	color: rgb( 0, 255, 255 );
+}
+textarea{
+	width: 100%;
+	min-width: 100%;
+	box-sizing: border-box;
+	border: 0px;
+}
+
+.friend {
+	border-color: green !important;
+}
+.corporation {
+	border-color: blue !important;
+}
+.alliance {
+	border-color: purple !important;
 }

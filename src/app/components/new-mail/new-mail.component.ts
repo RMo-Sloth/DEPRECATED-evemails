@@ -1,10 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 
-// import{ Character } from '../classes/character/Character';
-// import{ Account } from '../classes/account/Account';
+/* INTERFACES */
+import { Character } from '../../interfaces/character';
+import { Mail } from '../../interfaces/mail';
+import { NewMail } from '../../interfaces/new-mail';
+import { Recipient } from '../../interfaces/recipient';
 
+/* SERVICES */
 import { PageTitleService } from '../../services/page-title.service';
+import { CharacterService } from '../../services/character.service';
+import { MailService } from '../../services/mail.service';
 
 @Component({
   selector: 'app-new-mail',
@@ -12,27 +19,73 @@ import { PageTitleService } from '../../services/page-title.service';
   styleUrls: ['./new-mail.component.css']
 })
 export class NewMailComponent implements OnInit {
+  public accountIndex: number;
+  public mailIndex: number;
+  public sender: Character; // Character of accountIndex
+  public mail :NewMail;
+  public type: string;
 
-  public account_id: number;
-  public account: any;
   public navigationButtons; // TODO: add type
 
   constructor(
     private route: ActivatedRoute,
     private pageTitleService : PageTitleService,
+    private characterService: CharacterService,
+    private mailService: MailService,
   ) {
-    // this.account_id = parseInt( this.route.snapshot.paramMap.get('account_id') );
-    // this.account = this.userAccountService.get_account( this.account_id );
-    // this.navigationButtons = [
-    //   { faClass: 'home', routerUrl: '/dashboard'},
-    //   { faClass: 'envelope', routerUrl: `/${this.account.character.characterId}/mails`}
-    // ];
+    this.accountIndex = parseInt( this.route.snapshot.paramMap.get('account_id') );
+    this.mailIndex = parseInt( this.route.snapshot.paramMap.get('mail_id') );
+    this.type = this.route.snapshot.paramMap.get('type');
+
+    this.mail = {
+      subject : 'mail-subject',
+      body: 'body',
+      recipients: [],
+    };
+
+    this.navigationButtons = [
+      { faClass: 'home', routerUrl: '/dashboard'},
+      { faClass: 'envelope', routerUrl: `/${this.accountIndex}/mails`}
+    ];
   }
 
   ngOnInit() {
-    this.account.character.name$.asObservable().subscribe( name => {
-      this.pageTitleService.set_pageTitle( name );
+    this.characterService.get_character( this.accountIndex )
+    .subscribe( character => {
+      this.sender = character;
+      this.pageTitleService.set_pageTitle( `${character.name} - new mail` );
     });
+    // populate mail based on route
+    switch( this.type ) {
+      case 'new':
+        console.log('new');
+        break;
+      case 'reply':
+        let mailIndex = parseInt( this.route.snapshot.paramMap.get('mail_id') );
+        this.mailService.get_mail( mailIndex, this.accountIndex )
+        .subscribe( mail => {
+          this.mail.subject = `Re: ${mail.subject}`;
+          this.mail.body = mail.body;
+          this.mail.recipients = [{
+            index: mail.sender,
+            type: 'character'
+          }];
+        });
+        break;
+      default:
+        console.log('default fallback (error, should redirect)');
+    }
   }
 
+  private sendMail(): void{
+
+    this.mailService.send_mail( this.mail, this.accountIndex )
+    .subscribe(
+      succes => {
+        alert('mail has been sent');
+      },
+      error => {
+        alert('sending mail failed');
+      });
+  }
 }

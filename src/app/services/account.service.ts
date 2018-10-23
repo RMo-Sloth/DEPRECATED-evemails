@@ -21,27 +21,46 @@ export class AccountService {
     this.accounts = [];
     this.accounts$ = new BehaviorSubject([]);
 
+    // TODO: should only run after obtaining new tokens
     if( localStorage.getItem('accounts') !== null )
     {
       let accounts = JSON.parse( localStorage.getItem('accounts') );
       accounts.forEach( account => {
-        this.add_account( account );
+          this.add_account( account );
       });
     }
   }
 
   public add_account( account: Account ): void {
-    if( this.isRegisteredAccount( account.index ) === false ) {
-      this.accounts.push( account );
-      this.accounts$.next( this.accounts );
-      if( account.refreshToken != '' ) {
+    switch ( account.authenticationFlow ) {
+      case 'implicit':
+        this.accounts$.next( this.accounts );
+        /*duplicated check*/
+        if( this.isRegisteredAccount( account.index ) === false ) {
+          this.accounts.push( account );
+        } else {
+          console.error("The account you are trying to add already exist");
+        }
+        // TODO: Should notify user when token is expired
+        break;
+      case 'explicit':
+        this.accountToken.update_accessToken( account.refreshToken )
+        .subscribe(accessToken => {
+          account.accessToken = accessToken;
+          this.accounts$.next( this.accounts );
+        });
         this.accountToken.initiate_tokenUpdater( account.refreshToken, account.index )
         .subscribe( accessToken => {
           account.accessToken = accessToken;
+          /*duplicated check*/
+          if( this.isRegisteredAccount( account.index ) === false ) {
+            this.accounts.push( account );
+          } else {
+            console.error("The account you are trying to add already exist");
+          }
+          this.accounts$.next( this.accounts );
         });
-      }
-    } else {
-      console.error("The account you are trying to add already exist");
+        break;
     }
   }
 

@@ -4,6 +4,8 @@ import { Observable, BehaviorSubject } from 'rxjs';
 
 /* INTERFACES */
 import { Mail } from '../interfaces/mail';
+import { NewMail } from '../interfaces/new-mail';
+import { Recipient } from '../interfaces/recipient';
 interface LastLoadedMail {
   accountIndex: number;
   lastLoadedMail: number;
@@ -14,6 +16,7 @@ interface LastLoadedMail {
 
 /* SERVICES */
 import { AccountHttpService } from './account-http.service';
+import { MailCounterService } from './mail-counter.service';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +32,7 @@ export class MailService {
   constructor(
     private http: HttpClient,
     private accountHttp: AccountHttpService,
+    private mailCounter: MailCounterService,
   ) {
     this.mails = [];
     this.lastLoadedMails = [];
@@ -174,7 +178,7 @@ export class MailService {
       // if this.mails$ isn't refreshed here it will possible load the data of the wrong account
       this.mails$.next( this.mails );
     } else {
-      this.request_initialMails( accountIndex )
+      this.request_latestMails( accountIndex )
       .subscribe( ( mails: any ) => { // TODO: should check more strict than any
         // TODO: this is duplicated code (also in get_inboxmails!)
         mails.forEach( mailInfo => {
@@ -207,11 +211,34 @@ export class MailService {
     }
   }
 
+  public get_latestMails( accountIndex: number ) {
+    this.request_latestMails( accountIndex )
+    .subscribe( ( mails: any ) => { // TODO: should check more strict than any
+      // TODO: this is duplicated code
+      mails.forEach( mailInfo => {
+        let mail = {
+          index: mailInfo.mail_id,
+          account: accountIndex,
+          labels: mailInfo.labels,
+          sender: mailInfo.from,
+          recipients: mailInfo.recipients,
+          subject: mailInfo.subject,
+          body: null,
+          timestamp: new Date( mailInfo.timestamp ),
+          isRead: (mailInfo.is_read === true) ? true : false ,
+        }
+        /* add a new mail to the mails[]*/
+        this.add_mail( mail );
+      }); // end foreach
+      this.mails$.next( this.mails );
+    });
+  }
+
   private accountHasMails( accountIndex ): boolean {
     return this.mails.some( mail => mail.account === accountIndex );
   }
 
-  private request_initialMails( accountIndex: number ): Observable<any> {
+  private request_latestMails( accountIndex: number ): Observable<any> {
     return new Observable( observer => {
       this.accountHttp.get_headers( accountIndex )
       .subscribe( httpOptions => {
@@ -310,9 +337,10 @@ export class MailService {
     this.accountHttp.get_headers( mail.account )
     .subscribe( httpOptions => {
       let mailIsread = {read: true};
-      this.http.put(`https://esi.evetech.net/dev/characters/${mail.account}/mail/${mail.index}/?datasource=tranquility`, mailIsread, httpOptions)
+      this.http.put( `https://esi.evetech.net/dev/characters/${mail.account}/mail/${mail.index}/?datasource=tranquility`, mailIsread, httpOptions )
       .subscribe( success => {
           mail.isRead = true;
+          this.mailCounter.decrease_mailCounter( mail.account );
       });
     });
   }
@@ -339,5 +367,42 @@ export class MailService {
       }); // TODO: observer.next if get_headers fails ( need get_headers to throw an error )
     }); // end observable
   };
+
+  /* SEND MAIL */
+
+  public send_mail( newMail: NewMail, accountIndex: number ): Observable<any> {
+    return new Observable( observer => {
+      this.accountHttp.get_headers( accountIndex )
+      .subscribe( httpOptions => {
+        let url = `https://esi.evetech.net/v1/characters/${accountIndex}/mail/?datasource=tranquility`;
+        let recipients = [];
+        newMail.recipients.forEach( recipient => {
+          recipients.push({
+            recipient_id: recipient.index,
+            recipient_type: recipient.type
+          });
+        });
+        let data = {
+          "approved_cost": 0,
+          "subject": newMail.subject,
+          "body": newMail.body,
+          //// TODO: implement recipients
+          "recipients": recipients
+        };
+        this.http.post( url, data, httpOptions)
+        .subscribe(
+          succes => {
+            observer.next();
+            observer.complete();
+          },
+          error => {
+            // TODO: does this work test it how????
+            observer.error( console.log( error ) );
+            observer.complete();
+          });
+      });
+    });
+  }
 }
+
 // TODO: Should I create a seperate service that modifies mails? That would create great interdepency between this class and the new class.

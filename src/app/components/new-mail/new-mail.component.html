@@ -1,4 +1,15 @@
-<p>
-  new-mail works!
-</p>
+<div id='new-mail' *ngIf='this.sender' >
+  <div id='senderAndRecipients'>
+    <img id='sender' [attr.src] ='sender.portraits.px64x64' />
+      <app-new-mail-recipients id='recipients' [(recipients)]='mail.recipients'></app-new-mail-recipients>
+  </div>
+  <input id='mail-subject' type='text' placeholder="Please provide a subject" [(ngModel)]="mail.subject" />
+  <textarea id='mail-text' placeholder="Please provide a message" [(ngModel)]="mail.body"></textarea>
+  <ul id='new-mail-actions'>
+    <li (click)='sendMail()'>
+      <i class="fa fa-reply fa-flip-horizontal"></i>
+    </li>
+  </ul>
+</div>
 <app-navigation [buttons]="navigationButtons"></app-navigation>
+<!-- TODO: would be good to autofocus on the title after load -->

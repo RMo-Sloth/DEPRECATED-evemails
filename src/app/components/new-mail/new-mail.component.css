@@ -1,0 +1,62 @@
+#new-mail{
+  margin: 0.5rem;
+  padding: 0px;
+  border: 2px solid rgba(240, 240, 256, 0.2);
+  border-radius: 0.5rem;
+  background-color: #1a1a2c;
+  overflow: hidden;
+}
+
+#mail-text{
+  height: 15rem;
+  padding: 0.5rem;
+}
+
+ul#new-mail-actions{
+  height: 3rem;
+  border-radius: 0rem 0rem 0.5rem 0.5rem;
+  margin-top: 0px;
+  display: flex;
+  background-color: #1a1a2c;
+}
+ul#new-mail-actions>li{
+  flex: 1;
+  border-right: 1px solid  #333343;
+  text-align: center;
+  cursor: pointer;
+}
+ul#new-mail-actions>li:last-child{
+  border-right: none;
+}
+ul#new-mail-actions>li>i{
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  font-size: 2rem;
+}
+img#sender{
+  margin: 2px;
+}
+div{
+  padding: 0.5rem;
+}
+input{
+  padding: 0.2rem 0.5rem;
+  border: 0px;
+  font-size: 1.3rem;
+  text-align: center;
+}
+#senderAndRecipients{
+  display: flex;
+}
+
+input#mail-subject{
+  margin-bottom: 2px;
+}
+/* TODO: clean up this junky css */
+#recipients{
+  display: flex;
+  flex-direction: column;
+  padding: 0px 2px;
+  justify-content: space-between;
+  flex:1;
+}

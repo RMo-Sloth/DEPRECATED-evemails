@@ -12,7 +12,8 @@ const routes: Routes = [
   // TEMP: temporary duplicated ReceivedMailsComponent routing
   { path: ':account_id/mails', component: ReceivedMailsComponent },
   { path: ':account_id/mails/:mail_id', component: MailComponent },
-  { path: ':account_id/new-mail', component: NewMailComponent },
+  { path: ':account_id/mail/:type/:mail_id', component: NewMailComponent },
+  { path: ':account_id/mail/:type', component: NewMailComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: '**', component: DashboardComponent }
 ];
