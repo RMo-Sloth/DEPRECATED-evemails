@@ -1,6 +1,8 @@
+import { Recipient } from './recipient';
+
 export interface NewMail{
     // index: number;
-    recipients: number[];
+    recipients: Recipient[];
     subject: string;
     body: string;
 }

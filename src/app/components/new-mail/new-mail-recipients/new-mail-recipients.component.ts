@@ -3,6 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 
 /* CHARACTERS */
 import { Character } from '../../../interfaces/character';
+import { Recipient } from '../../../interfaces/recipient';
 
 /* SERVICES */
 import { CharacterService } from '../../../services/character.service';
@@ -18,8 +19,8 @@ export class NewMailRecipientsComponent implements OnInit {
   public recipients_2$: BehaviorSubject<any[]>;
   public hideRecipients$: BehaviorSubject<boolean>;
 
-  @Input() recipients: number[];
-  @Output() recipientsChange: EventEmitter<number[]> = new EventEmitter();
+  @Input() recipients: Recipient[];
+  @Output() recipientsChange: EventEmitter<Recipient[]> = new EventEmitter();
 
   constructor(
       private characterService: CharacterService,
@@ -43,7 +44,7 @@ export class NewMailRecipientsComponent implements OnInit {
 
     /* mutate the recipients to characters*/
     firstRecipients.forEach( recipient => {
-      this.characterService.get_character( recipient )
+      this.characterService.get_character( recipient.index )
       .subscribe( character => {
         let newRecipients_1 = this.recipients_1$.getValue();
         newRecipients_1.push( character );
@@ -55,7 +56,7 @@ export class NewMailRecipientsComponent implements OnInit {
       let secondRecipientArray = this.recipients.slice(8, 17);
       /* mutate the recipients to characters*/
       secondRecipientArray.forEach( recipient => {
-        this.characterService.get_character( recipient )
+        this.characterService.get_character( recipient.index )
         .subscribe( character => {
           let newRecipients_2 = this.recipients_1$.getValue();
           newRecipients_2.push( character );
@@ -68,7 +69,7 @@ export class NewMailRecipientsComponent implements OnInit {
       let secondRecipientArray = this.recipients.slice(8, 16);
       /* mutate the recipients to characters*/
       secondRecipientArray.forEach( recipient => {
-        this.characterService.get_character( recipient )
+        this.characterService.get_character( recipient.index )
         .subscribe( character => {
           let newRecipients_2 = this.recipients_1$.getValue();
           newRecipients_2.push( character );
@@ -86,8 +87,10 @@ export class NewMailRecipientsComponent implements OnInit {
     this.characterService.get_character( 2114493768 )
     .subscribe( character => {
       // TODO: check if character already exists in array
-      let recipients = this.recipients.slice();
-      recipients.push( character.index );
+      let recipients: Recipient[] = this.recipients.slice();
+      recipients.push({
+        index: character.index,
+        type: 'character'});
       this.recipientsChange.emit( recipients  );
     });
   }
@@ -95,7 +98,7 @@ export class NewMailRecipientsComponent implements OnInit {
     // TODO: implement a recipientDetails screen / component
     alert('clicking temporarily removes the character');
     let recipients = this.recipients.filter( currentRecipient => {
-      return currentRecipient !== recipient.index;
+      return currentRecipient.index !== recipient.index;
     });
     this.recipientsChange.emit( recipients );
   }

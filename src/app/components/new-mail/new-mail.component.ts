@@ -6,6 +6,7 @@ import { BehaviorSubject } from 'rxjs';
 import { Character } from '../../interfaces/character';
 import { Mail } from '../../interfaces/mail';
 import { NewMail } from '../../interfaces/new-mail';
+import { Recipient } from '../../interfaces/recipient';
 
 /* SERVICES */
 import { PageTitleService } from '../../services/page-title.service';
@@ -22,7 +23,6 @@ export class NewMailComponent implements OnInit {
   public mailIndex: number;
   public sender: Character; // Character of accountIndex
   public mail :NewMail;
-  public recipients;
   public type: string;
 
   public navigationButtons; // TODO: add type
@@ -43,7 +43,6 @@ export class NewMailComponent implements OnInit {
       recipients: [],
     };
 
-    this.recipients = [];
     this.navigationButtons = [
       { faClass: 'home', routerUrl: '/dashboard'},
       { faClass: 'envelope', routerUrl: `/${this.accountIndex}/mails`}
@@ -67,7 +66,10 @@ export class NewMailComponent implements OnInit {
         .subscribe( mail => {
           this.mail.subject = `Re: ${mail.subject}`;
           this.mail.body = mail.body;
-          this.recipients = [ mail.sender ];
+          this.mail.recipients = [{
+            index: mail.sender,
+            type: 'character'
+          }];
         });
         break;
       default:
@@ -75,13 +77,9 @@ export class NewMailComponent implements OnInit {
     }
   }
 
-  private updateRecipientsArray( recipientIndexes ){
-    this.recipients = recipientIndexes;
-  }
-
   private sendMail(): void{
 
-    this.mailService.send_mail( this.mail.body, this.mail.subject, [1,2], this.accountIndex )
+    this.mailService.send_mail( this.mail, this.accountIndex )
     .subscribe(
       succes => {
         alert('mail has been sent');
@@ -91,4 +89,3 @@ export class NewMailComponent implements OnInit {
       });
   }
 }
-// TODO: should receive array of recipients from the recipientsarray
