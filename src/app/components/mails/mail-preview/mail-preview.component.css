@@ -8,6 +8,9 @@ li>.sender-image{
   position: relative;
   width: 64px;
   height: 64px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: grey;
   border-radius: 4px;
   margin: 5px 3px 5px 6px;
 }
