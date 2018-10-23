@@ -1,5 +1,8 @@
 <div id='mail-sender'><!-- TODO: would be cool to color the border of mail-sender based on type e.g. alliance = purple, self = green -->
-  <div id='mail-sender-image' [class.corporation]='senderIndex | isInSameCorporation: accountIndex | async'>
+  <div id='mail-sender-image'
+    [class.corporation]='senderIndex | isInSameCorporation: accountIndex | async'
+    [class.self]='senderIndex | isSelf: accountIndex'
+  >
     <img [attr.src] ='senderPortrait' />
   </div>
   <div id='mail-sender-details'>

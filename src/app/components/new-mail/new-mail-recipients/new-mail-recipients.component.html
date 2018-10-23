@@ -3,7 +3,11 @@
     <li id='new-recipient' class='recipient' (click)='select_recipient()'>
       <i class="fa fa-plus"></i>
     </li>
-    <li *ngFor='let recipient of recipients_1$ | async; let i = index'  class='recipient' [class.corporation]='recipient.index | isInSameCorporation: sender.index | async' [style.background]='recipient.portraits.px64x64 | url' [style.z-index]='24-i'
+    <li *ngFor='let recipient of recipients_1$ | async; let i = index'  class='recipient'
+      [class.corporation]='recipient.index | isInSameCorporation: sender.index | async'
+      [class.self]='recipient.index | isSelf: sender.index'
+      [style.background]='recipient.portraits.px64x64 | url'
+      [style.z-index]='24-i'
       (click)='open_recipientDetails( recipient )'
     >
     </li>
@@ -14,7 +18,11 @@
       <li id='more-recipients' class='recipient' *ngIf='hideRecipients$ | async'>
         <span>...</span>
       </li>
-      <li *ngFor='let recipient of recipients_2$ | async; let i = index'  class='recipient' [class.alliance]='alliance' [style.background]='recipient.portraits.px64x64 | url' [style.z-index]='24-i'
+      <li *ngFor='let recipient of recipients_2$ | async; let i = index'  class='recipient'
+        [class.corporation]='recipient.index | isInSameCorporation: sender.index | async'
+        [class.self]='recipient.index | isSelf: sender.index'
+        [style.background]='recipient.portraits.px64x64 | url'
+        [style.z-index]='24-i'
         (click)='open_recipientDetails( recipient )'
       >
       </li>

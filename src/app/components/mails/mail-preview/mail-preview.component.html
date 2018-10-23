@@ -1,5 +1,10 @@
 <li routerLink="/{{accountIndex}}/mails/{{mail.index}}" [class.odd]='isOdd' [class.even]='!isOdd'>
-  <div class='sender-image' [style.background]="portrait$ | async | url" [class.corporation]='mail.sender | isInSameCorporation: accountIndex | async'>
+  <div
+    class='sender-image'
+    [style.background]="portrait$ | async | url"
+    [class.corporation]='mail.sender | isInSameCorporation: accountIndex | async'
+    [class.self]='mail.sender | isSelf: accountIndex'
+  >
     <i class='fa fa-envelope' *ngIf='( mail.isRead === false )'></i>
   </div>
   <div class='mail-info'>
