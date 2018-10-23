@@ -20,6 +20,7 @@ export class NewMailRecipientsComponent implements OnInit {
   public hideRecipients$: BehaviorSubject<boolean>;
 
   @Input() recipients: Recipient[];
+  @Input() sender: Character;
   @Output() recipientsChange: EventEmitter<Recipient[]> = new EventEmitter();
 
   constructor(
@@ -30,8 +31,7 @@ export class NewMailRecipientsComponent implements OnInit {
     this.hideRecipients$ = new BehaviorSubject( false );
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   ngOnChanges() {
     /* respond to changes on @Input */
