@@ -2,7 +2,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { Observable, forkJoin, of } from 'rxjs';
 
 /* INTERFACES */
-import { Recipient } from '../interfaces/recipient';
 
 /* SERVICES */
 import { CharacterService } from '../services/character.service';

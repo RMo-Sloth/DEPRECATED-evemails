@@ -35,6 +35,10 @@ ul#new-mail-actions>li>i{
 }
 img#sender{
   margin: 2px;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 4px;
+  border-color: grey;
 }
 div{
   padding: 0.5rem;

@@ -85,12 +85,15 @@ textarea{
 	border: 0px;
 }
 
-.friend {
-	border-color: green !important;
+.alliance {
+	border-color: purple !important;
 }
 .corporation {
 	border-color: blue !important;
 }
-.alliance {
-	border-color: purple !important;
+.friend {
+	border-color: green !important;
+}
+.self{
+	border-color: #DAA520 !important; /* gold */
 }
