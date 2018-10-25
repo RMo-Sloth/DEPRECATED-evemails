@@ -24,13 +24,14 @@ export class AccountTokenService {
 
   public initiate_tokenUpdater( refreshToken: string, accountIndex: number ): Observable<string> {
     return new Observable( observer => {
-      let interval = window.setInterval(
+      let interval = window.setInterval( function() {
         this.update_accessToken( refreshToken )
         .subscribe( accessToken => {
           observer.next( accessToken );
-        }),
+        });
+      },
         1100000
-      )
+      );
       let newInterval = {
         accountIndex: accountIndex,
         interval: interval

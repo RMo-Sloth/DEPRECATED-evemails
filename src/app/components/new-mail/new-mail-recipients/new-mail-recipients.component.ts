@@ -81,7 +81,7 @@ export class NewMailRecipientsComponent implements OnInit {
     // TODO: refactor umutating chracters to a function ( that would also handle corp, alliance in the future )
   }
 
-  private select_recipient(): void {
+  public select_recipient(): void {
     // TODO: implement recipient search function
     alert('opening the window to select a recipient has not been implemented yet, but it adds a recipient instead');
     this.characterService.get_character( 2114618105 )
