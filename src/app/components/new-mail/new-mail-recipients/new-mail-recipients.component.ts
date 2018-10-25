@@ -84,7 +84,7 @@ export class NewMailRecipientsComponent implements OnInit {
   private select_recipient(): void {
     // TODO: implement recipient search function
     alert('opening the window to select a recipient has not been implemented yet, but it adds a recipient instead');
-    this.characterService.get_character( 2114493768 )
+    this.characterService.get_character( 2114618105 )
     .subscribe( character => {
       // TODO: check if character already exists in array
       let recipients: Recipient[] = this.recipients.slice();
