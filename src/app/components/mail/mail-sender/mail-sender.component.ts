@@ -17,6 +17,7 @@ export class MailSenderComponent implements OnInit {
   public senderAlliance: string;
 
   @Input() senderIndex: number;
+  @Input() accountIndex: number;
 
   constructor(
     private characterService: CharacterService,

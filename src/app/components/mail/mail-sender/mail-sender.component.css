@@ -7,3 +7,12 @@
 #mail-sender-details{
   padding-left: 0.5rem;
 }
+#mail-sender-image{
+  height: 64px;
+  width: 64px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: grey;
+  border-radius: 4px;
+  overflow: hidden;
+}

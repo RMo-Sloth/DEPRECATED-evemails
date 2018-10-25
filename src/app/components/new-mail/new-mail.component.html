@@ -1,7 +1,7 @@
 <div id='new-mail' *ngIf='this.sender' >
   <div id='senderAndRecipients'>
     <img id='sender' [attr.src] ='sender.portraits.px64x64' />
-      <app-new-mail-recipients id='recipients' [(recipients)]='mail.recipients'></app-new-mail-recipients>
+      <app-new-mail-recipients id='recipients' [(recipients)]='mail.recipients' [sender]='sender'></app-new-mail-recipients>
   </div>
   <input id='mail-subject' type='text' placeholder="Please provide a subject" [(ngModel)]="mail.subject" />
   <textarea id='mail-text' placeholder="Please provide a message" [(ngModel)]="mail.body"></textarea>

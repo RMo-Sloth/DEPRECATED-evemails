@@ -1,6 +1,6 @@
 <div id='mail' *ngIf='mail'>
 
-  <app-mail-sender [senderIndex]="mail.sender"></app-mail-sender>
+  <app-mail-sender [senderIndex]="mail.sender" [accountIndex]='accountIndex'></app-mail-sender>
 
   <!-- TODO: retreive recipient info -->
   <span id='sent-date'>{{mail.timestamp | date:"dd MMMM, yyyy"}}</span>
