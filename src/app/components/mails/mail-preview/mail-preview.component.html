@@ -2,6 +2,7 @@
   <div
     class='sender-image'
     [style.background]="portrait$ | async | url"
+    [class.alliance]='mail.sender | isInSameAlliance: accountIndex | async'
     [class.corporation]='mail.sender | isInSameCorporation: accountIndex | async'
     [class.self]='mail.sender | isSelf: accountIndex'
   >

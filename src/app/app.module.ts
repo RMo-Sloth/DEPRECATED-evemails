@@ -20,6 +20,7 @@ import { MailSenderComponent } from './components/mail/mail-sender/mail-sender.c
 import { NewMailRecipientsComponent } from './components/new-mail/new-mail-recipients/new-mail-recipients.component';
 import { IsInSameCorporationPipe } from './pipes/is-in-same-corporation.pipe';
 import { IsSelfPipe } from './pipes/is-self.pipe';
+import { IsInSameAlliancePipe } from './pipes/is-in-same-alliance.pipe';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { IsSelfPipe } from './pipes/is-self.pipe';
     MailSenderComponent,
     NewMailRecipientsComponent,
     IsInSameCorporationPipe,
-    IsSelfPipe
+    IsSelfPipe,
+    IsInSameAlliancePipe
   ],
   imports: [
     BrowserModule,
