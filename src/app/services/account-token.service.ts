@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, interval } from 'rxjs';
 
 /* INTERFACES */
-interface Interval {
+interface IntervalSubscription {
   accountIndex: number;
-  interval: any; // TODO: What should I typecheck for?
+  intervalSubscription: any; // TODO: What should I typecheck for?
 }
 
 @Injectable({
@@ -14,37 +14,38 @@ interface Interval {
 
 export class AccountTokenService {
 
-  private intervals: Interval[];
+  private intervalSubscriptions: IntervalSubscription[];
 
   constructor(
     private http: HttpClient,
   ) {
-    this.intervals = [];
+    this.intervalSubscriptions = [];
   }
 
   public initiate_tokenUpdater( refreshToken: string, accountIndex: number ): Observable<string> {
     return new Observable( observer => {
-      let interval = window.setInterval( function() {
+      let intervalSubscription = interval(1100000)
+      .subscribe( () => {
         this.update_accessToken( refreshToken )
         .subscribe( accessToken => {
+          console.log('Interval triggered!');
           observer.next( accessToken );
         });
-      },
-        1100000
-      );
-      let newInterval = {
+      });
+
+      let newintervalSubscriptions = {
         accountIndex: accountIndex,
-        interval: interval
+        intervalSubscription: intervalSubscription
       };
-      this.intervals.push( newInterval );
+      this.intervalSubscriptions.push( newintervalSubscriptions );
     });
   }
 
   public end_tokenUpdater( accountIndex ): void {
-    if( this.intervalExists( accountIndex ) === true) {
-      let interval = this.get_interval( accountIndex );
-      window.clearInterval( interval.interval );
-      this.remove_interval( accountIndex );
+    if( this.intervalSubscriptionExists( accountIndex ) === true) {
+      let intervalSubscription = this.get_intervalSubscription( accountIndex );
+      intervalSubscription.unsubscribe();
+      this.remove_intervalSubscription( accountIndex );
     }
   }
 
@@ -68,16 +69,16 @@ export class AccountTokenService {
     });
   }
 
-  private intervalExists( accountIndex: number  ): boolean {
-    return this.intervals.some( interval => interval.accountIndex === accountIndex );
+  private intervalSubscriptionExists( accountIndex: number  ): boolean {
+    return this.intervalSubscriptions.some( interval => interval.accountIndex === accountIndex );
   }
 
-  private get_interval( accountIndex: number ): Interval {
-    return this.intervals.find( interval => interval.accountIndex === accountIndex );
+  private get_intervalSubscription( accountIndex: number ): IntervalSubscription {
+    return this.intervalSubscriptions.find( interval => interval.accountIndex === accountIndex );
   }
 
-  private remove_interval( accountIndex: number ): void {
-    this.intervals = this.intervals.filter( interval => {
+  private remove_intervalSubscription( accountIndex: number ): void {
+    this.intervalSubscriptions = this.intervalSubscriptions.filter( interval => {
       return interval.accountIndex !== accountIndex
     });
   }
