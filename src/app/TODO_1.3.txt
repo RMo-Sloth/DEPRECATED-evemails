@@ -18,3 +18,5 @@ popup component
 message/highlight/newsfeed component
 
 Add images / videos
+
+Friend detection ???
