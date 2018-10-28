@@ -44,7 +44,7 @@ export class AccountTokenService {
   public end_tokenUpdater( accountIndex ): void {
     if( this.intervalSubscriptionExists( accountIndex ) === true) {
       let intervalSubscription = this.get_intervalSubscription( accountIndex );
-      intervalSubscription.unsubscribe();
+      intervalSubscription.intervalSubscription.unsubscribe();
       this.remove_intervalSubscription( accountIndex );
     }
   }
