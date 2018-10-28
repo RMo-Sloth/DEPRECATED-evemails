@@ -1,0 +1,19 @@
+TODO LIST v 1.3
+
+Recipient selection component
+  create component
+  search character functionality
+  transmit value of selected character
+Reply all
+
+Filter mails
+
+New Logo
+
+Bugs: delay showing mails of newly added character
+
+popup component
+
+message/highlight/newsfeed component
+
+Add images / videos
