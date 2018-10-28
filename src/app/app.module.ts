@@ -21,6 +21,7 @@ import { NewMailRecipientsComponent } from './components/new-mail/new-mail-recip
 import { IsInSameCorporationPipe } from './pipes/is-in-same-corporation.pipe';
 import { IsSelfPipe } from './pipes/is-self.pipe';
 import { IsInSameAlliancePipe } from './pipes/is-in-same-alliance.pipe';
+import { CharacterSelectionComponent } from './components/character-selection/character-selection.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { IsInSameAlliancePipe } from './pipes/is-in-same-alliance.pipe';
     NewMailRecipientsComponent,
     IsInSameCorporationPipe,
     IsSelfPipe,
-    IsInSameAlliancePipe
+    IsInSameAlliancePipe,
+    CharacterSelectionComponent
   ],
   imports: [
     BrowserModule,
