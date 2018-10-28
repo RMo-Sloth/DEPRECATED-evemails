@@ -4,6 +4,7 @@ Recipient selection component
   create component
   search character functionality
   transmit value of selected character
+
 Reply all
 
 Filter mails
