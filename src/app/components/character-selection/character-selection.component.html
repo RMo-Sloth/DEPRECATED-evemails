@@ -1,3 +1,24 @@
-<p>
-  character-selection works!
-</p>
+<div id='character-selection'>
+  <div class='container'>
+    <input id='search-box' type='text' placeholder='character name'/>
+    <ul>
+      <li id='no-results' *ngIf='characters.length===0' (click)='load_10characters()'>
+        <h5>.. no results ...</h5>
+      </li>
+      <li *ngFor='let character of characters' (click)='selectCharacter(character.index)'>
+        <div
+          class='recipient'
+          [class.alliance]='character.index | isInSameAlliance: accountIndex | async'
+          [class.corporation]='character.index | isInSameCorporation: accountIndex | async'
+          [class.self]='character.index | isSelf: accountIndex'
+          [style.background]='character.portraits.px64x64 | url'
+        >
+        </div>
+        <h4 class='name'>{{character.name}}</h4>
+      </li>
+      <li id='load-more' *ngIf='characterIndexes.length>0' (click)='load_10characters()'>
+        <h5>.. load more results ...</h5>
+      </li>
+    </ul>
+  </div>
+</div>

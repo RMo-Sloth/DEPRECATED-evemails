@@ -18,6 +18,7 @@ export class NewMailRecipientsComponent implements OnInit {
   public recipients_1$: BehaviorSubject<any[]>;
   public recipients_2$: BehaviorSubject<any[]>;
   public hideRecipients$: BehaviorSubject<boolean>;
+  public showCharacterSelection: boolean;
 
   @Input() recipients: Recipient[];
   @Input() sender: Character;
@@ -29,6 +30,7 @@ export class NewMailRecipientsComponent implements OnInit {
     this.recipients_1$ = new BehaviorSubject( [] );
     this.recipients_2$ = new BehaviorSubject( [] );
     this.hideRecipients$ = new BehaviorSubject( false );
+    this.showCharacterSelection = false;
   }
 
   ngOnInit() {}
@@ -82,18 +84,22 @@ export class NewMailRecipientsComponent implements OnInit {
   }
 
   public select_recipient(): void {
-    // TODO: implement recipient search function
-    alert('opening the window to select a recipient has not been implemented yet, but it adds a recipient instead');
-    this.characterService.get_character( 2114618105 )
+    this.showCharacterSelection = true;
+  }
+
+  public add_recipient( characterIndex: number ){
+    this.characterService.get_character( characterIndex )
     .subscribe( character => {
       // TODO: check if character already exists in array
       let recipients: Recipient[] = this.recipients.slice();
       recipients.push({
         index: character.index,
         type: 'character'});
-      this.recipientsChange.emit( recipients  );
+      this.recipientsChange.emit( recipients );
+      this.showCharacterSelection = false;
     });
   }
+
   private open_recipientDetails( recipient ): void{
     // TODO: implement a recipientDetails screen / component
     alert('clicking temporarily removes the character');
