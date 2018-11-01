@@ -100,6 +100,10 @@ textarea{
 	overflow: hidden;
 }
 
+/* FONT AWESOME */
+.fa-times{
+	color: #990000;
+}
 /**/
 .recipient{
   display: block;
