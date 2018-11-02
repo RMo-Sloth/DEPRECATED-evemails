@@ -1,6 +1,9 @@
 <div id='character-selection'>
   <div class='container'>
-    <input id='search-box' type='text' placeholder='character name'/>
+    <div id='search-box'>
+      <input type='text' placeholder='character name'/>
+      <div id='close-character-selection' class='fa fa-times' (click)='close_characterSelection()'></div>
+    </div>
     <ul>
       <li id='no-results' *ngIf='characters.length===0' (click)='load_10characters()'>
         <h5>.. no results ...</h5>
