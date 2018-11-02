@@ -23,6 +23,7 @@ export class NewMailRecipientsComponent implements OnInit {
   @Input() recipients: Recipient[];
   @Input() sender: Character;
   @Output() recipientsChange: EventEmitter<Recipient[]> = new EventEmitter();
+  @Output() hasOpenPopups: EventEmitter<boolean> = new EventEmitter( false );
 
   constructor(
       private characterService: CharacterService,
@@ -36,8 +37,8 @@ export class NewMailRecipientsComponent implements OnInit {
   ngOnInit() {}
 
   ngOnChanges() {
+    // TODO: Should only respond on changes of recipients
     /* respond to changes on @Input */
-
     /* empty recipient_1$ and recipient_2$ */
     this.recipients_1$.next( [] );
     this.recipients_2$.next( [] );
@@ -85,6 +86,7 @@ export class NewMailRecipientsComponent implements OnInit {
 
   public select_recipient(): void {
     this.showCharacterSelection = true;
+    this.hasOpenPopups.emit( true );
   }
 
   public add_recipient( characterIndex: number ){
@@ -96,8 +98,13 @@ export class NewMailRecipientsComponent implements OnInit {
         index: character.index,
         type: 'character'});
       this.recipientsChange.emit( recipients );
-      this.showCharacterSelection = false;
+      this.showCharacterSelection = true;
     });
+  }
+
+  public update_popupStatus( openPopup:boolean ){
+    this.showCharacterSelection = openPopup;
+    this.hasOpenPopups.emit( openPopup );
   }
 
   private open_recipientDetails( recipient ): void{

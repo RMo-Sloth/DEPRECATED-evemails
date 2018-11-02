@@ -30,10 +30,8 @@
       </li>
   </ul>
   </span>
-  <app-character-selection (selectedCharacter)='add_recipient($event)' [accountIndex]='sender.index' *ngIf='showCharacterSelection'></app-character-selection>
+  <app-character-selection (selectedCharacter)='add_recipient($event)' [accountIndex]='sender.index' (isDisplayed)='update_popupStatus($event)' *ngIf='showCharacterSelection'></app-character-selection>
   <!-- TODO:
-    * add recipient
     * remove recipient
-    * search recipient
     * see all recipients
     -->
