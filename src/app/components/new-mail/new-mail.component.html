@@ -1,9 +1,9 @@
-<div id='new-mail' *ngIf='this.sender' >
+<div id='new-mail' *ngIf='sender' >
   <div id='senderAndRecipients'>
     <img id='sender' class='self' [attr.src] ='sender.portraits.px64x64' />
-      <app-new-mail-recipients id='recipients' [(recipients)]='mail.recipients' [sender]='sender'></app-new-mail-recipients>
+      <app-new-mail-recipients id='recipients' [(recipients)]='mail.recipients' [sender]='sender' (hasOpenPopups)='change_popupState($event)'></app-new-mail-recipients>
   </div>
-  <input id='mail-subject' type='text' placeholder="Please provide a subject" [(ngModel)]="mail.subject" />
+  <input #mailSubject id='mail-subject' type='text' placeholder="Please provide a subject" [(ngModel)]="mail.subject" />
   <textarea id='mail-text' placeholder="Please provide a message" [(ngModel)]="mail.body"></textarea>
   <ul id='new-mail-actions'>
     <li (click)='sendMail()'>
@@ -12,4 +12,3 @@
   </ul>
 </div>
 <app-navigation [buttons]="navigationButtons"></app-navigation>
-<!-- TODO: would be good to autofocus on the title after load -->
