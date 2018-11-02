@@ -17,6 +17,7 @@ export class CharacterSelectionComponent implements OnInit {
 
   @Input() accountIndex: number;
   @Output() selectedCharacter: EventEmitter<number> = new EventEmitter;
+  @Output() isDisplayed: EventEmitter<boolean> = new EventEmitter;
 
   constructor(
     private characterService: CharacterService,
@@ -27,7 +28,6 @@ export class CharacterSelectionComponent implements OnInit {
   }
 
   ngOnInit() {
-
     let searchBox = document.getElementById('search-box');
     let searchTrigger = fromEvent(searchBox, 'input')
     .pipe(
@@ -43,13 +43,18 @@ export class CharacterSelectionComponent implements OnInit {
       }),
     );
 
-    searchTrigger.subscribe( characterIndexes => {
+    searchTrigger.subscribe( (characterIndexes: number[]) => {
       this.characterIndexes = characterIndexes;
       this.characters = [];
       if( characterIndexes.length > 0 ){
         this.load_10characters();
       }
     });
+  }
+
+  ngOnChanges() {
+      let searchBox: HTMLElement = document.querySelector('#search-box>input');
+      searchBox.focus();
   }
 
   private process_searchString( searchString: string ): Observable<number[]>{
@@ -99,5 +104,10 @@ export class CharacterSelectionComponent implements OnInit {
 
   public selectCharacter( characterIndex ){
     this.selectedCharacter.emit( characterIndex );
+    this.isDisplayed.emit( false );
+  }
+
+  public close_characterSelection(){
+    this.isDisplayed.emit( false );
   }
 }
