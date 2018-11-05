@@ -21,7 +21,6 @@ export class MailComponent implements OnInit {
   public mailIndex: number;
   public mail: Mail;
 
-
   public navigationButtons: NavigationButton[];
   public replyRoute: string;
 

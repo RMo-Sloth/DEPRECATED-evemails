@@ -1,0 +1,11 @@
+ul{
+  height: 32px;
+  margin: 0px 0.5rem;
+}
+.recipient{
+  float: right;
+  margin-right: -10px;
+}
+.recipient:first-child {
+  margin-right: 0px;
+}
