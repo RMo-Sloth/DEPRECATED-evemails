@@ -54,7 +54,7 @@ export class NewMailComponent implements OnInit {
     this.characterService.get_character( this.accountIndex )
     .subscribe( character => {
       this.sender = character;
-      this.pageTitleService.set_pageTitle( `${character.name} - new mail` );
+      this.pageTitleService.set_pageTitle( `${character.name} <br> new mail` );
     });
     // populate mail based on route
     switch( this.type ) {

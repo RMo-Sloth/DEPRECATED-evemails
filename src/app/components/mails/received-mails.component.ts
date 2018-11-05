@@ -47,7 +47,7 @@ export class ReceivedMailsComponent implements OnInit {
     this.mailFilterService.set_filterAccountIndex( this.accountIndex );
     this.characterService.get_character( this.accountIndex )
     .subscribe( character => {
-      this.pageTitleService.set_pageTitle( `${character.name} - inbox` );
+      this.pageTitleService.set_pageTitle( `${character.name} <br> inbox` );
     });
     this.mailService.get_initialMails( this.accountIndex );
   }
