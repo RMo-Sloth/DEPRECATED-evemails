@@ -3,12 +3,15 @@
   <app-mail-sender [senderIndex]="mail.sender" [accountIndex]='accountIndex'></app-mail-sender>
 
   <!-- TODO: retreive recipient info -->
-  <span id='sent-date'>{{mail.timestamp | date:"dd MMMM, yyyy"}}</span>
-  <ul id='mail-recipients'>
-    <li>Recipients: unimplemented</li>
+  <!-- <ul id='mail-recipients'> -->
+    <!-- <li>Recipients: unimplemented</li> -->
     <!-- <li *ngFor="let recipient of mail.recipients">{{recipient.recipient_id}}</li> -->
-  </ul>
-  <p id='mail-title'>Subject: {{mail.subject}}</p>
+  <!-- </ul> -->
+  <app-mail-recipients [recipients]='mail.recipients'></app-mail-recipients>
+  <p id='mail-title'>Subject: {{mail.subject}}
+    <span id='sent-date'>{{mail.timestamp | date:"dd MMMM, yyyy"}}</span>
+
+  </p>
   <div id='mail-body' [innerHtml]="mail.body"></div>
   <ul id='mail-actions'>
     <li routerLink="{{replyRoute}}"><i class="fa fa-reply"></i></li>
