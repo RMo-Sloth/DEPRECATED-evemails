@@ -23,6 +23,7 @@ import { IsSelfPipe } from './pipes/is-self.pipe';
 import { IsInSameAlliancePipe } from './pipes/is-in-same-alliance.pipe';
 import { CharacterSelectionComponent } from './components/character-selection/character-selection.component';
 import { MailRecipientsComponent } from './components/mail/mail-recipients/mail-recipients.component';
+import { NewsfeedComponent } from './components/newsfeed/newsfeed.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { MailRecipientsComponent } from './components/mail/mail-recipients/mail-
     IsSelfPipe,
     IsInSameAlliancePipe,
     CharacterSelectionComponent,
-    MailRecipientsComponent
+    MailRecipientsComponent,
+    NewsfeedComponent
   ],
   imports: [
     BrowserModule,
