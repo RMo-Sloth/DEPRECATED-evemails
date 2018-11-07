@@ -1,13 +1,13 @@
 #banner{
     position: relative;
-    height: 10vh;
+    height: 100px;
+    box-sizing: border-box;
     max-width: 768px;
-    padding: 1vh 0px;
+    padding: 5px 0px 20px 0px;
     margin: auto;
     border-bottom: 2px solid rgb(240, 240, 256);
     display: flex;
     flex-direction: row;
-    cursor: pointer;
     background-color: rgb(0,0,20);
     background: url('/assets/images/gate_1.jpg');
     background-size: cover;
@@ -16,7 +16,7 @@
 }
 #banner>div#banner-container{
   flex: 1 0 auto;
-  padding: 0px 0.5rem;
+  padding: 0px 5px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -31,7 +31,13 @@
   height: 100%;
 }
 #logo-container{
-  flex: 0 0 10vh;
-  height: 10vh;
-  margin: 0px 0px 0px 0.5rem;
+  flex: 0 0 80px;
+  height: 70px;
+  margin: 0px 0px 0px 5px;
+}
+#newsfeed{
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
 }
