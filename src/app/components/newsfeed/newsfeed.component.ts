@@ -38,8 +38,12 @@ export class NewsfeedComponent implements OnInit {
         this.newsitems.push( newsitemDetails.message );
       }
     });
-    // start animating newsfeed
-    this.animate();
+    this.nextNewsitem();
+    // start animating newsfeed after 1 second
+    timer( 1000 )
+    .subscribe( () => {
+      this.animate();
+    });
   }
 
   public animate(){
