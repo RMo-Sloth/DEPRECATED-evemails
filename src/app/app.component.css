@@ -1,8 +1,6 @@
 #content{
-  position: fixed;
-  top: 100px;
-  bottom: 10vh;
   width: 100%;
+  height: calc(100vh - 100px - 10vh);
   max-width: 768px;
   margin: auto;
   box-sizing: border-box;
