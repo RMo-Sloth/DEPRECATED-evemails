@@ -24,6 +24,7 @@ import { IsInSameAlliancePipe } from './pipes/is-in-same-alliance.pipe';
 import { CharacterSelectionComponent } from './components/character-selection/character-selection.component';
 import { MailRecipientsComponent } from './components/mail/mail-recipients/mail-recipients.component';
 import { NewsfeedComponent } from './components/newsfeed/newsfeed.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { NewsfeedComponent } from './components/newsfeed/newsfeed.component';
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
