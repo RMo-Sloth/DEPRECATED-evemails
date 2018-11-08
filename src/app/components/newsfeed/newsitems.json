@@ -1,0 +1,22 @@
+[{
+  "start": "01-01-2018",
+  "end": "01-01-2050",
+  "message": "Did you know you can be featured in this newsfeed for 100M ISK/month? Mail to feedback@eve-mails.com if you are interested."
+  },{
+  "start": "01-01-2018",
+  "end": "07-11-2018",
+  "message": "Special thanks to Eddie Jaoude for pointing me in the right direction while developing this website in angular. <a href='https://www.youtube.com/eddiejaoude' target='_blank'>Check out Eddie Jaoude's youtube channel!</a>"
+  },{
+  "start": "01-01-2018",
+  "end": "01-01-2050",
+  "message": "Found a bug? Send a mail to feedback@eve-mails.com"
+  }, {
+  "start": "01-03-2018",
+  "end": "01-01-2019",
+  "message": "Special thanks to Magmarabbit for providing images and the 'eve-mails' logo. <a href='https://www.twitch.tv/magmarabbit' target='_blank'>Follow Magmarabbit on twitch!</a>"
+  }, {
+  "start": "01-01-2018",
+  "end": "01-01-2050",
+  "message": "Want to support this project? Donate ISK to 'Eve Mails'!"
+  }
+]

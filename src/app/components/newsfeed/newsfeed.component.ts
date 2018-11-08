@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { timer } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import * as newsitemsJson from "./newsitems.json";
 
 @Component({
   selector: 'app-newsfeed',
@@ -18,22 +20,32 @@ export class NewsfeedComponent implements OnInit {
   public transition: string;
   public left: string;
 
-  constructor() {
+  constructor(
+    private http: HttpClient
+  ) {
     // set animation speed in px/s
     this.speed = 30;
+    this.newsitems = [];
 
-    this.newsitems = ["Special thanks to Eddie Jaoude for pointing me in the right direction while developing this website in angular. <a href='https://www.youtube.com/eddiejaoude' target='_blank'>Check out Eddie Jaoude's youtube channel!</a>", 'Special thanks to Magmarabbit for providing images and the "eve-mails" logo. <a href="https://www.twitch.tv/magmarabbit" target="_blank">Follow Magmarabbit on twitch!</a>'];
   }
 
   ngOnInit() {
-    // get containers width
-    let newsfeedContainer = document.getElementById('newsfeed-container');
-    this.newsfeedContainerWidth = newsfeedContainer.offsetWidth;
+    newsitemsJson.forEach(newsitemDetails => {
+      if(
+        new Date( newsitemDetails.start ) <= Date.now() === true &&
+        new Date( newsitemDetails.end ) > Date.now() === true
+      ){
+        this.newsitems.push( newsitemDetails.message );
+      }
+    });
     // start animating newsfeed
     this.animate();
   }
 
   public animate(){
+    // get containers width
+    let newsfeedContainer = document.getElementById('newsfeed-container');
+    this.newsfeedContainerWidth = newsfeedContainer.offsetWidth;
     // get newsItem's width
     this.newsItem = document.getElementById('newsitem');
     this.newsItemWidth = this.newsItem.offsetWidth;
