@@ -32,8 +32,8 @@ export class NewsfeedComponent implements OnInit {
   ngOnInit() {
     newsitemsJson.forEach(newsitemDetails => {
       if(
-        new Date( newsitemDetails.start ) <= Date.now() === true &&
-        new Date( newsitemDetails.end ) > Date.now() === true
+        new Date( newsitemDetails.start ) <= new Date() === true &&
+        new Date( newsitemDetails.end ) > new Date() === true
       ){
         this.newsitems.push( newsitemDetails.message );
       }
@@ -54,7 +54,7 @@ export class NewsfeedComponent implements OnInit {
     this.newsItem = document.getElementById('newsitem');
     this.newsItemWidth = this.newsItem.offsetWidth;
     // set new animation duration in s
-    this.duration = parseFloat( ( this.newsfeedContainerWidth + this.newsItemWidth ) / this.speed ).toFixed(2);
+    this.duration = ( ( this.newsfeedContainerWidth + this.newsItemWidth ) / this.speed ).toFixed(2);
     // set new transition
     this.transition = `left ${this.duration}s linear`;
 
