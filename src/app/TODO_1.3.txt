@@ -17,8 +17,8 @@ Bugs: delay showing mails of newly added character
 
 popup component
 
-message/highlight/newsfeed component
+x message/highlight/newsfeed component
 
-Add images / videos
+x Add images / videos
 
 Friend detection ???
