@@ -4,11 +4,11 @@
       <input type='text' placeholder='character name'/>
       <div id='close-character-selection' class='fa fa-times' (click)='close_characterSelection()'></div>
     </div>
-    <ul>
-      <li id='no-results' *ngIf='characters.length===0' (click)='load_10characters()'>
+    <ul [@newCharacter]='characters.length' >
+      <li id='no-results' *ngIf='showNoResults' (click)='load_10characters()'>
         <h5>.. no results ...</h5>
       </li>
-      <li *ngFor='let character of characters' (click)='selectCharacter(character.index)'>
+      <li *ngFor='let character of characters' (click)='selectCharacter(character.index)' class='found-character'>
         <div
           class='recipient'
           [class.alliance]='character.index | isInSameAlliance: accountIndex | async'
@@ -19,7 +19,7 @@
         </div>
         <h4 class='name'>{{character.name}}</h4>
       </li>
-      <li id='load-more' *ngIf='characterIndexes.length>0' (click)='load_10characters()'>
+      <li id='load-more' *ngIf='showMoreResults' (click)='load_10characters()'>
         <h5>.. load more results ...</h5>
       </li>
     </ul>

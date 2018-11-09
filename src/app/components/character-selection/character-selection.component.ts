@@ -1,19 +1,68 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter,HostBinding } from '@angular/core';
 import { CharacterService } from '../../services/character.service';
 import { HttpClient } from '@angular/common/http';
-import { fromEvent, Observable, BehaviorSubject, of, merge, from } from 'rxjs';
-import { ajax } from 'rxjs/ajax';
-import { map, filter, takeWhile, debounceTime, distinctUntilChanged, switchMap, concatMap, mergeMap, takeUntil, concat, last } from 'rxjs/operators';
+import { fromEvent, Observable, BehaviorSubject, of, merge, from, timer } from 'rxjs';
+import { map, debounceTime, distinctUntilChanged, switchMap, concatMap } from 'rxjs/operators';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition,
+  stagger,
+  query,
+} from '@angular/animations'
+
 
 @Component({
   selector: 'app-character-selection',
   templateUrl: './character-selection.component.html',
-  styleUrls: ['./character-selection.component.css']
+  styleUrls: ['./character-selection.component.css'],
+  animations: [
+
+    trigger('newCharacter', [
+
+     transition('*=>*', [
+
+        query(':enter',
+          style({
+            transform: 'scale(0)',
+            height: '0px',
+            padding: '0px',
+          }),
+        { optional: true }
+
+        ), // end query
+
+        query(
+          ':enter',
+          stagger(
+            '100ms',
+            animate(
+              '100ms',
+              style(
+                {
+                  transform:'scale(1)',
+                  height: '40px',
+                  padding: '5px',
+                })
+              ), // end animate
+            ), // end stagger
+          { optional: true }
+          ) // end query
+
+     ]), // end transition
+   ]), // end trigger newCharacter
+
+ ] // end animations
 })
 export class CharacterSelectionComponent implements OnInit {
 
   public characters: any[];
   public characterIndexes: number[];
+  public showNoResults: boolean;
+  public showMoreResults: boolean;
 
   @Input() accountIndex: number;
   @Output() selectedCharacter: EventEmitter<number> = new EventEmitter;
@@ -25,19 +74,22 @@ export class CharacterSelectionComponent implements OnInit {
   ) {
     this.characters = [];
     this.characterIndexes = [];
+    this.showNoResults = true;
+    this.showMoreResults = false;
   }
 
   ngOnInit() {
     let searchBox = document.getElementById('search-box');
     let searchTrigger = fromEvent(searchBox, 'input')
     .pipe(
-      debounceTime( 500 ),
+      debounceTime( 650 ),
       distinctUntilChanged(),
       map((event: any) => event.target.value ),
       switchMap( (searchString: string) => {
         if( searchString.length > 2 ){
           return this.process_searchString( searchString );
         } else if ( searchString.length <= 2 ) {
+          this.showNoResults = true;
           return new BehaviorSubject( [] );
         }
       }),
@@ -46,8 +98,11 @@ export class CharacterSelectionComponent implements OnInit {
     searchTrigger.subscribe( (characterIndexes: number[]) => {
       this.characterIndexes = characterIndexes;
       this.characters = [];
+      this.showMoreResults = false;
       if( characterIndexes.length > 0 ){
         this.load_10characters();
+      } else {
+        this.showNoResults = true;
       }
     });
   }
@@ -85,20 +140,30 @@ export class CharacterSelectionComponent implements OnInit {
     return this.http.post('https://esi.evetech.net/latest/universe/names/?datasource=tranquility', characterIndexes);
   }
 
-  private add_character(){
-    if( this.characterIndexes.length > 0 ){
-      let characterIndex = this.characterIndexes.shift();
-      this.characterService.get_character( characterIndex )
-      .subscribe( character => {
-        this.characters.push( character );
-      });
-    }
+  private add_character( characterIndex ): any{
+      return this.characterService.get_character( characterIndex )
   }
 
   public load_10characters(){
-    // // TODO: fix bug where http-replies arrive in wrong order
-    for(let i=0; i<10; i++){
-      this.add_character();
+    this.showMoreResults = false;
+    let newCharacters = [];
+    let amountToAdd = this.characterIndexes.length > 10 ? 10 : this.characterIndexes.length;
+    for(let i=0; i<amountToAdd; i++){
+      let characterIndex = this.characterIndexes.shift();
+      this.add_character( characterIndex )
+      .subscribe( character => {
+        newCharacters.push( character );
+        if( newCharacters.length === amountToAdd){
+          newCharacters.sort((a, b) => {
+            return a.name.localeCompare( b.name );
+          });
+          this.showNoResults = false;
+          newCharacters.forEach( ( character, index )=> {
+            this.characters.push( character );
+          });
+          this.showMoreResults = this.characterIndexes.length > 0 ? true : false;
+        }
+      });
     }
   }
 
