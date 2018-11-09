@@ -24,32 +24,22 @@ import {
     trigger('newCharacter', [
 
      transition('*=>*', [
-
-        query(':enter',
-          style({
-            transform: 'scale(0)',
-            height: '0px',
-            padding: '0px',
-          }),
-        { optional: true }
-
+        query(
+          ':enter',
+          style({ transform: 'scale(0)', height: '0px', padding: '0px' }),
+          { optional: true }
         ), // end query
 
         query(
           ':enter',
           stagger(
             '100ms',
-            animate(
-              '100ms',
-              style(
-                {
-                  transform:'scale(1)',
-                  height: '40px',
-                  padding: '5px',
-                })
+              animate(
+                '100ms',
+                style({ transform:'scale(1)', height: '40px', padding: '5px' })
               ), // end animate
             ), // end stagger
-          { optional: true }
+            { optional: true }
           ) // end query
 
      ]), // end transition
