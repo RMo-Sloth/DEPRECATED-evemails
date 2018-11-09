@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { timer } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import * as newsitemsJson from "./newsitems.json";
+// import * as newsitemsJson from "./assets/data/newsitems.json";
 
 @Component({
   selector: 'app-newsfeed',
@@ -30,19 +30,22 @@ export class NewsfeedComponent implements OnInit {
   }
 
   ngOnInit() {
-    newsitemsJson.forEach(newsitemDetails => {
-      if(
-        new Date( newsitemDetails.start ) <= new Date() === true &&
-        new Date( newsitemDetails.end ) > new Date() === true
-      ){
-        this.newsitems.push( newsitemDetails.message );
-      }
-    });
-    this.nextNewsitem();
-    // start animating newsfeed after 1 second
-    timer( 1000 )
-    .subscribe( () => {
-      this.animate();
+    this.http.get('./assets/data/newsitems.json')
+    .subscribe( ( newsitemsJson: any ) => {
+      newsitemsJson.forEach(newsitemDetails => {
+        if(
+          new Date( newsitemDetails.start ) <= new Date() === true &&
+          new Date( newsitemDetails.end ) > new Date() === true
+        ){
+          this.newsitems.push( newsitemDetails.message );
+        }
+      }); // end forEach
+      this.nextNewsitem();
+      // start animating newsfeed after a set time
+      timer( 500 )
+      .subscribe( () => {
+        this.animate();
+      });
     });
   }
 
