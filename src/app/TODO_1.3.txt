@@ -4,8 +4,8 @@ Recipient selection component
   x create component
   x search character functionality
   x transmit value of selected character
-  animate search results to pop up after eachother
-  order the fetching of characterinfo ( switchMap or map to index instead of push )
+  x animate search results to pop up after eachother
+  x order the fetching of characterinfo
 
 Reply all
 
