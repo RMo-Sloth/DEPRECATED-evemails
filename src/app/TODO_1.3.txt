@@ -1,6 +1,6 @@
 TODO LIST v 1.3
 
-Recipient selection component
+x Recipient selection component
   x create component
   x search character functionality
   x transmit value of selected character
@@ -13,7 +13,7 @@ Filter mails
 
 x New Logo
 
-Bugs: delay showing mails of newly added character
+x Bugs: delay showing mails of newly added character ( I think I fixed it earlier )
 
 popup component
 
