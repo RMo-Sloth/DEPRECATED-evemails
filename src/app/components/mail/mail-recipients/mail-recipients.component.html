@@ -1,0 +1,18 @@
+<ul>
+  <li
+    *ngFor="let recipient of characterRecipients; let i = index"
+    class='recipient'
+    [style.background]='recipient.portraits.px64x64 | url'
+    [class.alliance]='recipient.index | isInSameAlliance: account.index | async'
+    [class.corporation]='recipient.index | isInSameCorporation: account.index | async'
+    [class.self]='recipient.index | isSelf: account.index'
+    [style.z-index]='24-i'
+  ></li>
+  <li
+    *ngFor="let recipient of corporationRecipients; let i = index"
+    class='recipient'
+    [style.background]='recipient.icons.px64x64 | url'
+    [class.self]='account.corporation === recipient.index'
+    [style.z-index]='50-i'
+  ></li>
+</ul>

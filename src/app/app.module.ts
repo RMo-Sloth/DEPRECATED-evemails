@@ -21,6 +21,10 @@ import { NewMailRecipientsComponent } from './components/new-mail/new-mail-recip
 import { IsInSameCorporationPipe } from './pipes/is-in-same-corporation.pipe';
 import { IsSelfPipe } from './pipes/is-self.pipe';
 import { IsInSameAlliancePipe } from './pipes/is-in-same-alliance.pipe';
+import { CharacterSelectionComponent } from './components/character-selection/character-selection.component';
+import { MailRecipientsComponent } from './components/mail/mail-recipients/mail-recipients.component';
+import { NewsfeedComponent } from './components/newsfeed/newsfeed.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -40,13 +44,17 @@ import { IsInSameAlliancePipe } from './pipes/is-in-same-alliance.pipe';
     NewMailRecipientsComponent,
     IsInSameCorporationPipe,
     IsSelfPipe,
-    IsInSameAlliancePipe
+    IsInSameAlliancePipe,
+    CharacterSelectionComponent,
+    MailRecipientsComponent,
+    NewsfeedComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

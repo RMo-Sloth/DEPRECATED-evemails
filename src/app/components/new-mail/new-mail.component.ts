@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChildren } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 
@@ -26,6 +26,7 @@ export class NewMailComponent implements OnInit {
   public type: string;
 
   public navigationButtons; // TODO: add type
+  @ViewChildren('mailSubject') mailSubjectInput;
 
   constructor(
     private route: ActivatedRoute,
@@ -53,7 +54,7 @@ export class NewMailComponent implements OnInit {
     this.characterService.get_character( this.accountIndex )
     .subscribe( character => {
       this.sender = character;
-      this.pageTitleService.set_pageTitle( `${character.name} - new mail` );
+      this.pageTitleService.set_pageTitle( `${character.name} <br> new mail` );
     });
     // populate mail based on route
     switch( this.type ) {
@@ -77,8 +78,16 @@ export class NewMailComponent implements OnInit {
     }
   }
 
-  private sendMail(): void{
+  ngAfterViewInit() {
+    if( this.mailSubjectInput.first ){
+      this.mailSubjectInput.first.nativeElement.focus();
+    }
+    this.mailSubjectInput.changes.subscribe( () => {
+      this.mailSubjectInput.first.nativeElement.focus();
+    });
+  }
 
+  private sendMail(): void{
     this.mailService.send_mail( this.mail, this.accountIndex )
     .subscribe(
       succes => {
@@ -87,5 +96,10 @@ export class NewMailComponent implements OnInit {
       error => {
         alert('sending mail failed');
       });
+  }
+  public change_popupState( popupOpened: boolean ) {
+    if( popupOpened === false ){
+      this.mailSubjectInput.first.nativeElement.focus();
+    }
   }
 }

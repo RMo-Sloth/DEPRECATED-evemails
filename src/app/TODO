@@ -30,10 +30,10 @@ deal with failing http requests
   expired token
   service not available
 
-mark unread mails in the dashboard ( inbox )
+x mark unread mails in the dashboard ( inbox )
 apply mail filters
-rename received mails to inbox
-refactor components to a components folder
+x rename received mails to inbox
+x refactor components to a components folder
   x dashboard
   x mail
   x navigation

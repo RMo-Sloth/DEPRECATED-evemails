@@ -18,10 +18,12 @@ export class NewMailRecipientsComponent implements OnInit {
   public recipients_1$: BehaviorSubject<any[]>;
   public recipients_2$: BehaviorSubject<any[]>;
   public hideRecipients$: BehaviorSubject<boolean>;
+  public showCharacterSelection: boolean;
 
   @Input() recipients: Recipient[];
   @Input() sender: Character;
   @Output() recipientsChange: EventEmitter<Recipient[]> = new EventEmitter();
+  @Output() hasOpenPopups: EventEmitter<boolean> = new EventEmitter( false );
 
   constructor(
       private characterService: CharacterService,
@@ -29,13 +31,14 @@ export class NewMailRecipientsComponent implements OnInit {
     this.recipients_1$ = new BehaviorSubject( [] );
     this.recipients_2$ = new BehaviorSubject( [] );
     this.hideRecipients$ = new BehaviorSubject( false );
+    this.showCharacterSelection = false;
   }
 
   ngOnInit() {}
 
   ngOnChanges() {
+    // TODO: Should only respond on changes of recipients
     /* respond to changes on @Input */
-
     /* empty recipient_1$ and recipient_2$ */
     this.recipients_1$.next( [] );
     this.recipients_2$.next( [] );
@@ -81,19 +84,29 @@ export class NewMailRecipientsComponent implements OnInit {
     // TODO: refactor umutating chracters to a function ( that would also handle corp, alliance in the future )
   }
 
-  private select_recipient(): void {
-    // TODO: implement recipient search function
-    alert('opening the window to select a recipient has not been implemented yet, but it adds a recipient instead');
-    this.characterService.get_character( 2114493768 )
+  public select_recipient(): void {
+    this.showCharacterSelection = true;
+    this.hasOpenPopups.emit( true );
+  }
+
+  public add_recipient( characterIndex: number ){
+    this.characterService.get_character( characterIndex )
     .subscribe( character => {
       // TODO: check if character already exists in array
       let recipients: Recipient[] = this.recipients.slice();
       recipients.push({
         index: character.index,
         type: 'character'});
-      this.recipientsChange.emit( recipients  );
+      this.recipientsChange.emit( recipients );
+      this.showCharacterSelection = true;
     });
   }
+
+  public update_popupStatus( openPopup:boolean ){
+    this.showCharacterSelection = openPopup;
+    this.hasOpenPopups.emit( openPopup );
+  }
+
   private open_recipientDetails( recipient ): void{
     // TODO: implement a recipientDetails screen / component
     alert('clicking temporarily removes the character');

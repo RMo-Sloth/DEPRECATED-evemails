@@ -1,10 +1,8 @@
 #content{
-  height: 78vh;
+  width: 100%;
+  height: calc(100vh - 100px - 10vh);
   max-width: 768px;
   margin: auto;
   box-sizing: border-box;
   overflow: auto;
-}
-#wrapper{
-  display: grid;
 }

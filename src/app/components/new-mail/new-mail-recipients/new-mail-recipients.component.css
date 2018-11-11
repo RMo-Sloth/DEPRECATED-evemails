@@ -17,17 +17,8 @@ li#new-recipient{
   z-index: 25;
 }
 .recipient{
-  display: block;
-  padding: 0px;
+  float: right;
   margin-right: -10px;
-  border: 1px solid grey;
-  position: relative;
-  border-radius: 50%;
-  height: 30px;
-  width: 30px;
-  background-size: cover !important;
-  float: right; 
-  cursor: pointer;
 }
 .recipient:first-child {
   margin-right: 0px;

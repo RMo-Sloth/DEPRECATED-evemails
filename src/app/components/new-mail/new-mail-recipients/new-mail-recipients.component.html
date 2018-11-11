@@ -20,6 +20,7 @@
         <span>...</span>
       </li>
       <li *ngFor='let recipient of recipients_2$ | async; let i = index'  class='recipient'
+        [class.alliance]='recipient.index | isInSameAlliance: sender.index | async'
         [class.corporation]='recipient.index | isInSameCorporation: sender.index | async'
         [class.self]='recipient.index | isSelf: sender.index'
         [style.background]='recipient.portraits.px64x64 | url'
@@ -29,10 +30,8 @@
       </li>
   </ul>
   </span>
-  <!-- TODO: should change recipients border based on same
-    * alliance,corp or normal
-    * add recipient
+  <app-character-selection (selectedCharacter)='add_recipient($event)' [accountIndex]='sender.index' (isDisplayed)='update_popupStatus($event)' *ngIf='showCharacterSelection'></app-character-selection>
+  <!-- TODO:
     * remove recipient
-    * search recipient
     * see all recipients
     -->

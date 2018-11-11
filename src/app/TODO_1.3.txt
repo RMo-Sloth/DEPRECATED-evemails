@@ -1,0 +1,28 @@
+TODO LIST v 1.3
+
+x Recipient selection component
+  x create component
+  x search character functionality
+  x transmit value of selected character
+  x animate search results to pop up after eachother
+  x order the fetching of characterinfo
+
+Reply all
+
+Filter mails
+
+x New Logo
+
+x Bugs: delay showing mails of newly added character ( I think I fixed it earlier )
+
+popup component
+
+x message/highlight/newsfeed component
+
+x Add images / videos
+
+Friend detection ???
+
+
+retry http-requests
+  especially on 504 timeout

@@ -1,0 +1,38 @@
+#newsfeed-container{
+  display: flex;
+  position: relative;
+  background-color: rgba( 0, 0, 0, 0.4);
+  height: 20px;
+  font-size: 12px;
+  overflow: hidden;
+}
+#newsitem{
+  position: absolute;
+  left: 100%;
+  flex: 1 0 auto;
+  padding: 4px 0px;
+  float: right;
+  text-align: center;
+  white-space: nowrap;
+  z-index: 0;
+}
+#previous{
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  width: 15vw;
+  background-image: linear-gradient( to right, rgba(0,0,0,1), rgba(0,0,0,0) );
+  z-index: 50;
+  pointer-events: none;
+}
+#next{
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  right: 0px;
+  width: 15vw;
+  background-image: linear-gradient( to right, rgba(0,0,0,0), rgba(0,0,0,1) );
+  z-index: 50;
+  pointer-events: none;
+}

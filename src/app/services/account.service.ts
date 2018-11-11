@@ -47,11 +47,13 @@ export class AccountService {
         this.accountToken.update_accessToken( account.refreshToken )
         .subscribe(accessToken => {
           account.accessToken = accessToken;
+          this.accounts.push( account );
           this.accounts$.next( this.accounts );
         });
         this.accountToken.initiate_tokenUpdater( account.refreshToken, account.index )
         .subscribe( accessToken => {
           account.accessToken = accessToken;
+          console.log( 'token updated', account );
           /*duplicated check*/
           if( this.isRegisteredAccount( account.index ) === false ) {
             this.accounts.push( account );
