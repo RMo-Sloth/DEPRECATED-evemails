@@ -22,3 +22,7 @@ x message/highlight/newsfeed component
 x Add images / videos
 
 Friend detection ???
+
+
+retry http-requests
+  especially on 504 timeout
